@@ -11,7 +11,6 @@ private:
     int cruisingspeed;
 public:
     carrier(int cs, int ml, bool es, string vn);
-    ~carrier();
     void modifyml(int ml);
     void modifycs(int cs);
     void modifyes(bool es);

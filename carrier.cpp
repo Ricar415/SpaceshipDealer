@@ -7,7 +7,6 @@ carrier::carrier(int cs, int ml , bool es, string vn){
     energyshield = es;
     vrn = vn;
 };
-carrier::~carrier(){};
 void carrier::modifyml(int ml){
     maxload = ml;
 };

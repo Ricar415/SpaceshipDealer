@@ -1,6 +1,6 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
-#include <string>
+#include <cstring>
 using namespace std;
 
 class vehicle{
@@ -13,9 +13,9 @@ protected:
     int type;
     bool available;
 public:
-    virtual void modifyp(int);
+    virtual void modifytype(int);
+    void modifyp(int);
     void modifymc(int);
-    void modifytype(int);
     void modifyprice(int);
     void modifyowner(string o);
     void modifyavailability();
