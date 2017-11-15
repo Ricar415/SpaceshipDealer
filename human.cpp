@@ -1,10 +1,11 @@
 #include "human.hpp"
-
+#include <string>
+using namespace std;
 human::human(string n){
-    strcpy(&rn,n);
+    rn = n;
 };
 human::~human(){
 };
 void human::modify(string n){
-    strcpy(&rn,n);
+    rn = n;
 };

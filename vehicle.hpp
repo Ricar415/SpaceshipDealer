@@ -1,23 +1,21 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
-#include <string>
+#include <cstring>
 using namespace std;
 
 class vehicle{
 protected:
-    string* vrn;
+    string vrn;
     int propulsion;
     int maxcrew;
     int price;
-    string* owner;
+    string owner;
     int type;
     bool available;
 public:
-    vehicle(int prop, int m, int p, int t,string n);
-    vehicle(string n);
+    virtual void modifytype(int);
     void modifyp(int);
     void modifymc(int);
-    void modifytype(int);
     void modifyprice(int);
     void modifyowner(string o);
     void modifyavailability();

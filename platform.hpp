@@ -1,11 +1,16 @@
 #ifndef PLATFORM_HPP
 #define PLATFORM_HPP
 #include "sale.hpp"
-#include "initmenu.hpp"
-#include <string>
+#include <cstring>
+#include <vector>
+#include "owner.hpp"
+#include "vehicle.hpp"
 using namespace std;
 
 class platform{
+    vector<sale> sales();
+    vector<vehicle> vehicles();
+    vector<owner> owners();
 public:
     void menu();
     void lavailable(); //list functions
@@ -15,6 +20,9 @@ public:
     void lforhuman();
     void lforalien();
     void lsales(); //end of list functions
+    bool createowner();
+    bool modifyowner();
+    int checktype(string rn);
 };
 
 #endif

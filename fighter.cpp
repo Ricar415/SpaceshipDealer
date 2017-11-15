@@ -1,7 +1,7 @@
 #include "fighter.hpp"
 
 fighter::fighter(int w, int ms, string n){
-    strcpy(&vrn, n);
+    vrn = n;
     weapon = w;
     maxspeed = ms;
 };

@@ -1,10 +1,10 @@
 #include "alien.hpp"
+#include <cstring>
+using namespace std;
 
 alien::alien(string n){
-    strcpy(&rn,a);
-};
-alien::~alien(){
+    rn = n;
 };
 void alien::modify(string n){
-    strcpy(&rn,n);
+    rn = n;
 };

@@ -12,8 +12,8 @@ struct date{
 class sale{
 private:
     date saledate;
-    string *vrn;
-    string *rn;
+    string vrn;
+    string rn;
 public:
     sale(string vn, string n, date d);
     ~sale();

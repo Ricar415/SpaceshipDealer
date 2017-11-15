@@ -1,8 +1,9 @@
 #include "sale.hpp"
-
+#include <string>
+using namespace std;
 sale::sale(string vn,string n,date d){
-    strcpy(&vrn,vn);
-    strcpy(&rn,n);
+    vrn = vn;
+    rn = n;
     saledate = d;
 };
 sale::~sale(){};
