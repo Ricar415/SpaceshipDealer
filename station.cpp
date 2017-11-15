@@ -1,9 +1,10 @@
 #include "station.hpp"
-
+#include <string>
+using namespace std;
 station::station(int mp, int hn, bool es, string n){
     hangarn = hn;
     energyshield = es;
-    strcpy(&vrn, n);
+    vrn = n;
 };
 station::~station(){};
 void station::modifymp(int mp){};

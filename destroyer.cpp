@@ -1,5 +1,5 @@
 #include "destroyer.hpp"
-
+#include <string>
+using namespace std;
 destroyer::destroyer(int){};
-destroyer::~destroyer(){};
 void destroyer::modify(int){};

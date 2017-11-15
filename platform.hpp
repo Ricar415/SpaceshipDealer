@@ -1,7 +1,6 @@
 #ifndef PLATFORM_HPP
 #define PLATFORM_HPP
 #include "sale.hpp"
-#include "initmenu.hpp"
 #include <string>
 using namespace std;
 
@@ -15,6 +14,9 @@ public:
     void lforhuman();
     void lforalien();
     void lsales(); //end of list functions
+    bool createowner();
+    bool modifyowner();
+    bool checktype(string rn);
 };
 
 #endif

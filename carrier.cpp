@@ -1,10 +1,11 @@
 #include "carrier.hpp"
-
+#include <string>
+using namespace std;
 carrier::carrier(int cs, int ml , bool es, string vn){
     cruisingspeed = cs;
     maxload = ml;
     energyshield = es;
-    strcpy(vrn, vn);
+    vrn = vn;
 };
 carrier::~carrier(){};
 void carrier::modifyml(int ml){

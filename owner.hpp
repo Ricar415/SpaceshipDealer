@@ -4,7 +4,8 @@
 using namespace std;
 
 class owner{
-    string *rn;
+protected:
+    string rn;
 public:
     bool check(string rn); //check if an owner is registered
 };

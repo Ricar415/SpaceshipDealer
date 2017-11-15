@@ -5,17 +5,15 @@ using namespace std;
 
 class vehicle{
 protected:
-    string* vrn;
+    string vrn;
     int propulsion;
     int maxcrew;
     int price;
-    string* owner;
+    string owner;
     int type;
     bool available;
 public:
-    vehicle(int prop, int m, int p, int t,string n);
-    vehicle(string n);
-    void modifyp(int);
+    virtual void modifyp(int);
     void modifymc(int);
     void modifytype(int);
     void modifyprice(int);
