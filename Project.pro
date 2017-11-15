@@ -8,9 +8,7 @@ HEADERS += \
     sale.hpp \
     station.hpp \
     vehicle.hpp \
-    weapon.hpp \
-    platform.hpp \
-    initmenu.hpp
+    platform.hpp
 
 SOURCES += \
     alien.cpp \
@@ -23,5 +21,4 @@ SOURCES += \
     sale.cpp \
     station.cpp \
     vehicle.cpp \
-    platform.cpp \
-    initmenu.cpp
+    platform.cpp
