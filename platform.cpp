@@ -85,15 +85,15 @@ int platform::checkchar(char position){ // returns 0 if not a letter or a number
         return 2;
     } else return 0;
 }
-bool platform::modifyowner(){
+int platform::modifyowner(){ //returns 1 if the modification was correct and 0 if the process was stopped by the user.
     string rn,nrn;
     int a = 0, i = 0;
     bool b = 0;
     do{
         i = 0;
-        cout<<"Introduce owner's register number (0 to restart):";
+        cout<<"Introduce owner's register number (0 to break):";
         cin>>rn;
-        if (rn == "0"){
+        if (rn == '0'){
             return 0;
         }
         a = checktype(rn);
@@ -109,9 +109,9 @@ bool platform::modifyowner(){
         }
     } while(a != 1 || a!= 2);
     do{
-        cout<<"Introduce owner's new register number (0 to restart):";
+        cout<<"Introduce owner's new register number (0 to break):";
         cin>>nrn;
-        if (nrn == "0"){
+        if (nrn == '0'){
             return 0;
         }
         a = checktype(nrn);
@@ -121,11 +121,14 @@ bool platform::modifyowner(){
     } while(a != 1 || a!= 2);
     return 1;
 }
-bool platform::createowner(){
+int platform::createowner(){ //returns 1 if the creation was correct and 0 if the process was stopped by the user.
     string rn;
     int type;
-    cout<<"Introduce the register number (NNNNNNNNL for human and NNNNNNNNNN for alien):";
+    bool a = 0;
+    do{
+    cout<<"Introduce the register number (NNNNNNNNL for human and NNNNNNNNNN for alien)(0 to break):";
     cin>> rn;
+    if (rn == '0') return 0;
     type = checktype(rn);
     if (type == 1){
         human b(rn);
@@ -137,26 +140,23 @@ bool platform::createowner(){
         return 1;
     } else {
         cout<<"-- Invalid register number --" << endl;
-        return 0;
+        a = 0;
     }
+    } while (a == 0);
 }
 void platform::menu(){
     int a;
-    bool check, check2;
+    bool check,check2;
     do{
         cout<<" 0 - create owner \n 1 - modify owner"<<endl;
         cin>>a;
         switch (a){
         case 0:
-            do{
-                check2 = platform::createowner();
-            } while (check2 == 0);
+            check2 = platform::createowner();
             check = platform::ask(check2);
             break;
         case 1:
-            do{
-                check2 = platform::modifyowner();
-            } while (check2 == 0);
+            check2 = platform::modifyowner();
             check = platform::ask(check2);
             break;
         default:

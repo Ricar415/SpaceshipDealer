@@ -20,8 +20,8 @@ public:
     void lforhuman();
     void lforalien();
     void lsales(); //end of list functions
-    bool createowner();
-    bool modifyowner();
+    int createowner();
+    int modifyowner();
     int checktype(string rn);
     int checkchar(char position);
     bool ask();
