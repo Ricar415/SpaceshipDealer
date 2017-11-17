@@ -3,16 +3,19 @@
 #include <string>
 #include "human.hpp"
 #include "alien.hpp"
+#include <vector>
+
 using namespace std;
-void platform::lavailable(){};
-void platform::lbydate(date,date){};
-void platform::lbyocapacity(){};
-void platform::lbyowner(string o){};
-void platform::lforalien(){};
-void platform::lforhuman(){};
-void platform::lsales(){};
+void platform::lavailable(){}
+void platform::lbydate(date,date){}
+void platform::lbyocapacity(){}
+void platform::lbyowner(string o){}
+void platform::lforalien(){}
+void platform::lforhuman(){}
+void platform::lsales(){}
 bool platform::ask(){
-    bool x;
+    bool x = 0;
+    string a;
     do{
         cout<<"Do you want to exit the program?";
         cin>>a;
@@ -22,6 +25,7 @@ bool platform::ask(){
             return 0;
         }
     } while (x == 0);
+    return 0;
 }
 bool platform::ask(bool i){
     string a;
@@ -40,10 +44,11 @@ bool platform::ask(bool i){
             return 0;
         }
     } while (x == 0);
+    return 0;
 }
 int platform::checktype(string rn){
 
-};
+}
 bool platform::modifyowner(){
     string rn;
     cout<<"Introduce owner's register number:";
@@ -60,11 +65,11 @@ bool platform::createowner(){
     type = checktype(rn);
     if (type == 0){
         human b(rn);
-        humans.push_back(b);
+        owners.push_back(b);
         return 1;
     } else if (type == 1) {
         alien a(rn);
-        humans.push_back(a);
+        owners.push_back(a);
         return 1;
     } else {
         cout<<"-- Invalid register number --" << endl;
@@ -75,7 +80,7 @@ void platform::menu(){
     int a;
     bool check, check2;
     do{
-        cout<<"0 - create owner \n 1 - modify owner"<<endl;
+        cout<<" 0 - create owner \n 1 - modify owner"<<endl;
         cin>>a;
         switch (a){
         case 0:

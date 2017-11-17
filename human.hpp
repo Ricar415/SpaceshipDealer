@@ -7,7 +7,6 @@ using namespace std;
 class human: public owner{
 public:
     human(string n);
-    ~human();
     void modify(string n);
 };
 

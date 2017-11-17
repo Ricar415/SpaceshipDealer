@@ -7,7 +7,6 @@ using namespace std;
 class alien: public owner{
 public:
     alien(string n);
-    ~alien();
     void modify(string n);
 };
 
