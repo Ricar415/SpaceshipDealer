@@ -4,6 +4,7 @@
 using namespace std;
 
 class owner{
+    friend class platform;
 protected:
     string rn;
 public:
