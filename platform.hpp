@@ -8,9 +8,9 @@
 using namespace std;
 
 class platform{
-    vector<sale> sales();
-    vector<vehicle> vehicles();
-    vector<owner> owners();
+    vector<sale> sales;
+    vector<vehicle> vehicles;
+    vector<owner> owners;
 public:
     void menu();
     void lavailable(); //list functions
@@ -23,6 +23,8 @@ public:
     bool createowner();
     bool modifyowner();
     int checktype(string rn);
+    bool ask();
+    bool ask(bool i);
 };
 
 #endif

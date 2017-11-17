@@ -1,6 +1,7 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
 #include <cstring>
+#include <string>
 using namespace std;
 
 class vehicle{

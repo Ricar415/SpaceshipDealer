@@ -6,13 +6,13 @@ carrier::carrier(int cs, int ml , bool es, string vn){
     maxload = ml;
     energyshield = es;
     vrn = vn;
-};
+}
 void carrier::modifyml(int ml){
     maxload = ml;
-};
+}
 void carrier::modifycs(int cs){
     cruisingspeed = cs;
-};
+}
 void carrier::modifyes(bool es){
     energyshield = es;
-};
+}
