@@ -23,6 +23,7 @@ public:
     bool createowner();
     bool modifyowner();
     int checktype(string rn);
+    int checkchar(char position);
     bool ask();
     bool ask(bool i);
 };

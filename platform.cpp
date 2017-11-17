@@ -46,16 +46,80 @@ bool platform::ask(bool i){
     } while (x == 0);
     return 0;
 }
-int platform::checktype(string rn){
-
+int platform::checktype(string rn){ //returns 0 if not a valid register number, 1 if a human rn, 2 if an alien rn and 3 if a vehicle rn;
+    int length = rn.strlenght();
+    if (length>11) return 0;
+    int position = 0;
+    int check = checkchar(rn.at(position));
+    if (check == 1){
+        for(i=0;i<7;i++){
+            check = checkchar(rn.at(position));
+            if(check != 1) return 0;
+        }
+        check = checkchar(rn.at(position));
+        if (check == 1){
+            for(i=0;i<2;i++){
+                check = checkchar(rn.at(position));
+                if(check != 1) return 0;
+            }
+            if (length == 11) return 2; else return 0;
+        } else if (check == 2) {
+            if (length == 10) return 1; else return 0;
+        }
+    } else if (check == 2){
+        for(i=0;i<4;i++){
+            check = checkchar(rn.at(position));
+            if(check != 1) return 0;
+        }
+        for(i=0;i<3;i++){
+            check = checkchar(rn.at(position));
+            if(check != 2) return 0;
+        }
+        if (length == 9) return 3; else return 0;
+    } else return 0;
+}
+int platform::checkchar(char position){ // returns 0 if not a letter or a number, 1 if a number and 2 if a letter.
+    if (position == '0'||position == '1'||position == '2'||position == '3'||position == '4'||position == '5'||position == '6'||position == '7'||position == '8'||position == '9'){
+        return 1;
+    } else if (position == 'a'||position == 'b'||position == 'c'||position == 'd'||position == 'e'||position == 'f'||position == 'g'||position == 'h'||position == 'i'||position == 'j'||position == 'k'||position == 'l'||position == 'm'||position == 'n'||position == 'ñ'||position == 'o'||position == 'p'||position == 'q'||position == 'r'||position == 's'||position == 't'||position == 'u'||position == 'v'||position == 'w'||position == 'x'||position == 'y'||position == 'z'||position == 'A'||position == 'B'||position == 'C'||position == 'D'||position == 'E'||position == 'F'||position == 'G'||position == 'H'||position == 'I'||position == 'J'||position == 'K'||position == 'L'||position == 'M'||position == 'N'||position == 'Ñ'||position == 'O'||position == 'P'||position == 'Q'||position == 'R'||position == 'S'||position == 'T'||position == 'U'||position == 'V'||position == 'W'||position == 'X'||position == 'Y'||position == 'Z' ){
+        return 2;
+    } else return 0;
 }
 bool platform::modifyowner(){
-    string rn;
-    cout<<"Introduce owner's register number:";
-    cin>>rn;
-    cout<<"Introduce owner's new register number:";
-    cin>>rn;
-
+    string rn,nrn;
+    int a = 0, i = 0;
+    bool b = 0;
+    do{
+        i = 0;
+        cout<<"Introduce owner's register number (0 to restart):";
+        cin>>rn;
+        if (rn == "0"){
+            return 0;
+        }
+        a = checktype(rn);
+        if (a == 1||a == 2){
+            do {
+                if (owners(i).rn == rn){
+                    b = 1;
+                } else {
+                    b = 0;
+                    i++;
+                }
+            } while (i<owners.size || b == 0);
+        }
+    } while(a != 1 || a!= 2);
+    do{
+        cout<<"Introduce owner's new register number (0 to restart):";
+        cin>>nrn;
+        if (nrn == "0"){
+            return 0;
+        }
+        a = checktype(nrn);
+        if (a == 1 || a == 2){
+            owners(i).rn = nrn;
+        }
+    } while(a != 1 || a!= 2);
+    return 1;
 }
 bool platform::createowner(){
     string rn;
@@ -63,11 +127,11 @@ bool platform::createowner(){
     cout<<"Introduce the register number (NNNNNNNNL for human and NNNNNNNNNN for alien):";
     cin>> rn;
     type = checktype(rn);
-    if (type == 0){
+    if (type == 1){
         human b(rn);
         owners.push_back(b);
         return 1;
-    } else if (type == 1) {
+    } else if (type == 2) {
         alien a(rn);
         owners.push_back(a);
         return 1;
