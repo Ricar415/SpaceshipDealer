@@ -62,7 +62,7 @@ int platform::checktype(string rn){ //returns 0 if not a valid register number, 
         }
         check = checkchar(rn.at(8));
         if (check == 1 && length == 10){
-			if (checkchar(rn.at(9) == 2 && length == 10)) {
+			if (checkchar(rn.at(9)) == 1 && length == 10) {
 				return 2;
 			}
 			else {
@@ -140,10 +140,12 @@ int platform::createowner(){ //returns 1 if the creation was correct and 0 if th
     if (type == 1){
         human b(rn);
         owners.push_back(b);
+		cout << "\nHuman with register number " << rn << " has been created\n" << endl;
         return 1;
     } else if (type == 2) {
         alien a(rn);
         owners.push_back(a);
+		cout << "\nAlien with register number " << rn << " has been created\n" << endl;
         return 1;
     } else {
         cout<<"-- Invalid register number --" << endl;
