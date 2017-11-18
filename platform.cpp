@@ -35,9 +35,9 @@ bool platform::ask(bool i){
     string a;
     bool x = 0;
     if (i == 1){
-        cout<<"The action has been performed successfully";
+        cout<<"The action has been performed successfully\n";
     } else {
-        cout<<"There has been a problem performing the action";
+        cout<<"There has been a problem performing the action\n";
     }
     do{
         cout<<"Do you want to exit the program?";
@@ -52,34 +52,36 @@ bool platform::ask(bool i){
 }
 int platform::checktype(string rn){ //returns 0 if not a valid register number, 1 if a human rn, 2 if an alien rn and 3 if a vehicle rn;
     int length = rn.length();
-    if (length>11) return 0;
+    if (length!=10 && length!=9 && length!=8) return 0;
     int position = 0;
     int check = checkchar(rn.at(position));
     if (check == 1){
-        for(int i=0;i<7;i++){
-            check = checkchar(rn.at(position));
+        for(int i=1;i<8;i++){
+            check = checkchar(rn.at(i));
             if(check != 1) return 0;
         }
-        check = checkchar(rn.at(position));
-        if (check == 1){
-            for(int i=0;i<2;i++){
-                check = checkchar(rn.at(position));
-                if(check != 1) return 0;
-            }
-            if (length == 11) return 2; else return 0;
-        } else if (check == 2) {
-            if (length == 10) return 1; else return 0;
-        }
+        check = checkchar(rn.at(8));
+        if (check == 1 && length == 10){
+			if (checkchar(rn.at(9)) == 1 && length == 10) {
+				return 2;
+			}
+			else {
+				return 0;
+			}
+        } else if (check == 2 && length == 9) {
+			return 1;
+		}
+		else return 0;
     } else if (check == 2){
-        for(int i=0;i<4;i++){
-            check = checkchar(rn.at(position));
+        for(int i=1;i<5;i++){
+            check = checkchar(rn.at(i));
             if(check != 1) return 0;
         }
-        for(int i=0;i<3;i++){
-            check = checkchar(rn.at(position));
+        for(int i=5;i<8;i++){
+            check = checkchar(rn.at(i));
             if(check != 2) return 0;
         }
-        if (length == 9) return 3; else return 0;
+        if (length == 8) return 3; else return 0;
     } else return 0;
     return 0;
 }
@@ -110,9 +112,9 @@ int platform::modifyowner(){ //returns 1 if the modification was correct and 0 i
                     b = 0;
                     i++;
                 }
-            } while (i<owners.size() || b == 0);
+            } while (i < owners.size() && b == 0);
         }
-    } while(a != 1 || a!= 2);
+    } while(a != 1 && a!= 2);
     do{
         cout<<"Introduce owner's new register number (0 to break):";
         cin>>nrn;
@@ -123,7 +125,7 @@ int platform::modifyowner(){ //returns 1 if the modification was correct and 0 i
         if (a == 1 || a == 2){
             owners[i].rn = nrn;
         }
-    } while(a != 1 || a!= 2);
+    } while(a != 1 && a!= 2);
     return 1;
 }
 int platform::createowner(){ //returns 1 if the creation was correct and 0 if the process was stopped by the user.
@@ -138,10 +140,12 @@ int platform::createowner(){ //returns 1 if the creation was correct and 0 if th
     if (type == 1){
         human b(rn);
         owners.push_back(b);
+		cout << "\nHuman with register number " << rn << " has been created\n" << endl;
         return 1;
     } else if (type == 2) {
         alien a(rn);
         owners.push_back(a);
+		cout << "\nAlien with register number " << rn << " has been created\n" << endl;
         return 1;
     } else {
         cout<<"-- Invalid register number --" << endl;
