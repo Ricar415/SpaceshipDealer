@@ -14,8 +14,9 @@ void platform::lbyowner(string o){
         cout<<"ok, esto solo es para quitar el issue y usar o";
     }
 }
-void platform::lforalien(){}
-void platform::lforhuman(){}
+//void platform::lforalien(){} // will only be implemented if necessary
+//void platform::lforhuman(){}
+void platform::listowners() {}
 void platform::lsales(){}
 bool platform::ask(){
     bool x = 0;
@@ -154,11 +155,51 @@ int platform::createowner(){ //returns 1 if the creation was correct and 0 if th
     } while (a == 0);
     return 0;
 }
+int platform::removeowner() { //returns 0 if the given rn wasnt found or the process is stopped by the user and 1 if everything went right
+	string rn;
+	int check = 0;
+	if (owners.size() == 0) {
+		cout << "\There is no registered owners in this moment \n";
+		return 0;
+	}
+	int size = owners.size();
+	do {
+		cout << "\nIntroduce the register number of the owner to remove (0 to break): ";
+		cin >> rn;
+		if (rn == "0\0") return 0;
+		check = checktype(rn);
+		if (check == 1 || check == 2) {
+			int i = 0;
+			bool b = 0;
+			do {
+				if (owners[i].rn == rn) {
+					b = 1;
+				}
+				else {
+					b = 0;
+					i++;
+				}
+			} while (b == 0 && i < (size-1));
+			if (b == 1) {
+				owners.erase(owners.begin()+i);
+				cout << "\nThe owner with register number " << rn << " has been sucessfully removed" << endl;
+				return 1;
+			} else {
+				cout << "\nThe introduced register number doesnt correspond to a registered owner" << endl;
+				return 0;
+			}
+		}
+	} while (check != 1 && check != 2);
+	return 0;
+}
+int platform::createvehicle() { return 0; } // 
+int platform::modifyvehicle() { return 0; } // will ask the rn of the vehicle to modify and then give the posibilities of modification depending on the type
+int platform::removevehicle() { return 0; } // will ask the rn of the vehicle and then remove the vehicle and the weapons if there are any
 void platform::menu(){
     int a;
-    bool check,check2;
+    int check,check2;
     do{
-        cout<<" 0 - create owner \n 1 - modify owner"<<endl;
+        cout<<" 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n"<<endl;
         cin>>a;
         switch (a){
         case 0:
@@ -169,6 +210,10 @@ void platform::menu(){
             check2 = platform::modifyowner();
             check = platform::ask(check2);
             break;
+		case 2:
+			check2 = platform::removeowner();
+			check = platform::ask(check2);
+			break;
         default:
             check = platform::ask(0);
             break;
