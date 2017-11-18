@@ -25,6 +25,7 @@ public:
     int modifyowner();
 	int removeowner();
 	int createvehicle();
+	int createvehicle(int type);
 	int modifyvehicle();
 	int removevehicle();
     int checktype(string rn); //checks registration number, 0 if non.valid, 1 if human, 2 if alien, 3 if vehicle

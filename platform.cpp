@@ -193,6 +193,7 @@ int platform::removeowner() { //returns 0 if the given rn wasnt found or the pro
 	return 0;
 }
 int platform::createvehicle() { return 0; } // 
+int platform::createvehicle(int type) { return 0; } //
 int platform::modifyvehicle() { return 0; } // will ask the rn of the vehicle to modify and then give the posibilities of modification depending on the type
 int platform::removevehicle() { return 0; } // will ask the rn of the vehicle and then remove the vehicle and the weapons if there are any
 void platform::menu(){
