@@ -8,7 +8,7 @@ class owner{
 protected:
     string rn;
 public:
-    bool check(string rn); //check if an owner is registered
+	void modify(string nrn);
 };
 
 #endif

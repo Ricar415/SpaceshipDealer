@@ -1,4 +1,7 @@
 #include "owner.hpp"
 #include <string>
 using namespace std;
-bool owner::check(string rn){return 1;}
+
+void owner::modify(string nrn) {
+	rn = nrn;
+}

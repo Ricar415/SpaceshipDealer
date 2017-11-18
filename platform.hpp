@@ -21,9 +21,12 @@ public:
 //    void lforalien();
 	void listowners();
     void lsales(); //end of list functions
-    int createowner();
-    int modifyowner();
-	int removeowner();
+	bool createhuman(string rn); //CON INTERFAZ
+	bool createalien(string rn); //CON INTERFAZ
+	bool checkowner(string rn); //CON INTERFAZ
+	int ownerposition(string rn); //CON INTERFAZ
+	void modifyowner(int position, string nrn); //CON INTERFAZ
+	void removeowner(int position); //CON INTERFAZ
 	int createvehicle();
 	int createvehicle(int type);
 	int modifyvehicle();
