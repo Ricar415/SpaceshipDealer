@@ -1,56 +1,21 @@
 #include "platform.hpp"
-#include <iostream>
 #include <string>
 #include "human.hpp"
 #include "alien.hpp"
 #include <vector>
+#include <iostream>
 
 using namespace std;
-void platform::lavailable(){}
-void platform::lbydate(date,date){}
-void platform::lbyocapacity(){}
-void platform::lbyowner(string o){
-    if (o == "0\0"){
-        cout<<"ok, esto solo es para quitar el issue y usar o";
-    }
+bool platform::lavailable() { return 0 ; }
+bool platform::lbydate(date start, date end) { return 0; }
+bool platform::lbyocapacity() { return 0; }
+bool platform::lbyowner(string o) {
+	return 0;
 }
 //void platform::lforalien(){} // will only be implemented if necessary
 //void platform::lforhuman(){}
-void platform::listowners() {}
-void platform::lsales(){}
-bool platform::ask(){
-    bool x = 0;
-    string a;
-    do{
-        cout<<"Do you want to exit the program?";
-        cin>>a;
-        if(a =="Y"||a=="y"||a=="YES"||a=="yes"||a=="Yes"||a=="Si"||a=="si"||a=="SI"||a=="s"){
-            return 1;
-        } else if (a=="N"||a=="n"||a=="no"||a=="No"||a=="NO"){
-            return 0;
-        }
-    } while (x == 0);
-    return 0;
-}
-bool platform::ask(bool i){
-    string a;
-    bool x = 0;
-    if (i == 1){
-        cout<<"The action has been performed successfully\n";
-    } else {
-        cout<<"There has been a problem performing the action\n";
-    }
-    do{
-        cout<<"Do you want to exit the program?";
-        cin>>a;
-        if(a =="Y"||a=="y"||a=="YES"||a=="yes"||a=="Yes"||a=="Si"||a=="si"||a=="SI"||a=="s"){
-            return 1;
-        } else if (a=="N"||a=="n"||a=="no"||a=="No"||a=="NO"){
-            return 0;
-        }
-    } while (x == 0);
-    return 0;
-}
+bool platform::listowners() { return 0; }
+bool platform::lsales() { return 0; }
 int platform::checktype(string rn){ //returns 0 if not a valid register number, 1 if a human rn, 2 if an alien rn and 3 if a vehicle rn;
     int length = rn.length();
     if (length!=10 && length!=9 && length!=8) return 0;
@@ -93,131 +58,53 @@ int platform::checkchar(char position){ // returns 0 if not a letter or a number
         return 2;
     } else return 0;
 }
-int platform::modifyowner(){ //returns 1 if the modification was correct and 0 if the process was stopped by the user.
-    string rn,nrn;
-    int a = 0, i = 0;
-    bool b = 0;
-    do{
-        i = 0;
-        cout<<"Introduce owner's register number (0 to break):";
-        cin>>rn;
-        if (rn == "0\0"){
-            return 0;
-        }
-        a = checktype(rn);
-        if (a == 1||a == 2){
-            do {
-                if (owners[i].rn == rn){
-                    b = 1;
-                } else {
-                    b = 0;
-                    i++;
-                }
-            } while (i < owners.size() && b == 0);
-        }
-    } while(a != 1 && a!= 2);
-    do{
-        cout<<"Introduce owner's new register number (0 to break):";
-        cin>>nrn;
-        if (nrn == "0\0"){
-            return 0;
-        }
-        a = checktype(nrn);
-        if (a == 1 || a == 2){
-            owners[i].rn = nrn;
-        }
-    } while(a != 1 && a!= 2);
+bool platform::createhuman(string rn) { //returns 1 if the creation was correct and 0 if the creation cant be done.
+	int size = owners.size();
+	for (int i = 0; i < size - 1; i++) {
+		if (owners[i].rn == rn) {
+			return 0;
+		} 
+	}
+	human a(rn);
+	owners.push_back(a);
+	return 1;
+}
+bool platform::createalien(string rn){ //returns 1 if the creation was correct and 0 if the creation cant be done.
+	int size = owners.size();
+	for (int i = 0; i < (size - 1); i++) {
+		if (owners[i].rn == rn) {
+			return 0;
+		}
+	}
+	alien a(rn);
+    owners.push_back(a);
     return 1;
 }
-int platform::createowner(){ //returns 1 if the creation was correct and 0 if the process was stopped by the user.
-    string rn;
-    int type;
-    bool a = 0;
-    do{
-    cout<<"Introduce the register number (NNNNNNNNL for human and NNNNNNNNNN for alien)(0 to break):";
-    cin>> rn;
-    if (rn == "0\0") return 0;
-    type = checktype(rn);
-    if (type == 1){
-        human b(rn);
-        owners.push_back(b);
-		cout << "\nHuman with register number " << rn << " has been created\n" << endl;
-        return 1;
-    } else if (type == 2) {
-        alien a(rn);
-        owners.push_back(a);
-		cout << "\nAlien with register number " << rn << " has been created\n" << endl;
-        return 1;
-    } else {
-        cout<<"-- Invalid register number --" << endl;
-        a = 0;
-    }
-    } while (a == 0);
-    return 0;
-}
-int platform::removeowner() { //returns 0 if the given rn wasnt found or the process is stopped by the user and 1 if everything went right
-	string rn;
-	int check = 0;
-	if (owners.size() == 0) {
-		cout << "\There is no registered owners in this moment \n";
-		return 0;
-	}
+bool platform::checkowner(string rn) {
 	int size = owners.size();
-	do {
-		cout << "\nIntroduce the register number of the owner to remove (0 to break): ";
-		cin >> rn;
-		if (rn == "0\0") return 0;
-		check = checktype(rn);
-		if (check == 1 || check == 2) {
-			int i = 0;
-			bool b = 0;
-			do {
-				if (owners[i].rn == rn) {
-					b = 1;
-				}
-				else {
-					b = 0;
-					i++;
-				}
-			} while (b == 0 && i < (size-1));
-			if (b == 1) {
-				owners.erase(owners.begin()+i);
-				cout << "\nThe owner with register number " << rn << " has been sucessfully removed" << endl;
-				return 1;
-			} else {
-				cout << "\nThe introduced register number doesnt correspond to a registered owner" << endl;
-				return 0;
-			}
+	for (int i = 0; i < size; i++) {
+		if (owners[i].rn == rn) {
+			return 1;
 		}
-	} while (check != 1 && check != 2);
+	}
 	return 0;
+}
+int platform::ownerposition(string rn) {
+	int size = owners.size();
+	for (int i = 0; i < size; i++) {
+		if (owners[i].rn == rn) {
+			return i;
+		}
+	}
+	return 3301;
+}
+void platform::modifyowner(int position, string nrn) {
+	owners[position].modify(nrn);
+}
+void platform::removeowner(int position) { //returns 0 if the given rn wasnt found or the process is stopped by the user and 1 if everything went right
+	owners.erase(owners.begin()+position);	
 }
 int platform::createvehicle() { return 0; } // 
 int platform::createvehicle(int type) { return 0; } //
 int platform::modifyvehicle() { return 0; } // will ask the rn of the vehicle to modify and then give the posibilities of modification depending on the type
 int platform::removevehicle() { return 0; } // will ask the rn of the vehicle and then remove the vehicle and the weapons if there are any
-void platform::menu(){
-    int a;
-    int check,check2;
-    do{
-        cout<<" 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n"<<endl;
-        cin>>a;
-        switch (a){
-        case 0:
-            check2 = platform::createowner();
-            check = platform::ask(check2);
-            break;
-        case 1:
-            check2 = platform::modifyowner();
-            check = platform::ask(check2);
-            break;
-		case 2:
-			check2 = platform::removeowner();
-			check = platform::ask(check2);
-			break;
-        default:
-            check = platform::ask(0);
-            break;
-        }
-    } while (check == 0);
-}
