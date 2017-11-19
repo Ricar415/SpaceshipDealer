@@ -5,7 +5,7 @@ using namespace std;
 int main (){
 	platform *platforme = new platform;
     interface interface(platforme);
-	interface.menu(platforme);
+	interface.menu();
 	delete platforme;
     return 0;
 }

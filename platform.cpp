@@ -63,23 +63,11 @@ int platform::checkchar(char position){ // returns 0 if not a letter or a number
     } else return 0;
 }
 bool platform::createhuman(string rn) { //returns 1 if the creation was correct and 0 if the creation cant be done.
-	int size = owners.size();
-	for (int i = 0; i < size - 1; i++) {
-		if (owners[i].rn == rn) {
-			return 0;
-		} 
-	}
 	human a(rn);
 	owners.push_back(a);
 	return 1;
 }
 bool platform::createalien(string rn){ //returns 1 if the creation was correct and 0 if the creation cant be done.
-	int size = owners.size();
-	for (int i = 0; i < (size - 1); i++) {
-		if (owners[i].rn == rn) {
-			return 0;
-		}
-	}
 	alien a(rn);
     owners.push_back(a);
     return 1;
@@ -116,6 +104,40 @@ void platform::createfighter(int ms, weapon weapon1, weapon weapon2, string rn){
 	fighter a(ms, weapon1, weapon2, rn);
 	vehicles.push_back(a);
 }
-void platform::createcarrier(int ml, int cs, string rn) {}
+void platform::createcarrier(int ml, int cs,bool es, string rn) {
+	carrier a(ml, cs, es,  rn);
+	vehicles.push_back(a);
+}
 void platform::createdestroyer() {}
-void platform:: createstation(int maxp, int hn, bool eshield, string rn) {}
+void platform::createstation(int maxp, int hn, bool eshield, string rn) {
+	station a(maxp, hn, eshield, rn);
+	vehicles.push_back(a);
+}
+bool platform::checkvehicle(string rn) {
+	int size = vehicles.size();
+	for (int i = 0; i < size; i++) {
+		if (vehicles[i].vrn == rn) {
+			return 1;
+		}
+	}
+	return 0;
+}
+bool platform::checksales(string rn, string vrn) {
+	int size = sales.size();
+	for (int i = 0; i < size; i++) {
+		if (sales[i].rn == rn && sales[i].vrn == vrn) {
+			return 1;
+		}
+	}
+	return 0;
+}
+void platform::sell(string vrn, string rn, date saledate) {
+	sale a(vrn, rn, saledate);
+	sales.push_back(a);
+}
+bool platform::checkdate(date d) {
+	if (d.day > 0 && d.day < 32 && d.month > 0 && d.month < 13 && d.year > 0 && d.year < 2019) {
+		return 1;
+	}
+	else return 0;
+}

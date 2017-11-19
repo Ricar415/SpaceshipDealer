@@ -9,46 +9,46 @@ using namespace std;
 interface::interface(platform *platform) {
 	platforme = platform;
 }
-void interface::menu(platform *platforme) { //main conducting part of the user interface
+void interface::menu() { //main conducting part of the user interface
 	int a;
 	bool check, check2;
 	do {
-		cout << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - List options\n" << endl;
+		cout << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - List options\n 7 - Sell\n " << endl;
 		cin >> a;
 		switch (a) {
 		case 0:
 			do {
-				check2 = createowner(platforme);
+				check2 = createowner();
 			} while (check2 == 0);
 			check = ask();
 			break;
 		case 1:
 			do {
-				check2 = modifyowner(platforme);
+				check2 = modifyowner();
 			} while (check2 == 0);
 			check = ask();
 			break;
 		case 2:
 			do {
-				check2 = removeowner(platforme);
+				check2 = removeowner();
 			} while (check2 == 0);
 			check = ask();
 			break;
 		case 3:
 			do {
-				check2 = createvehicle(platforme);
+				check2 = createvehicle();
 			} while (check2 == 0);
 			check = ask();
 			break;
 		case 4:
 			do {
-				check2 = modifyvehicle(platforme);
+				check2 = modifyvehicle();
 			} while (check2 == 0);
 			check = ask();
 			break;
 		case 5:
 			do {
-				check2 = removevehicle(platforme);
+				check2 = removevehicle();
 			} while (check2 == 0);
 			check = ask();
 			break;
@@ -70,13 +70,13 @@ void interface::menu(platform *platforme) { //main conducting part of the user i
 					break;
 				case 1:
 					do {
-						check2 = lbydate(platforme);
+						check2 = lbydate();
 					} while (check2 == 0);
 					check = ask();
 					break;
 				case 2:
 					do {
-						check2 = lbyowner(platforme);
+						check2 = lbyowner();
 					} while (check2 == 0);
 					check = ask();
 					break;
@@ -108,15 +108,21 @@ void interface::menu(platform *platforme) { //main conducting part of the user i
 				break;
 			}
 			break;
+		case 7:
+			do {
+				check2 = sell();
+			} while (check2 == 0);
+			check = ask();
+			break;
 		default:
 			check = ask();
 			break;
 		}
 	} while (check == 0);
 }
-bool interface::lbydate(platform *platforme) { return 0; }// asks date of start and end and then calls platform::lbydate with given parameters
-bool interface::lbyowner(platform *platforme) { return 0; }// asks the owner to list and then calls platform::lbyowner with given
-bool interface::createowner(platform *platforme) { //asks register number and then calls platform::createowner
+bool interface::lbydate() { return 0; }// asks date of start and end and then calls platform::lbydate with given parameters
+bool interface::lbyowner() { return 0; }// asks the owner to list and then calls platform::lbyowner with given
+bool interface::createowner() { //asks register number and then calls platform::createowner
 	string rn;
 	int type;
 	bool a = 0,check;
@@ -152,7 +158,7 @@ bool interface::createowner(platform *platforme) { //asks register number and th
 	}
 	return 0;
 }
-bool interface::modifyowner(platform *platforme) {//asks owner to modify and new register number and then calls platform::modifyowner
+bool interface::modifyowner() {//asks owner to modify and new register number and then calls platform::modifyowner
 	string rn, nrn;
 	int a = 0, i = 0;
 	int position;
@@ -190,7 +196,7 @@ bool interface::modifyowner(platform *platforme) {//asks owner to modify and new
 	} while (a != 1 && a != 2);
 	return 1;
 }
-bool interface::removeowner(platform *platforme) {//asks owner to remove and calls platform::removeowner
+bool interface::removeowner() {//asks owner to remove and calls platform::removeowner
 	string rn;
 	int check;
 	int position;
@@ -212,9 +218,9 @@ bool interface::removeowner(platform *platforme) {//asks owner to remove and cal
 	}
 	else return 0;
 }
-bool interface::createvehicle(platform *platforme) {//asks every part of the vehicle information needed and then calls vehicle(*given parameters*)
+bool interface::createvehicle() {//asks every part of the vehicle information needed and then calls vehicle(*given parameters*)
 	int type,eshield;
-	int check = 0;
+	int check = 0, check2 = 0;
 	string rn;
 	do {
 		cout << "\n- Create vehicle -\nType N list\n\t1\tCarrier\n\t2\tDestroyer\n\t3\tFighter\n\t4\tStation\n\nIntroduce the vehicle type: ";
@@ -229,8 +235,13 @@ bool interface::createvehicle(platform *platforme) {//asks every part of the veh
 		cin >> rn;
 		if (rn == "0\0") return 1;
 		check = platforme->checktype(rn);
-	} while (check != 3);
-	if (type == 1 || type == 3) {
+		if (check == 3) {
+			check2 = platforme->checkvehicle(rn);
+		} else {
+			check2 = 1;
+		}
+	} while (check2 == 1);
+	if (type == 1 || type == 4) {
 		do {
 			cout << "\nIntroduce wether or not there is energy shield (1/0): ";
 			cin >> eshield;
@@ -250,6 +261,7 @@ bool interface::createvehicle(platform *platforme) {//asks every part of the veh
 		cout << "\nIntroduce the number of hangars: ";
 		cin >> hn;
 		platforme->createstation(maxp, hn, eshield, rn);
+		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
 	case 1:
@@ -258,7 +270,8 @@ bool interface::createvehicle(platform *platforme) {//asks every part of the veh
 		cin >> ml;
 		cout << "\nIntroduce cruising speed: ";
 		cin >> cs;
-		platforme->createcarrier(ml, cs, rn);
+		platforme->createcarrier(ml, cs, eshield, rn);
+		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
 	case 2:
@@ -266,6 +279,7 @@ bool interface::createvehicle(platform *platforme) {//asks every part of the veh
 		cout << "\nIntroduce the number of weapons: ";
 		cin >> nweapons;
 		platforme->createdestroyer();
+		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
 	case 3:
@@ -278,10 +292,72 @@ bool interface::createvehicle(platform *platforme) {//asks every part of the veh
 		cin >> weapon2t;
 		weapon weapon1(weapon1t), weapon2(weapon2t);
 		platforme->createfighter(ms, weapon1, weapon2, rn);
+		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
 	}
 }
-bool interface::modifyvehicle(platform *platforme) { return 0; }//asks vehicle to remove, lists options depending on type and then calls vehicle::*needed function* with given parameters
-bool interface::removevehicle(platform *platforme) { return 0; }//asks vehicle to remove and calls platform::removevehicle
-bool interface::ask() { return 0; }// asks if the user wants to continue with the program
+bool interface::modifyvehicle() { return 0; }//asks vehicle to remove, lists options depending on type and then calls vehicle::*needed function* with given parameters
+bool interface::removevehicle() { return 0; }//asks vehicle to remove and calls platform::removevehicle
+bool interface::ask() {
+	bool x;
+	string a;
+	do {
+		cout << "Do you want to exit the program?";
+		cin >> a;
+		if (a == "Y" || a == "y" || a == "YES" || a == "yes" || a == "Yes" || a == "Si" || a == "si" || a == "SI" || a == "s") {
+			return 1;
+		}
+		else if (a == "N" || a == "n" || a == "no" || a == "No" || a == "NO") {
+			return 0;
+		}
+		else {
+			x = 0;
+		}
+	} while (x == 0);
+}
+bool interface::sell() {
+	string rn,vrn;
+	int check;
+	do {
+		cout << "\nIntroduce owner register number (0 to break): ";
+		cin >> rn;
+		if (rn == "0\0") return 1;
+		check = platforme->checktype(rn);
+		if (check == 1 || check == 2) {
+			check = platforme->checkowner(rn);
+		}
+		else {
+			check = 0;
+		}
+	} while (check == 0);
+	check = 0;
+	do {
+		cout << "\nIntroduce vehicle register number (0 to break): ";
+		cin >> vrn;
+		if (rn == "0\0") return 1;
+		check = platforme->checktype(vrn);
+		if (check == 3) {
+			check = platforme->checkvehicle(vrn);
+		}
+		else {
+			check = 0;
+		}
+	} while (check == 0);
+	if (platforme->checksales(rn, vrn) == 0) {
+		date date;
+		do {
+			cout << "\nIntroduce saledate \nDay: ";
+			cin >> date.day;
+			cout << "\nMonth: ";
+			cin >> date.month;
+			cout << "\nYear: ";
+			cin >> date.year;
+			check = platforme->checkdate(date);
+		} while (check == 0);
+		platforme->sell(vrn, rn, date);
+		cout << "\nSale was successfully registered\n\n";
+		return 1;
+	}
+	else return 0;
+}

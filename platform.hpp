@@ -24,22 +24,26 @@ public:
 //    void lforalien();
 	bool listowners();
     bool lsales(); //end of list functions
-	bool createhuman(string rn); //CON INTERFAZ
-	bool createalien(string rn); //CON INTERFAZ
-	bool checkowner(string rn); //CON INTERFAZ
-	int ownerposition(string rn); //CON INTERFAZ
-	void modifyowner(int position, string nrn); //CON INTERFAZ
-	void removeowner(int position); //CON INTERFAZ
+	bool createhuman(string rn);
+	bool createalien(string rn);
+	bool checkowner(string rn);
+	bool checkvehicle(string rn);
+	int ownerposition(string rn);
+	void modifyowner(int position, string nrn);
+	void removeowner(int position);
 	int createvehicle();
 	int createvehicle(int type);
 	int modifyvehicle();
 	int removevehicle();
-    int checktype(string rn); //CON INTERFAZ
-    int checkchar(char position); //CON INTERFAZ
+    int checktype(string rn);
+	int checkchar(char position);
 	void createfighter(int ms,weapon weapon1,weapon weapon2, string rn);
-	void createcarrier(int ml,int cs,string rn);
+	void createcarrier(int ml,int cs, bool es, string rn);
 	void createdestroyer();
-	void createstation(int maxp,int hn,bool eshield,string rn);
+	void createstation(int maxp,int hn,bool es,string rn);
+	bool checksales(string rn, string vrn);
+	void sell(string vrn, string rn, date saledate);
+	bool checkdate(date d);
 };
 
 #endif
