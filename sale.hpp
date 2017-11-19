@@ -10,6 +10,7 @@ struct date{
 	int year;
 };
 class sale{
+	friend class platform;
 private:
     date saledate;
     string vrn;

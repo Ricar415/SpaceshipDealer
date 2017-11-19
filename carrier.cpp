@@ -1,7 +1,7 @@
 #include "carrier.hpp"
 #include <string>
 using namespace std;
-carrier::carrier(int cs, int ml , bool es, string vn){
+carrier::carrier(int ml, int cs , bool es, string vn){
     cruisingspeed = cs;
     maxload = ml;
     energyshield = es;
