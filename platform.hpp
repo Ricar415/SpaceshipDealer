@@ -1,16 +1,20 @@
 #ifndef PLATFORM_HPP
 #define PLATFORM_HPP
+
 #include "sale.hpp"
 #include <cstring>
 #include <vector>
 #include "owner.hpp"
 #include "vehicle.hpp"
+#include "weapon.hpp"
+
 using namespace std;
 
 class platform{
     vector<sale> sales;
     vector<vehicle> vehicles;
     vector<owner> owners;
+	vector<weapon> weapons;
 public:
     bool lavailable(); //list functions (default by rn)
     bool lbydate(date start ,date end);
@@ -30,8 +34,12 @@ public:
 	int createvehicle(int type);
 	int modifyvehicle();
 	int removevehicle();
-    int checktype(string rn); //checks registration number, 0 if non.valid, 1 if human, 2 if alien, 3 if vehicle
-    int checkchar(char position); //check if a char is 1 a number, 2 a letter or 0 any other
+    int checktype(string rn); //CON INTERFAZ
+    int checkchar(char position); //CON INTERFAZ
+	void createfighter(int ms,weapon weapon1,weapon weapon2, string rn);
+	void createcarrier(int ml,int cs,string rn);
+	void createdestroyer();
+	void createstation(int maxp,int hn,bool eshield,string rn);
 };
 
 #endif

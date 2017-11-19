@@ -1,13 +1,8 @@
 #include "fighter.hpp"
 
-fighter::fighter(int w, int ms, string n){
-    vrn = n;
-    weapon = w;
-    maxspeed = ms;
-}
-void fighter::modifyw(int w){
-    weapon = w;
-}
-void fighter::modifyms(int ms){
-    maxspeed = ms;
+fighter::fighter(int dmaxspeed, weapon dweapon1, weapon dweapon2, string n){
+	maxspeed = dmaxspeed;
+	weapon1 = dweapon1;
+	weapon2 = dweapon2;
+	vrn = n;
 }

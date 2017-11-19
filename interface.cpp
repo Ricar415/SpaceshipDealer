@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "platform.hpp"
+#include "weapon.hpp"
 
 using namespace std;
 interface::interface(platform *platform) {
@@ -211,7 +212,76 @@ bool interface::removeowner(platform *platforme) {//asks owner to remove and cal
 	}
 	else return 0;
 }
-bool interface::createvehicle(platform *platforme) { return 0; }//asks every part of the vehicle information needed and then calls vehicle(*given parameters*)
+bool interface::createvehicle(platform *platforme) {//asks every part of the vehicle information needed and then calls vehicle(*given parameters*)
+	int type,eshield;
+	int check = 0;
+	string rn;
+	do {
+		cout << "\n- Create vehicle -\nType N list\n\t1\tCarrier\n\t2\tDestroyer\n\t3\tFighter\n\t4\tStation\n\nIntroduce the vehicle type: ";
+		cin >> type;
+		if (type == 0) return 1; else if (type == 1 || type == 2 || type == 3 || type == 4) check = 1; else {
+			cout << "\n-Invalid introduced type-";
+			check = 0;
+		}
+	} while (check == 0);
+	do {
+		cout << "\nIntroduce the vehicle register number: ";
+		cin >> rn;
+		if (rn == "0\0") return 1;
+		check = platforme->checktype(rn);
+	} while (check != 3);
+	if (type == 1 || type == 3) {
+		do {
+			cout << "\nIntroduce wether or not there is energy shield (1/0): ";
+			cin >> eshield;
+			if (eshield == 1 || eshield == 0){
+				check = 1;
+			}
+			else {
+				check = 0;
+			}
+		} while (check == 0);
+	}
+	switch (type) {
+	case 4:
+		int maxp, hn;
+		cout << "\nIntroduce the maximum number of passengers: ";
+		cin >> maxp;
+		cout << "\nIntroduce the number of hangars: ";
+		cin >> hn;
+		platforme->createstation(maxp, hn, eshield, rn);
+		return 1;
+		break;
+	case 1:
+		int ml, cs;
+		cout << "\nIntroduce the maximum load capacity: ";
+		cin >> ml;
+		cout << "\nIntroduce cruising speed: ";
+		cin >> cs;
+		platforme->createcarrier(ml, cs, rn);
+		return 1;
+		break;
+	case 2:
+		int nweapons;
+		cout << "\nIntroduce the number of weapons: ";
+		cin >> nweapons;
+		platforme->createdestroyer();
+		return 1;
+		break;
+	case 3:
+		int ms,weapon1t,weapon2t;
+		cout << "\nIntroduce the maximum speed: ";
+		cin >> ms;
+		cout << "\nIntroduce the first weapon type: ";
+		cin >> weapon1t;
+		cout << "\nIntroduce the second weapon type: ";
+		cin >> weapon2t;
+		weapon weapon1(weapon1t), weapon2(weapon2t);
+		platforme->createfighter(ms, weapon1, weapon2, rn);
+		return 1;
+		break;
+	}
+}
 bool interface::modifyvehicle(platform *platforme) { return 0; }//asks vehicle to remove, lists options depending on type and then calls vehicle::*needed function* with given parameters
 bool interface::removevehicle(platform *platforme) { return 0; }//asks vehicle to remove and calls platform::removevehicle
 bool interface::ask() { return 0; }// asks if the user wants to continue with the program

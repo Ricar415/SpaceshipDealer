@@ -4,6 +4,10 @@
 #include "alien.hpp"
 #include <vector>
 #include <iostream>
+#include "fighter.hpp"
+#include "carrier.hpp"
+#include "destroyer.hpp"
+#include "station.hpp"
 
 using namespace std;
 bool platform::lavailable() { return 0 ; }
@@ -108,3 +112,10 @@ int platform::createvehicle() { return 0; } //
 int platform::createvehicle(int type) { return 0; } //
 int platform::modifyvehicle() { return 0; } // will ask the rn of the vehicle to modify and then give the posibilities of modification depending on the type
 int platform::removevehicle() { return 0; } // will ask the rn of the vehicle and then remove the vehicle and the weapons if there are any
+void platform::createfighter(int ms, weapon weapon1, weapon weapon2, string rn){
+	fighter a(ms, weapon1, weapon2, rn);
+	vehicles.push_back(a);
+}
+void platform::createcarrier(int ml, int cs, string rn) {}
+void platform::createdestroyer() {}
+void platform:: createstation(int maxp, int hn, bool eshield, string rn) {}

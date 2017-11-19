@@ -6,5 +6,6 @@ int main (){
 	platform *platforme = new platform;
     interface interface(platforme);
 	interface.menu(platforme);
+	delete platforme;
     return 0;
 }
