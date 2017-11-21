@@ -6,5 +6,6 @@ sale::sale(string vn,string n,date d){
     rn = n;
     saledate = d;
 }
-sale::~sale(){}
-void sale::buy(date){}
+bool sale::check(string cvrn) {
+	if (vrn == cvrn) return 1; else return 0;
+}

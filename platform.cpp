@@ -62,35 +62,33 @@ int platform::checkchar(char position){ // returns 0 if not a letter or a number
         return 2;
     } else return 0;
 }
-bool platform::createhuman(string rn) { //returns 1 if the creation was correct and 0 if the creation cant be done.
+void platform::createhuman(string rn) { // creates human with given register number and passes it to the owners vector
 	human a(rn);
 	owners.push_back(a);
-	return 1;
 }
-bool platform::createalien(string rn){ //returns 1 if the creation was correct and 0 if the creation cant be done.
+void platform::createalien(string rn){ // creates alien with given register number and includes it to the owners vector
 	alien a(rn);
     owners.push_back(a);
-    return 1;
 }
-bool platform::checkowner(string rn) {
+bool platform::checkowner(string rn) { // returns 1 if the given register number corresponds to a registered owner and 0 otherwise
 	int size = owners.size();
 	for (int i = 0; i < size; i++) {
-		if (owners[i].rn == rn) {
+		if (owners[i].check(rn) == 1) {
 			return 1;
 		}
 	}
 	return 0;
 }
-int platform::ownerposition(string rn) {
+int platform::ownerposition(string rn) { // returns the position of the given owner in the register vector (will return 3301 if its not registered but shouldnt be called without previous checkowner)
 	int size = owners.size();
 	for (int i = 0; i < size; i++) {
-		if (owners[i].rn == rn) {
+		if (owners[i].check(rn) == 1) {
 			return i;
 		}
 	}
 	return 3301;
 }
-void platform::modifyowner(int position, string nrn) {
+void platform::modifyowner(int position, string nrn) { // modifies the register number of the given position´s owner
 	owners[position].modify(nrn);
 }
 void platform::removeowner(int position) { //returns 0 if the given rn wasnt found or the process is stopped by the user and 1 if everything went right
@@ -99,43 +97,57 @@ void platform::removeowner(int position) { //returns 0 if the given rn wasnt fou
 int platform::createvehicle() { return 0; } // 
 int platform::createvehicle(int type) { return 0; } //
 int platform::modifyvehicle() { return 0; } // will ask the rn of the vehicle to modify and then give the posibilities of modification depending on the type
-int platform::removevehicle() { return 0; } // will ask the rn of the vehicle and then remove the vehicle and the weapons if there are any
-void platform::createfighter(int ms, weapon weapon1, weapon weapon2, string rn){
+void platform::removevehicle(int position) {
+	vehicles.erase(vehicles.begin() + position);
+}
+int platform::vehicleposition(string rn) { // returns the position of the given vehicle in the register vector (will return 3301 if its not registered but shouldnt be called without previous checkvehicle)
+	int size = vehicles.size();
+	for (int i = 0; i < size; i++) {
+		if (vehicles[i].check(rn) == 1) {
+			return i;
+		}
+	}
+	return 3301;
+}
+void platform::createfighter(int ms, weapon weapon1, weapon weapon2, string rn){ // creates a fighter with given parameters and includes it in vehicles vector
 	fighter a(ms, weapon1, weapon2, rn);
 	vehicles.push_back(a);
 }
-void platform::createcarrier(int ml, int cs,bool es, string rn) {
+void platform::createcarrier(int ml, int cs,bool es, string rn) { // creates a carrier with given parameters and includes it in vehicles vector
 	carrier a(ml, cs, es,  rn);
 	vehicles.push_back(a);
 }
-void platform::createdestroyer() {}
-void platform::createstation(int maxp, int hn, bool eshield, string rn) {
+void platform::createdestroyer(int nweapons, vector<weapon> weapons, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
+	destroyer a(nweapons, weapons, rn);
+	vehicles.push_back(a);
+}
+void platform::createstation(int maxp, int hn, bool eshield, string rn) { // creates a station with given parameters and includes it in vehicles vector
 	station a(maxp, hn, eshield, rn);
 	vehicles.push_back(a);
 }
-bool platform::checkvehicle(string rn) {
+bool platform::checkvehicle(string rn) { // returns 1 if the vehicle register number is already registered and 0 otherwise
 	int size = vehicles.size();
 	for (int i = 0; i < size; i++) {
-		if (vehicles[i].vrn == rn) {
+		if (vehicles[i].check(rn) == 1) {
 			return 1;
 		}
 	}
 	return 0;
 }
-bool platform::checksales(string rn, string vrn) {
+bool platform::checksales(string rn, string vrn) { // returns 1 if the vehicle is already registered in a sale (independently of the owner)
 	int size = sales.size();
 	for (int i = 0; i < size; i++) {
-		if (sales[i].rn == rn && sales[i].vrn == vrn) {
+		if (sales[i].check(vrn) == 1) {
 			return 1;
 		}
 	}
 	return 0;
 }
-void platform::sell(string vrn, string rn, date saledate) {
+void platform::sell(string vrn, string rn, date saledate) { // creates a sale for this scope and passes it as parameter of the selling function of platform
 	sale a(vrn, rn, saledate);
 	sales.push_back(a);
 }
-bool platform::checkdate(date d) {
+bool platform::checkdate(date d) { // temporal!
 	if (d.day > 0 && d.day < 32 && d.month > 0 && d.month < 13 && d.year > 0 && d.year < 2019) {
 		return 1;
 	}

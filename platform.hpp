@@ -14,7 +14,6 @@ class platform{
     vector<sale> sales;
     vector<vehicle> vehicles;
     vector<owner> owners;
-	vector<weapon> weapons;
 public:
     bool lavailable(); //list functions (default by rn)
     bool lbydate(date start ,date end);
@@ -24,8 +23,8 @@ public:
 //    void lforalien();
 	bool listowners();
     bool lsales(); //end of list functions
-	bool createhuman(string rn);
-	bool createalien(string rn);
+	void createhuman(string rn);
+	void createalien(string rn);
 	bool checkowner(string rn);
 	bool checkvehicle(string rn);
 	int ownerposition(string rn);
@@ -34,12 +33,13 @@ public:
 	int createvehicle();
 	int createvehicle(int type);
 	int modifyvehicle();
-	int removevehicle();
+	void removevehicle(int position);
+	int vehicleposition(string rn);
     int checktype(string rn);
 	int checkchar(char position);
 	void createfighter(int ms,weapon weapon1,weapon weapon2, string rn);
 	void createcarrier(int ml,int cs, bool es, string rn);
-	void createdestroyer();
+	void createdestroyer(int nweapons, vector<weapon> weapons, string rn);
 	void createstation(int maxp,int hn,bool es,string rn);
 	bool checksales(string rn, string vrn);
 	void sell(string vrn, string rn, date saledate);

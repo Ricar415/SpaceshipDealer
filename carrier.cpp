@@ -16,3 +16,6 @@ void carrier::modifycs(int cs){
 void carrier::modifyes(bool es){
     energyshield = es;
 }
+void carrier::modifyvrn(string nvrn) {
+	vrn = nvrn;
+}

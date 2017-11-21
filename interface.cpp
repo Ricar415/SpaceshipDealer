@@ -120,9 +120,9 @@ void interface::menu() { //main conducting part of the user interface
 		}
 	} while (check == 0);
 }
-bool interface::lbydate() { return 0; }// asks date of start and end and then calls platform::lbydate with given parameters
-bool interface::lbyowner() { return 0; }// asks the owner to list and then calls platform::lbyowner with given
-bool interface::createowner() { //asks register number and then calls platform::createowner
+bool interface::lbydate() { return 0; } // asks date of start and end and then calls platform::lbydate with given parameters
+bool interface::lbyowner() { return 0; } // asks the owner to list and then calls platform::lbyowner with given
+bool interface::createowner() { //asks register number and then calls platform::createowner after checking the parameters
 	string rn;
 	int type;
 	bool a = 0,check;
@@ -131,8 +131,9 @@ bool interface::createowner() { //asks register number and then calls platform::
 	if (rn == "0\0") return 1;
 	type = platforme->checktype(rn);
 	if (type == 1) {
-		check = platforme->createhuman(rn);
-		if (check == 1) {
+		check = platforme->checkowner(rn);
+		if (check == 0) {
+			platforme->createhuman(rn);
 			cout << "\nHuman with register number " << rn << " has been created\n" << endl;
 			return 1;
 		}
@@ -142,8 +143,9 @@ bool interface::createowner() { //asks register number and then calls platform::
 		}
 	}
 	else if (type == 2) {
-		check = platforme->createalien(rn);
-		if (check == 1) {
+		check = platforme->checkowner(rn);
+		if (check == 0) {
+			platforme->createalien(rn);
 			cout << "\nAlien with register number " << rn << " has been created\n" << endl;
 			return 1;
 		}
@@ -158,7 +160,7 @@ bool interface::createowner() { //asks register number and then calls platform::
 	}
 	return 0;
 }
-bool interface::modifyowner() {//asks owner to modify and new register number and then calls platform::modifyowner
+bool interface::modifyowner() { // asks owner to modify and new register number and then calls platform::modifyowner after checking the parameters
 	string rn, nrn;
 	int a = 0, i = 0;
 	int position;
@@ -196,7 +198,7 @@ bool interface::modifyowner() {//asks owner to modify and new register number an
 	} while (a != 1 && a != 2);
 	return 1;
 }
-bool interface::removeowner() {//asks owner to remove and calls platform::removeowner
+bool interface::removeowner() { // asks owner to remove , checks if it exists, checks its position in platform´s owners vector and calls platform::removeowner(position)
 	string rn;
 	int check;
 	int position;
@@ -218,9 +220,11 @@ bool interface::removeowner() {//asks owner to remove and calls platform::remove
 	}
 	else return 0;
 }
-bool interface::createvehicle() {//asks every part of the vehicle information needed and then calls vehicle(*given parameters*)
+bool interface::createvehicle() {//asks every part of the vehicle information needed and then calls the corresponding creator funcion of platform with given parameters .. 1.Carrier 2.Destroyer 3.Fighter 4.Station
 	int type,eshield;
 	int check = 0, check2 = 0;
+	bool check3;
+	vector<weapon> weapons;
 	string rn;
 	do {
 		cout << "\n- Create vehicle -\nType N list\n\t1\tCarrier\n\t2\tDestroyer\n\t3\tFighter\n\t4\tStation\n\nIntroduce the vehicle type: ";
@@ -258,8 +262,10 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 		int maxp, hn;
 		cout << "\nIntroduce the maximum number of passengers: ";
 		cin >> maxp;
+		if (maxp == 0) return 1; // Default break
 		cout << "\nIntroduce the number of hangars: ";
 		cin >> hn;
+		if (hn == 0) return 1; // Default break
 		platforme->createstation(maxp, hn, eshield, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
@@ -268,17 +274,35 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 		int ml, cs;
 		cout << "\nIntroduce the maximum load capacity: ";
 		cin >> ml;
+		if (ml == 0) return 1; // Default break
 		cout << "\nIntroduce cruising speed: ";
 		cin >> cs;
+		if (cs == 0) return 1; // Default break
 		platforme->createcarrier(ml, cs, eshield, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
 	case 2:
-		int nweapons;
+		int size;
 		cout << "\nIntroduce the number of weapons: ";
-		cin >> nweapons;
-		platforme->createdestroyer();
+		cin >> size;
+		for (int i = 0; i < size; i++) {
+			do {
+				int a;
+				cout << "\nIntroduce the type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15))" << i << ": "; // 1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)
+				cin >> a;
+				if (a == 0) return 1; else if (a == 1 || a == 2 || a == 3 || a == 4) {
+					check3 = 1;
+				}
+				else {
+					cout << "\n-- Invalid type --";
+					check3 = 0;
+				}
+				weapon b(a);
+				weapons.push_back(b);
+			} while (check3 == 0);
+		}
+		platforme->createdestroyer(size, weapons, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -286,19 +310,54 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 		int ms,weapon1t,weapon2t;
 		cout << "\nIntroduce the maximum speed: ";
 		cin >> ms;
-		cout << "\nIntroduce the first weapon type: ";
-		cin >> weapon1t;
-		cout << "\nIntroduce the second weapon type: ";
-		cin >> weapon2t;
+		if (ms == 0) return 1; // Default break
+		do {
+			cout << "\nIntroduce the first weapon type (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
+			cin >> weapon1t;
+			if (weapon1t == 0) return 1; else if (weapon1t == 1 || weapon1t == 2 || weapon1t == 3 || weapon1t == 4) {
+				check3 = 1;
+			}
+			else {
+				cout << "\n-- Invalid type --";
+				check3 = 0;
+			}
+		} while (check3 == 0);
+		do {
+			cout << "\nIntroduce the second weapon type (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
+			cin >> weapon2t;
+			if (weapon2t == 0) return 1; else if (weapon2t == 1 || weapon2t == 2 || weapon2t == 3 || weapon2t == 4) {
+				check = 1;
+			}
+			else {
+				cout << "\n-- Invalid type --";
+				check = 0;
+			}
+		} while (check3 == 0);
 		weapon weapon1(weapon1t), weapon2(weapon2t);
 		platforme->createfighter(ms, weapon1, weapon2, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
 	}
+	return 0;
 }
 bool interface::modifyvehicle() { return 0; }//asks vehicle to remove, lists options depending on type and then calls vehicle::*needed function* with given parameters
-bool interface::removevehicle() { return 0; }//asks vehicle to remove and calls platform::removevehicle
+bool interface::removevehicle() { //asks vehicle to remove and calls platform::removevehicle
+	string rn;
+	bool check;
+	int position;
+	cout << "\n Introduce the register number of the vehicle you want to remove (0 to break): ";
+	cin >> rn; 
+	if (rn == "0\0") return 1; else {
+		check = platforme->checkvehicle(rn);
+		if (check == 1) {
+			position = platforme->vehicleposition(rn);
+			platforme->removevehicle(position);
+			return 1;
+		}
+		else return 0;
+	}
+}
 bool interface::ask() {
 	bool x;
 	string a;
@@ -315,6 +374,7 @@ bool interface::ask() {
 			x = 0;
 		}
 	} while (x == 0);
+	return 0;
 }
 bool interface::sell() {
 	string rn,vrn;

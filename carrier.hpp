@@ -9,11 +9,13 @@ private:
     int maxload;
     bool energyshield;
     int cruisingspeed;
+	int const type = 1;
 public:
     carrier(int cs, int ml, bool es, string vn);
     void modifyml(int ml);
     void modifycs(int cs);
     void modifyes(bool es);
+	void modifyvrn(string nvrn);
 };
 
 #endif

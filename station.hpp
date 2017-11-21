@@ -9,11 +9,13 @@ private:
     int maxp;
     int hangarn;
     bool energyshield;
+	int const type = 4;
 public:
     station(int mp,int hn,bool es, string n);
     void modifymp(int mp);
     void modifyhn(int hn);
     void modifyes(bool es);
+	void modifyvrn(string nvrn);
 };
 
 #endif

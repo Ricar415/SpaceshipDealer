@@ -5,7 +5,6 @@
 using namespace std;
 
 class vehicle{
-	friend class platform;
 protected:
     string vrn;
     int propulsion;
@@ -15,6 +14,7 @@ protected:
     int type;
     bool available;
 public:
+	bool check(string cvrn);
     virtual void modifytype(int);
     void modifyp(int);
     void modifymc(int);
