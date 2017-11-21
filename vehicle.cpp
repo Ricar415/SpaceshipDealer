@@ -5,13 +5,23 @@ using namespace std;
 bool vehicle::check(string cvrn) {
 	if (vrn == cvrn) return 1; else return 0;
 }
-void vehicle::modifyp(int){}
-void vehicle::modifymc(int){}
-void vehicle::modifytype(int){}
-void vehicle::modifyprice(int){}
-void vehicle::modifyowner(string o){
-    owner = o;
+int vehicle::checktype() {
+	return type;
 }
-void vehicle::modifyavailability(){}
-void vehicle::modifylist(string n){}
-
+void vehicle::modifyvrn(string nvrn) {
+	vrn = nvrn;
+}
+int vehicle::nweapons() {
+	return 0;
+}
+void vehicle::modifyweapon(int pos, weapon w){}
+void vehicle::showweapon(int i) {}
+void vehicle::modifycs(int cs) {}
+void vehicle::modifyml(int ml) {}
+void vehicle::modifyms(int ms) {}
+void vehicle::modifyhn(int hn) {}
+void vehicle::modifymp(int mp) {}
+void vehicle::modifyes(bool es) {}
+void vehicle::addweapon(int weapontype) {}
+void vehicle::removeweapon(int weaponposition) {}
+//^virtual^

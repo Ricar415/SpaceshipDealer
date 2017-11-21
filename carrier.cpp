@@ -6,6 +6,7 @@ carrier::carrier(int ml, int cs , bool es, string vn){
     maxload = ml;
     energyshield = es;
     vrn = vn;
+	type = 1;
 }
 void carrier::modifyml(int ml){
     maxload = ml;
@@ -15,7 +16,4 @@ void carrier::modifycs(int cs){
 }
 void carrier::modifyes(bool es){
     energyshield = es;
-}
-void carrier::modifyvrn(string nvrn) {
-	vrn = nvrn;
 }

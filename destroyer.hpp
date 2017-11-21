@@ -7,13 +7,14 @@
 using namespace std;
 class destroyer: public vehicle{
 	vector<weapon> weaponr;
-	int nw;
-	int const type = 2;
 public:
-    destroyer(int nweapons, vector<weapon> weapons, string rn);
-    void modifynw(int nw);
-	void modifyvrn(string nvrn);
+    destroyer(vector<weapon> weapons, string rn);
+	int nweapons();
 	void modifyweapons(int position, int type);
+	void showweapon(int position);
+	void modifyweapon(int position, weapon w);
+	void addweapon(int weapontype);
+	void removeweapon(int weaponposition);
 };
 
 #endif

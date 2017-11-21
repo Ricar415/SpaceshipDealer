@@ -8,6 +8,7 @@ public:
 	weapon(int type);
 	weapon();
 	void modify(int ntype);
+	void show();
 };
 
 #endif

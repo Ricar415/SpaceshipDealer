@@ -39,11 +39,19 @@ public:
 	int checkchar(char position);
 	void createfighter(int ms,weapon weapon1,weapon weapon2, string rn);
 	void createcarrier(int ml,int cs, bool es, string rn);
-	void createdestroyer(int nweapons, vector<weapon> weapons, string rn);
+	void createdestroyer(vector<weapon> weapons, string rn);
 	void createstation(int maxp,int hn,bool es,string rn);
 	bool checksales(string rn, string vrn);
 	void sell(string vrn, string rn, date saledate);
 	bool checkdate(date d);
+	int checkvehicletype(int position);
+
+	void modifyvehicle(int position, int code, int value);
+	void modifyvehicle(int position, string nvrn);
+	void modifyvehicle(int position, bool es);
+	void modifyvehicle(int position, int pos, weapon nw);
+
+	void showweapons(int position);
 };
 
 #endif

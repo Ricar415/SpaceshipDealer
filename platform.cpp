@@ -117,8 +117,8 @@ void platform::createcarrier(int ml, int cs,bool es, string rn) { // creates a c
 	carrier a(ml, cs, es,  rn);
 	vehicles.push_back(a);
 }
-void platform::createdestroyer(int nweapons, vector<weapon> weapons, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
-	destroyer a(nweapons, weapons, rn);
+void platform::createdestroyer(vector<weapon> weapons, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
+	destroyer a(weapons, rn);
 	vehicles.push_back(a);
 }
 void platform::createstation(int maxp, int hn, bool eshield, string rn) { // creates a station with given parameters and includes it in vehicles vector
@@ -152,4 +152,58 @@ bool platform::checkdate(date d) { // temporal!
 		return 1;
 	}
 	else return 0;
+}
+int platform::checkvehicletype(int position) {
+	return vehicles[position].checktype();
+}
+
+void platform::showweapons(int position) {
+	int type,nweapons;
+	if (vehicles[position].checktype() == 3) {
+		nweapons = 2;
+		cout << "\nWeapon 1 type:: ";
+		vehicles[position].showweapon(1);
+		cout << "\nWeapon 2 type: ";
+		vehicles[position].showweapon(2);
+	}
+	else {
+		nweapons = vehicles[position].nweapons(); // function of destroyer (ask)
+		for (int i = 0; i < nweapons; i++) {
+			cout << "\nPosition " << i << " weapon type:";
+			vehicles[position].showweapon(i); //function of weapon in vector of destroyer (ask)
+		}
+	}
+}
+
+void platform::modifyvehicle(int position, string vrn) {
+	vehicles[position].modifyvrn(vrn);
+}
+void platform::modifyvehicle(int position, int code, int value) {
+	if (code == 1) {
+		vehicles[position].modifycs(value);
+	}
+	else if (code == 2) {
+		vehicles[position].modifyml(value);
+	}
+	else if (code == 3) {
+		vehicles[position].addweapon(value);
+	}
+	else if (code == 4) {
+		vehicles[position].removeweapon(value);
+	}
+	else if (code == 5) {
+		vehicles[position].modifyms(value);
+	}
+	else if (code == 6) {
+		vehicles[position].modifymp(value);
+	}
+	else if (code == 7) {
+		vehicles[position].modifyhn(value);
+	}
+}
+void platform::modifyvehicle(int position, int pos, weapon weapon) {
+	vehicles[position].modifyweapon(pos, weapon);
+}
+void platform::modifyvehicle(int position, bool es) {
+	vehicles[position].modifyes(es);
 }

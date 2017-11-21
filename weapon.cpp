@@ -1,4 +1,5 @@
 #include "platform.hpp"
+#include <iostream>
 
 weapon::weapon(int type) {
 	type = type;
@@ -38,4 +39,7 @@ void weapon::modify(int ntype) {
 	else {
 		ocapacity = 0;
 	}
+}
+void weapon::show() {
+	cout << '\t' << type << endl;
 }

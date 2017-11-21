@@ -1,19 +1,28 @@
 #include "destroyer.hpp"
 #include <string>
 using namespace std;
-destroyer::destroyer(int nweapons, vector<weapon> weapons, string rn){
+destroyer::destroyer(vector<weapon> weapons, string rn){
 	vrn = rn;
-	nw = nweapons;
 	weaponr = weapons;
-}
-void destroyer::modifynw(int nweapons){
-	nw = nweapons;
-}
-void destroyer::modifyvrn(string nvrn) {
-	vrn = nvrn;
+	type = 2;
 }
 void destroyer::modifyweapons(int position, int type) {
 	weapon a(type);
-	weaponr.erase(weaponr.begin()+position);
+	weaponr[position] = a;
+}
+int destroyer::nweapons() {
+	return weaponr.size();
+}
+void destroyer::showweapon(int position) {
+	weaponr[position].show();
+}
+void destroyer::modifyweapon(int position, weapon w) {
+	weaponr[position] = w;
+}
+void destroyer::addweapon(int weapontype) {
+	weapon a(weapontype);
 	weaponr.push_back(a);
+}
+void destroyer::removeweapon(int weaponposition) {
+	weaponr.erase(weaponr.begin() + weaponposition);
 }

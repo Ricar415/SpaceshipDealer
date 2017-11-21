@@ -22,5 +22,6 @@ public:
 	bool removevehicle(); //asks vehicle to remove and calls platform::removevehicle
 	bool ask(); // asks if the user wants to continue with the program
 	bool sell();
+	void showweapons(string vrn);
 };
 #endif
