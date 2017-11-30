@@ -17,6 +17,9 @@ private:
 public:
 	bool check(string cvrn);
     sale(string vn, string n, date d);
+	void showsale();
+	bool greaterequalthan(date date);
+	bool checkowner(string orn);
 };
 
 #endif

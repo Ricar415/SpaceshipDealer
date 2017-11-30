@@ -10,12 +10,14 @@
 #include "station.hpp"
 
 using namespace std;
-bool platform::lavailable() { return 0 ; }
-bool platform::lbydate(date start, date end) { return 0; }
-bool platform::lbyocapacity() { return 0; }
-bool platform::lbyowner(string o) {
-	return 0;
+bool platform::lavailable() {
+	for (int i = 0; i < vehicles.size; i++) {
+		if (vehicles[i].checkabailable() == 0) {
+			vehicles[i].show();
+		}
+	}
 }
+bool platform::lbyocapacity() { return 0; }
 //void platform::lforalien(){} // will only be implemented if necessary
 //void platform::lforhuman(){}
 bool platform::listowners() { return 0; }
@@ -174,7 +176,20 @@ void platform::showweapons(int position) {
 		}
 	}
 }
-
+void platform::showsales(date start, date end) {
+	for (int i = 0; i < sales.size; i++) {
+		if (sales[i].greaterequalthan(start) == 1 && sales[i].greaterequalthan(end) == 0) {
+			sales[i].showsale();
+		}
+	}
+}
+void platform::lbyowner(string rn) {
+	for (int i = 0; i < sales.size; i++) {
+		if (sales[i].checkowner(rn) == 1) {
+			sales[i].showsale();
+		}
+	}
+}
 void platform::modifyvehicle(int position, string vrn) {
 	vehicles[position].modifyvrn(vrn);
 }

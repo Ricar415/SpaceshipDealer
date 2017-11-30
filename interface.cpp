@@ -13,7 +13,7 @@ void interface::menu() { //main conducting part of the user interface
 	int a;
 	bool check, check2;
 	do {
-		cout << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - List options\n 7 - Sell\n " << endl;
+		cout << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - Show list options\n 7 - Sell\n " << endl;
 		cin >> a;
 		switch (a) {
 		case 0:
@@ -58,7 +58,7 @@ void interface::menu() { //main conducting part of the user interface
 			cin >> b;
 			switch (b) {
 			case 0:
-				cout << "\n\n -List available vehicles-\n0 - List by register number\n 1 - List by saledate\n 2 - List by owner\n 3 - List by offensive capacity\n";
+				cout << "\n\n -List Option Menu-\n 0 - Vehicles by register number\n 1 - Vehicle sale history\n 2 - Sales made by owner\n 3 - Vehicles by offensive capacity\n 4 - Sales made in a time interval\n";
 				int c;
 				cin >> c;
 				switch (c) {
@@ -70,7 +70,7 @@ void interface::menu() { //main conducting part of the user interface
 					break;
 				case 1:
 					do {
-						check2 = lbydate();
+						check2 = platforme->lsales();
 					} while (check2 == 0);
 					check = ask();
 					break;
@@ -83,6 +83,12 @@ void interface::menu() { //main conducting part of the user interface
 				case 3:
 					do {
 						check2 = platforme->lbyocapacity();
+					} while (check2 == 0);
+					check = ask();
+					break;
+				case 4:
+					do {
+						check2 = lbydate();
 					} while (check2 == 0);
 					check = ask();
 					break;
@@ -120,8 +126,53 @@ void interface::menu() { //main conducting part of the user interface
 		}
 	} while (check == 0);
 }
-bool interface::lbydate() { return 0; } // asks date of start and end and then calls platform::lbydate with given parameters
-bool interface::lbyowner() { return 0; } // asks the owner to list and then calls platform::lbyowner with given
+bool interface::lbydate() {
+	bool check, check2;
+	date start, end;
+	check = false;
+	cout << "-Introduce time interval-\nStart date:\nDay: ";
+	cin >> start.day;
+	cout << "\nMonth: ";
+	cin >> start.month;
+	cout << "\nYear: ";
+	cin >> start.year;
+	check = platforme->checkdate(start);
+	if (check == 0) {
+		return 0; // Default loop
+	}
+	do{
+		check2 = false;
+		cout << "\nEnd date:\nDay: ";
+		cin >> end.day;
+		cout << "\nMonth: ";
+		cin >> end.month;
+		cout << "\nYear";
+		cin >> end.year;
+		check2 = platforme->checkdate(end);
+	} while (check2 == 0);
+	cout << endl << "Registered sales between " << start.day << "/" << start.month << "/" << start.year << " and " << end.day << "/" << end.month << "/" << end.year << " :" << endl;
+	platforme->showsales(start, end);
+	return 1;
+} // asks date of start and end and then calls platform::lbydate with given parameters
+bool interface::lbyowner() {
+	string temp;
+	int check;
+	do {
+		check = 0;
+		cout << endl << "Introduce the register number of the owner you want the sales to be displayed (0 to break): ";
+		cin >> temp;
+		if (temp == "0\0") return 1; // Default break
+		check = platforme->checktype(temp);
+		if (check == 1 || check == 2) {
+			check = platforme->checkowner(temp);
+		}
+		else {
+			return 0; // Default loop
+		}
+	} while (check == 0);
+	platforme->lbyowner(temp);
+	return 1;
+} // asks the owner to list and then calls platform::lbyowner with given
 bool interface::createowner() { //asks register number and then calls platform::createowner after checking the parameters
 	string rn;
 	int type;
@@ -645,3 +696,4 @@ void interface::showweapons(string vrn) {
 	int position = platforme->vehicleposition(vrn);
 	platforme->showweapons(position);
 }
+

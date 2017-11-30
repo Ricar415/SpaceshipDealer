@@ -18,7 +18,7 @@ public:
     bool lavailable(); //list functions (default by rn)
     bool lbydate(date start ,date end);
     bool lbyocapacity();
-    bool lbyowner(string o);
+    void lbyowner(string o);
 //    void lforhuman(); //will only include them if needed
 //    void lforalien();
 	bool listowners();
@@ -52,6 +52,8 @@ public:
 	void modifyvehicle(int position, int pos, weapon nw);
 
 	void showweapons(int position);
+	void showsales();
+	void showsales(date start, date end);
 };
 
 #endif
