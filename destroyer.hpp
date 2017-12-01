@@ -15,6 +15,8 @@ public:
 	void modifyweapon(int position, weapon w);
 	void addweapon(int weapontype);
 	void removeweapon(int weaponposition);
+	void show();
+	int ocapacity();
 };
 
 #endif

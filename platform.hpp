@@ -15,14 +15,13 @@ class platform{
     vector<vehicle> vehicles;
     vector<owner> owners;
 public:
-    bool lavailable(); //list functions (default by rn)
-    bool lbydate(date start ,date end);
-    bool lbyocapacity();
-    void lbyowner(string o);
+    void lavailable(); //list functions (default by rn)
+    void lbyocapacity();
+    void lbyowner(string rn);
 //    void lforhuman(); //will only include them if needed
 //    void lforalien();
-	bool listowners();
-    bool lsales(); //end of list functions
+	void listowners();
+    void lsales(); //end of list functions
 	void createhuman(string rn);
 	void createalien(string rn);
 	bool checkowner(string rn);
@@ -41,7 +40,7 @@ public:
 	void createcarrier(int ml,int cs, bool es, string rn);
 	void createdestroyer(vector<weapon> weapons, string rn);
 	void createstation(int maxp,int hn,bool es,string rn);
-	bool checksales(string rn, string vrn);
+	bool checksales(string vrn);
 	void sell(string vrn, string rn, date saledate);
 	bool checkdate(date d);
 	int checkvehicletype(int position);

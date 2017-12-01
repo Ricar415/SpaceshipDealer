@@ -14,6 +14,7 @@ public:
     void modifyml(int ml);
     void modifycs(int cs);
     void modifyes(bool es);
+	void show();
 };
 
 #endif

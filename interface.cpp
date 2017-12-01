@@ -63,15 +63,11 @@ void interface::menu() { //main conducting part of the user interface
 				cin >> c;
 				switch (c) {
 				case 0:
-					do {
-						check2 = platforme->lavailable();
-					} while (check2 == 0);
+					platforme->lavailable();
 					check = ask();
 					break;
 				case 1:
-					do {
-						check2 = platforme->lsales();
-					} while (check2 == 0);
+					platforme->lsales();
 					check = ask();
 					break;
 				case 2:
@@ -81,9 +77,7 @@ void interface::menu() { //main conducting part of the user interface
 					check = ask();
 					break;
 				case 3:
-					do {
-						check2 = platforme->lbyocapacity();
-					} while (check2 == 0);
+					platforme->lbyocapacity();
 					check = ask();
 					break;
 				case 4:
@@ -98,15 +92,11 @@ void interface::menu() { //main conducting part of the user interface
 				}
 				break;
 			case 1:
-				do {
-					check2 = platforme->listowners();
-				} while (check2 == 0);
+				platforme->listowners();
 				check = ask();
 				break;
 			case 2:
-				do {
-					check2 = platforme->lsales();
-				} while (check2 == 0);
+				platforme->lsales();
 				check = ask();
 				break;
 			default:
@@ -675,7 +665,7 @@ bool interface::sell() {
 			check = 0;
 		}
 	} while (check == 0);
-	if (platforme->checksales(rn, vrn) == 0) {
+	if (platforme->checksales(vrn) == 0) {
 		date date;
 		do {
 			cout << "\nIntroduce saledate \nDay: ";

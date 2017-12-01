@@ -12,11 +12,13 @@ private:
     const int crewn = 1;
 public:
     fighter(int dmaxspeed, weapon dweapon1, weapon dweapon2, string n);
+	void show();
 	void modifyms(int ms);
 	void modifyw1(int type);
 	void modifyw2(int type);
 	void showweapon(int wn);
 	void modifyweapon(int pos, weapon w);
+	int ocapacity();
 };
 
 #endif

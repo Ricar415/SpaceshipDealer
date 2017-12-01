@@ -20,6 +20,7 @@ public:
 	void showsale();
 	bool greaterequalthan(date date);
 	bool checkowner(string orn);
+	string rvrn();
 };
 
 #endif

@@ -34,3 +34,6 @@ bool sale::checkowner(string orn) {
 	}
 	else return 0;
 }
+string sale::rvrn() {
+	return vrn;
+}

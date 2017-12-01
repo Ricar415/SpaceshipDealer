@@ -19,6 +19,9 @@ weapon::weapon(int type) {
 		ocapacity = 0;
 	}
 }
+int weapon::focapacity() {
+	return ocapacity;
+}
 weapon::weapon() {
 	type = 0;
 }

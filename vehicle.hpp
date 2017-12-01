@@ -16,6 +16,8 @@ protected:
 public:
 	bool check(string cvrn);
 	int checktype();
+	string rvrn();
+	virtual void show();
 	virtual int nweapons();
 	virtual void showweapon(int a);
 	virtual void modifyweapon(int pos, weapon w);
@@ -28,6 +30,7 @@ public:
 	virtual void modifymp(int mp);
 	virtual void modifyhn(int hn);
 	virtual void modifyes(bool es);
+	virtual int ocapacity();
 };
 
 #endif

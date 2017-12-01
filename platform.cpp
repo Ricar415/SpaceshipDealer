@@ -10,18 +10,50 @@
 #include "station.hpp"
 
 using namespace std;
-bool platform::lavailable() {
-	for (int i = 0; i < vehicles.size; i++) {
-		if (vehicles[i].checkabailable() == 0) {
+void platform::lavailable() {
+	for (int i = 0; i < vehicles.size(); i++) {
+		if (checksales(vehicles[i].rvrn()) == 0) {
 			vehicles[i].show();
 		}
 	}
 }
-bool platform::lbyocapacity() { return 0; }
+void platform::lbyocapacity() {
+	vector<vehicle> tempvector;
+	bool check;
+	vehicle temp;
+	int type;
+	for (int i = 0; i < vehicles.size(); i++) {
+		type = vehicles[i].checktype();
+		if (type == 2 || type == 3) {
+			tempvector.push_back(vehicles[i]);
+		}
+	}
+	int a, tempposition, key;
+	for (int i = 1; i < tempvector.size(); i++){ // Using insertion sorting as we are expecting low amounts of vehicles for testing
+		temp = tempvector[i];
+		for (a = i - 1; (a >= 0) && (tempvector[a].ocapacity() < tempvector[i].ocapacity()); a--)
+		{
+			tempvector[a + 1] = tempvector[a];
+		}
+		tempvector[a+1] = temp;
+	}
+	for (int i = 0; i < tempvector.size(); i++) {
+		tempvector[i].show();
+	}
+	return;
+}
 //void platform::lforalien(){} // will only be implemented if necessary
 //void platform::lforhuman(){}
-bool platform::listowners() { return 0; }
-bool platform::lsales() { return 0; }
+void platform::listowners() {
+	for (int i = 0; i < owners.size(); i++) {
+		owners[i].show();
+	}
+}
+void platform::lsales() {
+	for (int i = 0; i < sales.size(); i++) {
+		sales[i].showsale();
+	}
+}
 int platform::checktype(string rn){ //returns 0 if not a valid register number, 1 if a human rn, 2 if an alien rn and 3 if a vehicle rn;
     int length = rn.length();
     if (length!=10 && length!=9 && length!=8) return 0;
@@ -96,9 +128,7 @@ void platform::modifyowner(int position, string nrn) { // modifies the register 
 void platform::removeowner(int position) { //returns 0 if the given rn wasnt found or the process is stopped by the user and 1 if everything went right
 	owners.erase(owners.begin()+position);	
 }
-int platform::createvehicle() { return 0; } // 
-int platform::createvehicle(int type) { return 0; } //
-int platform::modifyvehicle() { return 0; } // will ask the rn of the vehicle to modify and then give the posibilities of modification depending on the type
+
 void platform::removevehicle(int position) {
 	vehicles.erase(vehicles.begin() + position);
 }
@@ -136,7 +166,7 @@ bool platform::checkvehicle(string rn) { // returns 1 if the vehicle register nu
 	}
 	return 0;
 }
-bool platform::checksales(string rn, string vrn) { // returns 1 if the vehicle is already registered in a sale (independently of the owner)
+bool platform::checksales(string vrn) { // returns 1 if the vehicle is already registered in a sale (independently of the owner)
 	int size = sales.size();
 	for (int i = 0; i < size; i++) {
 		if (sales[i].check(vrn) == 1) {
@@ -177,14 +207,14 @@ void platform::showweapons(int position) {
 	}
 }
 void platform::showsales(date start, date end) {
-	for (int i = 0; i < sales.size; i++) {
+	for (int i = 0; i < sales.size(); i++) {
 		if (sales[i].greaterequalthan(start) == 1 && sales[i].greaterequalthan(end) == 0) {
 			sales[i].showsale();
 		}
 	}
 }
 void platform::lbyowner(string rn) {
-	for (int i = 0; i < sales.size; i++) {
+	for (int i = 0; i < sales.size(); i++) {
 		if (sales[i].checkowner(rn) == 1) {
 			sales[i].showsale();
 		}

@@ -1,4 +1,5 @@
 #include "fighter.hpp"
+#include <iostream>
 
 fighter::fighter(int dmaxspeed, weapon dweapon1, weapon dweapon2, string n){
 	maxspeed = dmaxspeed;
@@ -6,6 +7,10 @@ fighter::fighter(int dmaxspeed, weapon dweapon1, weapon dweapon2, string n){
 	weapon2 = dweapon2;
 	vrn = n;
 	type = 3;
+}
+int fighter::ocapacity() {
+	int a = weapon1.focapacity() + weapon2.focapacity();
+	return a;
 }
 void fighter::modifyms(int ms) {
 	maxspeed = ms;
@@ -31,4 +36,11 @@ void fighter::modifyweapon(int pos, weapon nw) {
 	else if (pos == 2) {
 		weapon2 = nw;
 	}
+}
+void fighter::show() {
+	cout << "Register number: " << vrn << " Fighter Maximum Speed: " << maxspeed << " Weapon 1: ";
+	weapon1.show();
+	cout << " Weapon2: ";
+	weapon2.show();
+	cout << endl;	
 }

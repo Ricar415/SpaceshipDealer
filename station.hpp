@@ -14,6 +14,7 @@ public:
     void modifymp(int mp);
     void modifyhn(int hn);
     void modifyes(bool es);
+	void show();
 };
 
 #endif
