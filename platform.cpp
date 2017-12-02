@@ -11,7 +11,7 @@
 
 using namespace std;
 void platform::lavailable() {
-	for (int i = 0; i < vehicles.size(); i++) {
+	for (unsigned int i = 0; i < vehicles.size(); i++) {
 		if (checksales(vehicles[i].rvrn()) == 0) {
 			vehicles[i].show();
 		}
@@ -22,14 +22,14 @@ void platform::lbyocapacity() {
 	bool check;
 	vehicle temp;
 	int type;
-	for (int i = 0; i < vehicles.size(); i++) {
+	for (unsigned int i = 0; i < vehicles.size(); i++) {
 		type = vehicles[i].checktype();
 		if (type == 2 || type == 3) {
 			tempvector.push_back(vehicles[i]);
 		}
 	}
 	int a, tempposition, key;
-	for (int i = 1; i < tempvector.size(); i++){ // Using insertion sorting as we are expecting low amounts of vehicles for testing
+	for (unsigned int i = 1; i < tempvector.size(); i++){ // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
 		for (a = i - 1; (a >= 0) && (tempvector[a].ocapacity() < tempvector[i].ocapacity()); a--)
 		{
@@ -37,20 +37,19 @@ void platform::lbyocapacity() {
 		}
 		tempvector[a+1] = temp;
 	}
-	for (int i = 0; i < tempvector.size(); i++) {
+	for (unsigned int i = 0; i < tempvector.size(); i++) {
 		tempvector[i].show();
 	}
 	return;
 }
-//void platform::lforalien(){} // will only be implemented if necessary
-//void platform::lforhuman(){}
+
 void platform::listowners() {
-	for (int i = 0; i < owners.size(); i++) {
+	for (unsigned int i = 0; i < owners.size(); i++) {
 		owners[i].show();
 	}
 }
 void platform::lsales() {
-	for (int i = 0; i < sales.size(); i++) {
+	for (unsigned int i = 0; i < sales.size(); i++) {
 		sales[i].showsale();
 	}
 }
@@ -206,15 +205,15 @@ void platform::showweapons(int position) {
 		}
 	}
 }
-void platform::showsales(date start, date end) {
-	for (int i = 0; i < sales.size(); i++) {
+void platform::lsales(date start, date end) {
+	for (unsigned int i = 0; i < sales.size(); i++) {
 		if (sales[i].greaterequalthan(start) == 1 && sales[i].greaterequalthan(end) == 0) {
 			sales[i].showsale();
 		}
 	}
 }
 void platform::lbyowner(string rn) {
-	for (int i = 0; i < sales.size(); i++) {
+	for (unsigned int i = 0; i < sales.size(); i++) {
 		if (sales[i].checkowner(rn) == 1) {
 			sales[i].showsale();
 		}

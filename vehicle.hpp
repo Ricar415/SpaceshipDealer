@@ -7,6 +7,7 @@
 using namespace std;
 
 class vehicle {
+	friend class platform;
 protected:
 	string vrn;
 	int propulsion;

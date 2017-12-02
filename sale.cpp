@@ -15,13 +15,13 @@ void sale::showsale() {
 	cout << "Vehicle sold: " << vrn << endl << "Owner: " << rn << endl << "Date of sale: " << saledate.day << "/" << saledate.month << "/" << saledate.year << endl;
 }
 bool sale::greaterequalthan(date date) {
-	if (saledate.year >= date.year) {
+	if (saledate.year > date.year || saledate.year == date.year) {
 		return 1;
 	}
-	else if (saledate.month >= date.month) {
+	else if (saledate.month > date.month || saledate.month == date.month) {
 		return 1;
 	}
-	else if (saledate.day >= date.day) {
+	else if (saledate.day > date.day || saledate.day > date.day) {
 		return 1;
 	}
 	else {

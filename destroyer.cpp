@@ -30,14 +30,14 @@ void destroyer::removeweapon(int weaponposition) {
 }
 void destroyer::show() {
 	cout << "Register number: " << vrn << " Destroyer ";
-	for (int i = 0; i < weaponr.size(); i++) {
+	for (unsigned int i = 0; i < weaponr.size(); i++) {
 		cout << " Weapon number " << i + 1 << " type: ";
 		weaponr[i].show();
 	}
 }
 int destroyer::ocapacity() {
 	int a;
-	for (int i = 0; i < weaponr.size(); i++) {
+	for (unsigned int i = 0; i < weaponr.size(); i++) {
 		a =+ weaponr[i].focapacity();
 	}
 	return a;

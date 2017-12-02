@@ -12,8 +12,13 @@ interface::interface(platform *platform) {
 void interface::menu() { //main conducting part of the user interface
 	int a;
 	bool check, check2;
+	//temporal >
+	cout << "CAMBIAR EL VECTOR DE VEHICULOS POR VECTOR DE POINTERS A VEHICULOS, LO MISMO CON OWNERS PARA PODER HACER POLYMORFISM CORRECTAMENTE";
+	cin >> a;
+	return;
+	// < temporal
 	do {
-		cout << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - Show list options\n 7 - Sell\n " << endl;
+		cout << endl << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - Show list options\n 7 - Sell\nOption number:  ";
 		cin >> a;
 		switch (a) {
 		case 0:
@@ -53,12 +58,12 @@ void interface::menu() { //main conducting part of the user interface
 			check = ask();
 			break;
 		case 6:
-			cout << "\n\n\n 0 - List available vehicles\n 1 - List registered owners\n 2 - List performed sales\n";
+			cout << endl << "\n\n\n 0 - List available vehicles\n 1 - List registered owners\n 2 - List performed sales\nOption number: ";
 			int b;
 			cin >> b;
 			switch (b) {
 			case 0:
-				cout << "\n\n -List Option Menu-\n 0 - Vehicles by register number\n 1 - Vehicle sale history\n 2 - Sales made by owner\n 3 - Vehicles by offensive capacity\n 4 - Sales made in a time interval\n";
+				cout << endl << "\n\n -List Option Menu-\n 0 - Vehicles by register number\n 1 - Vehicle sale history\n 2 - Vehicles by offensive capacity\nOption number: ";
 				int c;
 				cin >> c;
 				switch (c) {
@@ -71,19 +76,7 @@ void interface::menu() { //main conducting part of the user interface
 					check = ask();
 					break;
 				case 2:
-					do {
-						check2 = lbyowner();
-					} while (check2 == 0);
-					check = ask();
-					break;
-				case 3:
 					platforme->lbyocapacity();
-					check = ask();
-					break;
-				case 4:
-					do {
-						check2 = lbydate();
-					} while (check2 == 0);
 					check = ask();
 					break;
 				default:
@@ -96,7 +89,26 @@ void interface::menu() { //main conducting part of the user interface
 				check = ask();
 				break;
 			case 2:
-				platforme->lsales();
+				int a;
+				cout << endl << "\n -Sales List Option Menu-\n 0 - List all sales\n 1 - List sales made by owner\n 2 - List sales made in a period of time\nOption number: ";
+				cin >> a;
+				switch (a) {
+				case 0:
+					platforme->lsales();
+					break;
+				case 1:
+					do {
+						check2 = lbyowner();
+					} while (check2 == 0);
+					break;
+				case 2:
+					do {
+						check2 = lbydate();
+					} while (check2 == 0);
+					break;
+				default:
+					break;
+				}
 				check = ask();
 				break;
 			default:
@@ -136,12 +148,12 @@ bool interface::lbydate() {
 		cin >> end.day;
 		cout << "\nMonth: ";
 		cin >> end.month;
-		cout << "\nYear";
+		cout << "\nYear: ";
 		cin >> end.year;
 		check2 = platforme->checkdate(end);
 	} while (check2 == 0);
-	cout << endl << "Registered sales between " << start.day << "/" << start.month << "/" << start.year << " and " << end.day << "/" << end.month << "/" << end.year << " :" << endl;
-	platforme->showsales(start, end);
+	cout << endl << "Registered sales between " << start.day << "/" << start.month << "/" << start.year << " and " << end.day << "/" << end.month << "/" << end.year << ":" << endl;
+	platforme->lsales(start, end);
 	return 1;
 } // asks date of start and end and then calls platform::lbydate with given parameters
 bool interface::lbyowner() {
@@ -656,7 +668,7 @@ bool interface::sell() {
 	do {
 		cout << "\nIntroduce vehicle register number (0 to break): ";
 		cin >> vrn;
-		if (rn == "0\0") return 1; // Default break
+		if (vrn == "0\0") return 1; // Default break
 		check = platforme->checktype(vrn);
 		if (check == 3) {
 			check = platforme->checkvehicle(vrn);
@@ -686,4 +698,3 @@ void interface::showweapons(string vrn) {
 	int position = platforme->vehicleposition(vrn);
 	platforme->showweapons(position);
 }
-

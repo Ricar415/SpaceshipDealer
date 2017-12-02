@@ -18,8 +18,8 @@ public:
     void lavailable(); //list functions (default by rn)
     void lbyocapacity();
     void lbyowner(string rn);
-//    void lforhuman(); //will only include them if needed
-//    void lforalien();
+
+	void lsales(date start, date end);
 	void listowners();
     void lsales(); //end of list functions
 	void createhuman(string rn);
@@ -29,9 +29,7 @@ public:
 	int ownerposition(string rn);
 	void modifyowner(int position, string nrn);
 	void removeowner(int position);
-	int createvehicle();
-	int createvehicle(int type);
-	int modifyvehicle();
+
 	void removevehicle(int position);
 	int vehicleposition(string rn);
     int checktype(string rn);
@@ -51,8 +49,6 @@ public:
 	void modifyvehicle(int position, int pos, weapon nw);
 
 	void showweapons(int position);
-	void showsales();
-	void showsales(date start, date end);
 };
 
 #endif
