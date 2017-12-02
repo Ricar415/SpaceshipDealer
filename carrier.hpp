@@ -15,6 +15,7 @@ public:
     void modifycs(int cs);
     void modifyes(bool es);
 	void show();
+	bool check(string vrn);
 };
 
 #endif

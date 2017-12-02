@@ -12,7 +12,7 @@ using namespace std;
 
 class platform{
     vector<sale> sales;
-    vector<vehicle> vehicles;
+    vector<vehicle*> vehicles;
     vector<owner> owners;
 public:
     void lavailable(); //list functions (default by rn)

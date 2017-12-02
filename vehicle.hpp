@@ -12,13 +12,12 @@ protected:
 	string vrn;
 	int propulsion;
 	int maxcrew;
-	int price;
 	int type;
 public:
-	bool check(string cvrn);
+	virtual bool check(string cvrn);
 	int checktype();
 	string rvrn();
-	virtual void show();
+	virtual void show() = 0;
 	virtual int nweapons();
 	virtual void showweapon(int a);
 	virtual void modifyweapon(int pos, weapon w);

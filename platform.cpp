@@ -12,33 +12,32 @@
 using namespace std;
 void platform::lavailable() {
 	for (unsigned int i = 0; i < vehicles.size(); i++) {
-		if (checksales(vehicles[i].rvrn()) == 0) {
-			vehicles[i].show();
+		if (checksales(vehicles[i]->rvrn()) == 0) {
+			vehicles[i]->show();
 		}
 	}
 }
 void platform::lbyocapacity() {
-	vector<vehicle> tempvector;
-	bool check;
-	vehicle temp;
+	vector<vehicle*> tempvector;
+	vehicle *temp;
 	int type;
 	for (unsigned int i = 0; i < vehicles.size(); i++) {
-		type = vehicles[i].checktype();
+		type = vehicles[i]->checktype();
 		if (type == 2 || type == 3) {
 			tempvector.push_back(vehicles[i]);
 		}
 	}
-	int a, tempposition, key;
+	int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++){ // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
-		for (a = i - 1; (a >= 0) && (tempvector[a].ocapacity() < tempvector[i].ocapacity()); a--)
+		for (a = i - 1; (a >= 0) && (tempvector[a]->ocapacity() < tempvector[i]->ocapacity()); a--)
 		{
 			tempvector[a + 1] = tempvector[a];
 		}
 		tempvector[a+1] = temp;
 	}
 	for (unsigned int i = 0; i < tempvector.size(); i++) {
-		tempvector[i].show();
+		tempvector[i]->show();
 	}
 	return;
 }
@@ -134,40 +133,39 @@ void platform::removevehicle(int position) {
 int platform::vehicleposition(string rn) { // returns the position of the given vehicle in the register vector (will return 3301 if its not registered but shouldnt be called without previous checkvehicle)
 	int size = vehicles.size();
 	for (int i = 0; i < size; i++) {
-		if (vehicles[i].check(rn) == 1) {
+		if (vehicles[i]->check(rn) == 1) {
 			return i;
 		}
 	}
 	return 3301;
 }
 void platform::createfighter(int ms, weapon weapon1, weapon weapon2, string rn){ // creates a fighter with given parameters and includes it in vehicles vector
-	fighter a(ms, weapon1, weapon2, rn);
+	fighter *a = new fighter(ms, weapon1, weapon2, rn);
 	vehicles.push_back(a);
 }
 void platform::createcarrier(int ml, int cs,bool es, string rn) { // creates a carrier with given parameters and includes it in vehicles vector
-	carrier a(ml, cs, es,  rn);
+	carrier *a = new carrier(ml, cs, es, rn);
 	vehicles.push_back(a);
+
 }
 void platform::createdestroyer(vector<weapon> weapons, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
-	destroyer a(weapons, rn);
+	destroyer *a = new destroyer(weapons, rn);
 	vehicles.push_back(a);
 }
 void platform::createstation(int maxp, int hn, bool eshield, string rn) { // creates a station with given parameters and includes it in vehicles vector
-	station a(maxp, hn, eshield, rn);
+	station *a = new  station(maxp,hn,eshield,rn);
 	vehicles.push_back(a);
 }
 bool platform::checkvehicle(string rn) { // returns 1 if the vehicle register number is already registered and 0 otherwise
-	int size = vehicles.size();
-	for (int i = 0; i < size; i++) {
-		if (vehicles[i].check(rn) == 1) {
+	for (unsigned int i = 0; i < vehicles.size(); i++) {
+		if (vehicles[i]->check(rn) == 1) {
 			return 1;
 		}
 	}
 	return 0;
 }
 bool platform::checksales(string vrn) { // returns 1 if the vehicle is already registered in a sale (independently of the owner)
-	int size = sales.size();
-	for (int i = 0; i < size; i++) {
+	for (unsigned int i = 0; i < sales.size(); i++) {
 		if (sales[i].check(vrn) == 1) {
 			return 1;
 		}
@@ -185,23 +183,23 @@ bool platform::checkdate(date d) { // temporal!
 	else return 0;
 }
 int platform::checkvehicletype(int position) {
-	return vehicles[position].checktype();
+	return vehicles[position]->checktype();
 }
 
 void platform::showweapons(int position) {
-	int type,nweapons;
-	if (vehicles[position].checktype() == 3) {
+	int type, nweapons;
+	if (vehicles[position]->checktype() == 3) {
 		nweapons = 2;
 		cout << "\nWeapon 1 type:: ";
-		vehicles[position].showweapon(1);
+		vehicles[position]->showweapon(1);
 		cout << "\nWeapon 2 type: ";
-		vehicles[position].showweapon(2);
+		vehicles[position]->showweapon(2);
 	}
 	else {
-		nweapons = vehicles[position].nweapons(); // function of destroyer (ask)
+		nweapons = vehicles[position]->nweapons(); // function of destroyer (ask)
 		for (int i = 0; i < nweapons; i++) {
 			cout << "\nPosition " << i << " weapon type:";
-			vehicles[position].showweapon(i); //function of weapon in vector of destroyer (ask)
+			vehicles[position]->showweapon(i); //function of weapon in vector of destroyer (ask)
 		}
 	}
 }
@@ -220,34 +218,34 @@ void platform::lbyowner(string rn) {
 	}
 }
 void platform::modifyvehicle(int position, string vrn) {
-	vehicles[position].modifyvrn(vrn);
+	vehicles[position]->modifyvrn(vrn);
 }
 void platform::modifyvehicle(int position, int code, int value) {
 	if (code == 1) {
-		vehicles[position].modifycs(value);
+		vehicles[position]->modifycs(value);
 	}
 	else if (code == 2) {
-		vehicles[position].modifyml(value);
+		vehicles[position]->modifyml(value);
 	}
 	else if (code == 3) {
-		vehicles[position].addweapon(value);
+		vehicles[position]->addweapon(value);
 	}
 	else if (code == 4) {
-		vehicles[position].removeweapon(value);
+		vehicles[position]->removeweapon(value);
 	}
 	else if (code == 5) {
-		vehicles[position].modifyms(value);
+		vehicles[position]->modifyms(value);
 	}
 	else if (code == 6) {
-		vehicles[position].modifymp(value);
+		vehicles[position]->modifymp(value);
 	}
 	else if (code == 7) {
-		vehicles[position].modifyhn(value);
+		vehicles[position]->modifyhn(value);
 	}
 }
 void platform::modifyvehicle(int position, int pos, weapon weapon) {
-	vehicles[position].modifyweapon(pos, weapon);
+	vehicles[position]->modifyweapon(pos, weapon);
 }
 void platform::modifyvehicle(int position, bool es) {
-	vehicles[position].modifyes(es);
+	vehicles[position]->modifyes(es);
 }

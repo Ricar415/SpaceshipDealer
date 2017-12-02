@@ -12,11 +12,6 @@ interface::interface(platform *platform) {
 void interface::menu() { //main conducting part of the user interface
 	int a;
 	bool check, check2;
-	//temporal >
-	cout << "CAMBIAR EL VECTOR DE VEHICULOS POR VECTOR DE POINTERS A VEHICULOS, LO MISMO CON OWNERS PARA PODER HACER POLYMORFISM CORRECTAMENTE";
-	cin >> a;
-	return;
-	// < temporal
 	do {
 		cout << endl << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - Show list options\n 7 - Sell\nOption number:  ";
 		cin >> a;
@@ -672,6 +667,7 @@ bool interface::sell() {
 		check = platforme->checktype(vrn);
 		if (check == 3) {
 			check = platforme->checkvehicle(vrn);
+			cout << check;
 		}
 		else {
 			check = 0;

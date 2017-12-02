@@ -1,10 +1,9 @@
 #include "vehicle.hpp"
 #include <string>
+#include <iostream>
 using namespace std;
 
-bool vehicle::check(string cvrn) {
-	if (vrn == cvrn) return 1; else return 0;
-}
+bool vehicle::check(string vrn) { cout << "nodeberiasestaraqui"; return 1; }
 int vehicle::checktype() {
 	return type;
 }

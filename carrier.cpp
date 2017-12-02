@@ -30,3 +30,8 @@ void carrier::show() { // Parameter display function
 		cout << " With energy shield" << endl;
 	}
 }
+
+bool carrier::check(string cvrn) {
+	cout << "carrer";
+	if (vrn == cvrn) return 1; else return 0;
+}
