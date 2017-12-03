@@ -34,7 +34,7 @@ void platform::lbyocapacity() {
 		{
 			tempvector[a + 1] = tempvector[a];
 		}
-		tempvector[a+1] = temp;
+		tempvector[a + 1] = temp;
 	}
 	for (unsigned int i = 0; i < tempvector.size(); i++) {
 		tempvector[i]->show();

@@ -15,6 +15,7 @@ public:
     void modifyhn(int hn);
     void modifyes(bool es);
 	void show();
+	bool check(string rn);
 };
 
 #endif

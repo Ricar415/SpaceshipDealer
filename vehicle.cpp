@@ -3,7 +3,6 @@
 #include <iostream>
 using namespace std;
 
-bool vehicle::check(string vrn) { cout << "nodeberiasestaraqui"; return 1; }
 int vehicle::checktype() {
 	return type;
 }

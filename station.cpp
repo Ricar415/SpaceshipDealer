@@ -28,3 +28,4 @@ void station::show() {
 		cout << " With energy shield" << endl;
 	}
 }
+bool station::check(string cvrn){ if (vrn == cvrn) return 1; else return 0; }

@@ -19,6 +19,7 @@ public:
 	void showweapon(int wn);
 	void modifyweapon(int pos, weapon w);
 	int ocapacity();
+	bool check(string vrn);
 };
 
 #endif

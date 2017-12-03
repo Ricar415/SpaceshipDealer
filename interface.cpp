@@ -466,7 +466,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 			cin >> add;
 			for (int i = 0; i < add; i++) {
 				do {
-					cout << "\n    Introduce the type of new weapon number " << i + 1 << " (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
+					cout << "\nIntroduce the type of new weapon number " << i + 1 << " (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
 					cin >> value;
 					if (value == 0) return 1; else if (value == 1 || value == 2 || value == 3 || value == 4) {
 						check = 1;
@@ -486,7 +486,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 			cout << "\nIntroduce the position of the weapon you want to change (0 to break): ";
 			cin >> pos;
 			do {
-				cout << "\n    Introduce the new type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
+				cout << "\nIntroduce the new type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
 				cin >> value;
 				if (value == 0) return 1; else if (value == 1 || value == 2 || value == 3 || value == 4) {
 					check = 1;
@@ -546,7 +546,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 			cout << "\nIntroduce the position of the weapon you want to change (0 to break): ";
 			cin >> pos;
 			do {
-				cout << "\n    Introduce the new type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
+				cout << "\nIntroduce the new type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
 				cin >> value;
 				if (value == 0) return 1; else if (value == 1 || value == 2) {
 					check = 1;

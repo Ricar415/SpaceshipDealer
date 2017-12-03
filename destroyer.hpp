@@ -17,6 +17,7 @@ public:
 	void removeweapon(int weaponposition);
 	void show();
 	int ocapacity();
+	bool check(string vrn);
 };
 
 #endif

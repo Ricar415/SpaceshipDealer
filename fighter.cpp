@@ -38,9 +38,11 @@ void fighter::modifyweapon(int pos, weapon nw) {
 	}
 }
 void fighter::show() {
-	cout << "Register number: " << vrn << " Fighter Maximum Speed: " << maxspeed << " Weapon 1: ";
+	cout << "Register number: " << vrn << " Fighter Maximum Speed: " << maxspeed << endl <<" Weapon number 1: ";
 	weapon1.show();
-	cout << " Weapon2: ";
+	cout << " Weapon number 2: ";
 	weapon2.show();
-	cout << endl;	
+}
+bool fighter::check(string cvrn) {
+	if (vrn == cvrn) return 1; else return 0;
 }

@@ -11,5 +11,5 @@ bool owner::check(string crn) {
 	if (rn == crn) return 1; else return 0;
 }
 void owner::show() {
-	cout << "Owner with register number: " << rn;
+	cout << "Owner with register number: " << rn << endl;
 }

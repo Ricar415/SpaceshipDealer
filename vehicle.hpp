@@ -14,7 +14,7 @@ protected:
 	int maxcrew;
 	int type;
 public:
-	virtual bool check(string cvrn);
+	virtual bool check(string cvrn) = 0;
 	int checktype();
 	string rvrn();
 	virtual void show() = 0;
