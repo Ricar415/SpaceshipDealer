@@ -3,10 +3,13 @@
 #include <iostream>
 
 using namespace std;
-destroyer::destroyer(vector<weapon> weapons, string rn){
+destroyer::destroyer(vector<weapon> weapons,int propulsiont, int maxcrewt, int pricet, string rn){
 	vrn = rn;
 	weaponr = weapons;
 	type = 2;
+	propulsion = propulsiont;
+	maxcrew = maxcrewt;
+	price = pricet;
 }
 void destroyer::modifyweapons(int position, int type) {
 	weapon a(type);
@@ -29,7 +32,7 @@ void destroyer::removeweapon(int weaponposition) {
 	weaponr.erase(weaponr.begin() + weaponposition);
 }
 void destroyer::show() {
-	cout << "Register number: " << vrn << " Destroyer "<< endl;
+	cout << "Register number: " << vrn << " Destroyer; Propulsion type: "<< showpropulsion() << " Maximum crew: " << maxcrew << " Price: " << price << endl;
 	for (unsigned int i = 0; i < weaponr.size(); i++) {
 		cout << " Weapon number " << i + 1 << " type: ";
 		weaponr[i].show();

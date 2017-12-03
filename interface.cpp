@@ -263,11 +263,12 @@ bool interface::removeowner() { // asks owner to remove , checks if it exists, c
 	else return 0; // Default loop
 }
 bool interface::createvehicle() {//asks every part of the vehicle information needed and then calls the corresponding creator funcion of platform with given parameters .. 1.Carrier 2.Destroyer 3.Fighter 4.Station
-	int type,eshield;
+	int type = 0,eshield;
 	int check = 0, check2 = 0;
 	bool check3;
 	vector<weapon> weapons;
 	string rn;
+	int price, maxcrew, propulsion;
 	do {
 		cout << "\n- Create vehicle -\nType N list\n\t1\tCarrier\n\t2\tDestroyer\n\t3\tFighter\n\t4\tStation\n\nIntroduce the vehicle type: ";
 		cin >> type;
@@ -288,6 +289,24 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 			check2 = 1;
 		}
 	} while (check2 == 1);
+	do {
+		cout << "\nIntroduce price: ";
+		cin >> price;
+		if (price <= 0) check = 0; else check = 1;
+	} while (check == 0);
+	do {
+		cout << "\nIntroduce propulsion type(1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
+		cin >> propulsion;
+		if (propulsion <= 0) return 1;
+		if (propulsion > 5) check = 0; else check = 1;
+	} while (check == 0);
+	if (type != 3) {
+		do{
+			cout << "\nIntroduce the maximum crew number: ";
+			cin >> maxcrew;
+			if (maxcrew <= 0) check = 0; else check = 1;
+		} while (check == 0);
+	} 
 	if (type == 1 || type == 4) {
 		do {
 			cout << "\nIntroduce wether or not there is energy shield (1/0): ";
@@ -309,7 +328,7 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 		cout << "\nIntroduce the number of hangars: ";
 		cin >> hn;
 		if (hn == 0) return 1; // Default break
-		platforme->createstation(maxp, hn, eshield, rn);
+		platforme->createstation(maxp, hn, eshield, propulsion, maxcrew, price, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -321,7 +340,7 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 		cout << "\nIntroduce cruising speed: ";
 		cin >> cs;
 		if (cs == 0) return 1; // Default break
-		platforme->createcarrier(ml, cs, eshield, rn);
+		platforme->createcarrier(ml, cs, eshield, propulsion, maxcrew, price, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -330,8 +349,8 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 		cout << "\nIntroduce the number of weapons: ";
 		cin >> size;
 		for (int i = 0; i < size; i++) {
+			int a = 0;
 			do {
-				int a;
 				cout << "\nIntroduce the type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15))" << i << ": "; // 1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)
 				cin >> a;
 				if (a == 0) return 1; /* Default break */ else if (a == 1 || a == 2 || a == 3 || a == 4) {
@@ -341,11 +360,11 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 					cout << "\n-- Invalid type --";
 					check3 = 0;
 				}
-				weapon b(a);
-				weapons.push_back(b);
 			} while (check3 == 0);
+			weapon b(a);
+			weapons.push_back(b);
 		}
-		platforme->createdestroyer(weapons, rn);
+		platforme->createdestroyer(weapons, propulsion, maxcrew, price, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -377,7 +396,7 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 			}
 		} while (check3 == 0);
 		weapon weapon1(weapon1t), weapon2(weapon2t);
-		platforme->createfighter(ms, weapon1, weapon2, rn);
+		platforme->createfighter(ms, propulsion, price, weapon1, weapon2, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -647,7 +666,7 @@ bool interface::ask() {
 }
 bool interface::sell() {
 	string rn,vrn;
-	int check;
+	int check,otype,vtype;
 	cout << "\nIntroduce owner register number (0 to break): ";
 	cin >> rn;
 	if (rn == "0\0") return 1; // Default break
@@ -656,9 +675,8 @@ bool interface::sell() {
 		check = platforme->checkowner(rn);
 	}
 	else {
-		check = 0;
+		return 0;
 	}
-	if (check == 0) return 0;
 	check = 0;
 	do {
 		cout << "\nIntroduce vehicle register number (0 to break): ";
@@ -667,7 +685,20 @@ bool interface::sell() {
 		check = platforme->checktype(vrn);
 		if (check == 3) {
 			check = platforme->checkvehicle(vrn);
-			cout << check;
+			if (check == 1) {
+				vtype = platforme->checkvehicletype(platforme->vehicleposition(vrn));
+				otype = platforme->checktype(rn);
+				if (otype == 1 && vtype != 2) {
+					check = 1;
+				}
+				else if (otype == 2 && vtype != 4){
+					check = 1;
+				}
+				else {
+					cout << endl << "This type of owner is not authorised to buy this type of vehicle";
+					check = 0;
+				}
+			}
 		}
 		else {
 			check = 0;
@@ -685,7 +716,13 @@ bool interface::sell() {
 			check = platforme->checkdate(date);
 		} while (check == 0);
 		platforme->sell(vrn, rn, date);
-		cout << "\nSale was successfully registered\n\n";
+		cout << endl << "Sale was successfully registered";
+		if (vtype == 4 && otype == 1) {
+			int hn = platforme->vehicleposition(vrn);
+			do {
+				check = addfighter(rn, date, hn);
+			} while (check == 0);
+		}
 		return 1;
 	}
 	else return 0;
@@ -693,4 +730,47 @@ bool interface::sell() {
 void interface::showweapons(string vrn) {
 	int position = platforme->vehicleposition(vrn);
 	platforme->showweapons(position);
+}
+bool interface::addfighter(string rn, date saledate, int hn) {
+	int fighteradd;
+	int check2;
+	string fvrn;
+	cout << endl << "You can add fighters to your purchase, the station you bought has " << platforme->stationhn(hn) << " hangars, introduce the number of fighters you want to add: ";
+	cin >> fighteradd;
+	for (int i = 0; i < fighteradd; i++) {
+		do {
+			cout << endl << "Introduce the register number of fighter number " << i + 1 << ": ";
+			cin >> fvrn;
+			if (fvrn == "0\0") return 1;
+			check2 = platforme->checktype(fvrn);
+			if (check2 == 3) {
+				check2 = platforme->checkvehicle(fvrn);
+				if (check2 == 1) {
+					check2 = platforme->checkvehicletype(platforme->vehicleposition(fvrn));
+					if (check2 == 3) {
+						if (platforme->checksales(fvrn) == 0) {
+							check2 = 1;
+						}
+						else {
+							cout << endl << "Introduced vehicle is not available";
+							check2 = 0;
+						}
+					}
+					else {
+						check2 = 0;
+					}
+				}
+				else {
+					check2 = 0;
+				}
+			}
+			else {
+				cout << endl << "--Invalid register number--";
+				check2 = 0;
+			}
+		} while (check2 == 0);
+		platforme->sell(fvrn, rn, saledate);
+		cout << endl << "Sale was successfully registered" << endl;
+	}
+	return 1;
 }

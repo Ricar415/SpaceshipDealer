@@ -13,10 +13,15 @@ protected:
 	int propulsion;
 	int maxcrew;
 	int type;
+	int price;
 public:
 	virtual bool check(string cvrn) = 0;
 	int checktype();
 	string rvrn();
+	string showpropulsion();
+	void modifypropulsion(int npropulsion);
+	void modifymaxcrew(int nmaxcrew);
+	void modifyprice(int nprice);
 	virtual void show() = 0;
 	virtual int nweapons();
 	virtual void showweapon(int a);
@@ -31,6 +36,7 @@ public:
 	virtual void modifyhn(int hn);
 	virtual void modifyes(bool es);
 	virtual int ocapacity();
+	virtual int hn();
 };
 
 #endif

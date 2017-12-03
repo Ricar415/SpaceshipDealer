@@ -11,7 +11,7 @@ private:
     int maxspeed;
     const int crewn = 1;
 public:
-    fighter(int dmaxspeed, weapon dweapon1, weapon dweapon2, string n);
+    fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n);
 	void show();
 	void modifyms(int ms);
 	void modifyw1(int type);

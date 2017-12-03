@@ -1,12 +1,15 @@
 #include "fighter.hpp"
 #include <iostream>
 
-fighter::fighter(int dmaxspeed, weapon dweapon1, weapon dweapon2, string n){
+fighter::fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n){
 	maxspeed = dmaxspeed;
 	weapon1 = dweapon1;
 	weapon2 = dweapon2;
 	vrn = n;
 	type = 3;
+	maxcrew = 1;
+	price = pricet;
+	propulsion = propulsiont;
 }
 int fighter::ocapacity() {
 	int a = weapon1.focapacity() + weapon2.focapacity();
@@ -38,7 +41,7 @@ void fighter::modifyweapon(int pos, weapon nw) {
 	}
 }
 void fighter::show() {
-	cout << "Register number: " << vrn << " Fighter Maximum Speed: " << maxspeed << endl <<" Weapon number 1: ";
+	cout << "Register number: " << vrn << " Fighter Maximum Speed: " << maxspeed << " Propulsion type: " << showpropulsion() << " Maximum crew: 1 Price: " << price << endl <<" Weapon number 1: ";
 	weapon1.show();
 	cout << " Weapon number 2: ";
 	weapon2.show();

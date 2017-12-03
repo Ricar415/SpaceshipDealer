@@ -10,7 +10,7 @@ private:
     bool energyshield;
     int cruisingspeed;
 public:
-    carrier(int cs, int ml, bool es, string vn);
+    carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, string vn);
     void modifyml(int ml);
     void modifycs(int cs);
     void modifyes(bool es);

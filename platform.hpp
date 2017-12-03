@@ -34,10 +34,10 @@ public:
 	int vehicleposition(string rn);
     int checktype(string rn);
 	int checkchar(char position);
-	void createfighter(int ms,weapon weapon1,weapon weapon2, string rn);
-	void createcarrier(int ml,int cs, bool es, string rn);
-	void createdestroyer(vector<weapon> weapons, string rn);
-	void createstation(int maxp,int hn,bool es,string rn);
+	void createfighter(int ms, int propulsiont, int pricet, weapon weapon1,weapon weapon2, string rn);
+	void createcarrier(int ml,int cs, bool es, int propulsiont, int maxcrewt, int pricet, string rn);
+	void createdestroyer(vector<weapon> weapons, int propulsiont, int maxcrewt, int pricet, string rn);
+	void createstation(int maxp,int hn,bool es, int propulsiont, int maxcrewt, int pricet, string rn);
 	bool checksales(string vrn);
 	void sell(string vrn, string rn, date saledate);
 	bool checkdate(date d);
@@ -49,6 +49,7 @@ public:
 	void modifyvehicle(int position, int pos, weapon nw);
 
 	void showweapons(int position);
+	int stationhn(int position);
 };
 
 #endif

@@ -23,5 +23,6 @@ public:
 	bool ask(); // asks if the user wants to continue with the program
 	bool sell();
 	void showweapons(string vrn);
+	bool addfighter(string rn, date saledate, int hn);
 };
 #endif

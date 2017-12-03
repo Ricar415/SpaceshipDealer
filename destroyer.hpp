@@ -8,7 +8,7 @@ using namespace std;
 class destroyer: public vehicle{
 	vector<weapon> weaponr;
 public:
-    destroyer(vector<weapon> weapons, string rn);
+    destroyer(vector<weapon> weapons, int propulsiont, int maxcrewt, int pricet, string rn);
 	int nweapons();
 	void modifyweapons(int position, int type);
 	void showweapon(int position);

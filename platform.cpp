@@ -103,8 +103,7 @@ void platform::createalien(string rn){ // creates alien with given register numb
     owners.push_back(a);
 }
 bool platform::checkowner(string rn) { // returns 1 if the given register number corresponds to a registered owner and 0 otherwise
-	int size = owners.size();
-	for (int i = 0; i < size; i++) {
+	for (unsigned int i = 0; i < owners.size(); i++) {
 		if (owners[i].check(rn) == 1) {
 			return 1;
 		}
@@ -139,21 +138,21 @@ int platform::vehicleposition(string rn) { // returns the position of the given 
 	}
 	return 3301;
 }
-void platform::createfighter(int ms, weapon weapon1, weapon weapon2, string rn){ // creates a fighter with given parameters and includes it in vehicles vector
-	fighter *a = new fighter(ms, weapon1, weapon2, rn);
+void platform::createfighter(int ms, int propulsiont, int pricet, weapon weapon1, weapon weapon2, string rn){ // creates a fighter with given parameters and includes it in vehicles vector
+	fighter *a = new fighter(ms, propulsiont, pricet, weapon1, weapon2, rn);
 	vehicles.push_back(a);
 }
-void platform::createcarrier(int ml, int cs,bool es, string rn) { // creates a carrier with given parameters and includes it in vehicles vector
-	carrier *a = new carrier(ml, cs, es, rn);
+void platform::createcarrier(int ml, int cs, bool es, int propulsion, int maxcrew, int price, string rn) { // creates a carrier with given parameters and includes it in vehicles vector
+	carrier *a = new carrier(ml, cs, es, propulsion, maxcrew, price, rn);
 	vehicles.push_back(a);
 
 }
-void platform::createdestroyer(vector<weapon> weapons, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
-	destroyer *a = new destroyer(weapons, rn);
+void platform::createdestroyer(vector<weapon> weapons, int propulsion, int maxcrew, int price, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
+	destroyer *a = new destroyer(weapons, propulsion, maxcrew, price, rn);
 	vehicles.push_back(a);
 }
-void platform::createstation(int maxp, int hn, bool eshield, string rn) { // creates a station with given parameters and includes it in vehicles vector
-	station *a = new  station(maxp,hn,eshield,rn);
+void platform::createstation(int maxp, int hn, bool eshield, int propulsion, int maxcrew, int price, string rn) { // creates a station with given parameters and includes it in vehicles vector
+	station *a = new  station(maxp, hn, eshield, propulsion, maxcrew, price, rn);
 	vehicles.push_back(a);
 }
 bool platform::checkvehicle(string rn) { // returns 1 if the vehicle register number is already registered and 0 otherwise
@@ -176,18 +175,39 @@ void platform::sell(string vrn, string rn, date saledate) { // creates a sale fo
 	sale a(vrn, rn, saledate);
 	sales.push_back(a);
 }
-bool platform::checkdate(date d) { // temporal!
-	if (d.day > 0 && d.day < 32 && d.month > 0 && d.month < 13 && d.year > 0 && d.year < 2019) {
-		return 1;
+bool platform::checkdate(date d) {
+	if (d.month <= 0 || d.month > 12 ||d.day <= 0 ||d.year <=0) {
+		return 0;
+	} else if (d.month == 1 ||d.month == 3 || d.month == 5 || d.month == 7 ||d.month == 9 ||d.month == 1) {
+		if (d.day > 31) {
+			return 0;
+		}
 	}
-	else return 0;
-}
+	else if (d.month == 2){
+		if (d.year % 4 == 0 && d.year % 100 != 0) {
+			if (d.day > 29) {
+				return 0;
+			}
+		}
+		else {
+			if (d.day > 28) {
+				return 0;
+			}
+		}
+	}
+	else {
+		if (d.day > 30) {
+			return 0;
+		}
+	}
+	return 1;
+} 
 int platform::checkvehicletype(int position) {
 	return vehicles[position]->checktype();
 }
 
 void platform::showweapons(int position) {
-	int type, nweapons;
+	int type = 0, nweapons;
 	if (vehicles[position]->checktype() == 3) {
 		nweapons = 2;
 		cout << "\nWeapon 1 type:: ";
@@ -248,4 +268,8 @@ void platform::modifyvehicle(int position, int pos, weapon weapon) {
 }
 void platform::modifyvehicle(int position, bool es) {
 	vehicles[position]->modifyes(es);
+}
+
+int platform::stationhn(int position) {
+	return vehicles[position]->hn();
 }
