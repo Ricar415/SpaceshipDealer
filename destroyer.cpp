@@ -49,5 +49,5 @@ bool destroyer::check(string cvrn) {
 	if (vrn == cvrn) return 1; else return 0;
 }
 string destroyer::reg() {
-	return " ";
+	return " "; //falta por implementar
 }
