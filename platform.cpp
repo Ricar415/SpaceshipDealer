@@ -11,37 +11,53 @@
 
 using namespace std;
 void platform::lavailable() {
-	for (unsigned int i = 0; i < vehicles.size(); i++) {
-		if (checksales(vehicles[i]->rvrn()) == 0) {
-			vehicles[i]->show();
-		}
-	}
-}
-void platform::lbyocapacity() {
-	vector<vehicle*> tempvector;
+	vector<vehicle*> tempvector = vehicles;
 	vehicle *temp;
 	int type;
-	for (unsigned int i = 0; i < vehicles.size(); i++) {
-		type = vehicles[i]->checktype();
-		if (type == 2 || type == 3) {
-			tempvector.push_back(vehicles[i]);
-		}
-	}
 	int a;
-	for (unsigned int i = 1; i < tempvector.size(); i++){ // Using insertion sorting as we are expecting low amounts of vehicles for testing
+	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
-		for (a = i - 1; (a >= 0) && (tempvector[a]->ocapacity() < tempvector[a + 1]->ocapacity()); a--)
+		for (a = i - 1; (a >= 0) && (lessthan(a,i)); a--)
 		{
 			tempvector[a + 1] = tempvector[a];
-			tempvector[a] = temp;
 		}
+		tempvector[a + 1] = temp;
 	}
 	for (unsigned int i = 0; i < tempvector.size(); i++) {
 		tempvector[i]->show();
 	}
-	return;
 }
-
+void platform::lbyocapacity() {
+	vector<vehicle*> tempvector = vehicles;
+	vehicle *temp;
+	int type;
+	int a;
+	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
+		temp = tempvector[i];
+		for (a = i - 1; (a >= 0) && (tempvector[a - 1]->ocapacity() < tempvector[a]->ocapacity()); a--)
+		{
+			tempvector[a + 1] = tempvector[a];
+		}
+		tempvector[a + 1] = temp;
+	}
+	for (unsigned int i = 0; i < tempvector.size(); i++) {
+		tempvector[i]->show();
+	}
+}
+bool platform::lessthan(int a, int b) {
+	string astring, bstring;
+	astring = vehicles[a]->rvrn();
+	bstring = vehicles[b]->rvrn();
+	for (unsigned int i = 0; i < 9; i++) {
+		if (astring.at(i) < bstring.at(i)) {
+			return 1;
+		}
+		else if (astring.at(i) > bstring.at(i)) {
+			return 0;
+		}
+	}
+	return 0;
+}
 void platform::listowners() {
 	for (unsigned int i = 0; i < owners.size(); i++) {
 		owners[i].show();

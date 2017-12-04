@@ -54,6 +54,7 @@ public:
 	void modifypropulsion(int position, int npropulsion);
 	void modifymcrew(int position, int nmaxcrew);
 	void modifyprice(int position, int nprice);
+	bool lessthan(int a, int b);
 };
 
 #endif
