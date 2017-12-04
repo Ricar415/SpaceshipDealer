@@ -9,7 +9,6 @@ class fighter:public vehicle{
 private:
 	weapon weapon1, weapon2;
     int maxspeed;
-    const int crewn = 1;
 public:
     fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n);
 	void show();

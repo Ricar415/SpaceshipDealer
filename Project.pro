@@ -9,7 +9,9 @@ HEADERS += \
     station.hpp \
     vehicle.hpp \
     platform.hpp \
-    interface.hpp
+    interface.hpp \
+    weapon.hpp \
+    init.hpp
 
 SOURCES += \
     alien.cpp \
@@ -23,4 +25,6 @@ SOURCES += \
     station.cpp \
     vehicle.cpp \
     platform.cpp \
-    interface.cpp
+    interface.cpp \
+    weapon.cpp \
+    init.cpp

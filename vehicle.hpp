@@ -7,13 +7,9 @@
 using namespace std;
 
 class vehicle {
-	friend class platform;
 protected:
 	string vrn;
-	int propulsion;
-	int maxcrew;
-	int type;
-	int price;
+	int type, propulsion, maxcrew, price;
 public:
 	virtual bool check(string cvrn) = 0;
 	int checktype();
