@@ -30,11 +30,11 @@ void platform::lbyocapacity() {
 	int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++){ // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
-		for (a = i - 1; (a >= 0) && (tempvector[a]->ocapacity() < tempvector[i]->ocapacity()); a--)
+		for (a = i - 1; (a >= 0) && (tempvector[a]->ocapacity() < tempvector[a + 1]->ocapacity()); a--)
 		{
 			tempvector[a + 1] = tempvector[a];
+			tempvector[a] = temp;
 		}
-		tempvector[a + 1] = temp;
 	}
 	for (unsigned int i = 0; i < tempvector.size(); i++) {
 		tempvector[i]->show();
@@ -263,7 +263,7 @@ void platform::modifyvehicle(int position, int code, int value) {
 		vehicles[position]->modifyhn(value);
 	}
 }
-void platform::modifyvehicle(int position, int pos, weapon weapon) {(1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine)
+void platform::modifyvehicle(int position, int pos, weapon weapon) {
 	vehicles[position]->modifyweapon(pos, weapon);
 }
 void platform::modifyvehicle(int position, bool es) {
@@ -277,7 +277,7 @@ void platform::modifypropulsion(int position, int npropulsion){
   vehicles[position]->modifypropulsion(npropulsion);
 }
 void platform::modifymcrew(int position, int nmaxcrew){
-  vehicles[position]->modifymcrew(nmaxcrew);
+  vehicles[position]->modifymaxcrew(nmaxcrew);
 }
 void platform::modifyprice(int position, int price){
   vehicles[position]->modifyprice(price);

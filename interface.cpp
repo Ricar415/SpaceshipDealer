@@ -458,7 +458,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 		case 5:
 			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
 			cin >> propulsion;
-			platforme->modifypopulsion(position, propulsion);
+			platforme->modifypropulsion(position, propulsion);
 			return 1;
 			break;
 		case 6:
@@ -482,7 +482,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 		if (ask == 0) return 1;
 		switch (ask) {
 		case 1:
-			do {(1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15))
+			do {
 				cout << "\nIntroduce new register number: ";
 				cin >> nvrn;
 				if (nvrn == "0\0") return 1;
@@ -548,7 +548,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 		case 5:
 			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
 			cin >> propulsion;
-			platforme->modifypopulsion(position, propulsion);
+			platforme->modifypropulsion(position, propulsion);
 			return 1;
 			break;
 		case 6:
@@ -615,7 +615,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 		case 4:
 			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
 			cin >> propulsion;
-			platforme->modifypopulsion(position, propulsion);
+			platforme->modifypropulsion(position, propulsion);
 			return 1;
 			break;
 		case 5: cout << "\nIntroduce new price: ";
@@ -669,7 +669,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 		case 5:
 			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
 			cin >> propulsion;
-			platforme->modifypopulsion(position, propulsion);
+			platforme->modifypropulsion(position, propulsion);
 			return 1;
 			break;
 		case 6:
