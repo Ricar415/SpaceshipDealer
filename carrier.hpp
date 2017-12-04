@@ -16,6 +16,6 @@ public:
     void modifyes(bool es);
 	void show();
 	bool check(string vrn);
+	string reg();
 };
-
 #endif

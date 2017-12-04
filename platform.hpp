@@ -55,6 +55,14 @@ public:
 	void modifymcrew(int position, int nmaxcrew);
 	void modifyprice(int position, int nprice);
 	bool lessthan(int a, int b);
+
+	int vsize();
+	int osize();
+	int ssize();
+
+	string vregister(int position);
+	string oregister(int position);
+	string sregister(int position);
 };
 
 #endif

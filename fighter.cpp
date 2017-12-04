@@ -49,3 +49,6 @@ void fighter::show() {
 bool fighter::check(string cvrn) {
 	if (vrn == cvrn) return 1; else return 0;
 }
+string fighter::reg() {
+	return " ";
+}

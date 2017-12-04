@@ -775,7 +775,7 @@ bool interface::sell() {
 			check = platforme->checkdate(date);
 		} while (check == 0);
 		platforme->sell(vrn, rn, date);
-		cout << endl << "Sale was successfully registered";
+		cout << endl << "Sale was successfully registered" << endl;
 		if (vtype == 4 && otype == 1) {
 			int hn = platforme->vehicleposition(vrn);
 			do {

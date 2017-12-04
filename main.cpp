@@ -9,6 +9,7 @@ int main (){
 	init.initialize();
     interface interface(platforme);
 	interface.menu();
+	init.registry();
 	delete platforme;
     return 0;
 }

@@ -37,3 +37,16 @@ bool sale::checkowner(string orn) {
 string sale::rvrn() {
 	return vrn;
 }
+string sale::reg() { // Returns string of formatted parameters
+	string temp, space = " ", day = to_string(saledate.day), month = to_string(saledate.month), year = to_string(saledate.year);
+	temp = vrn;
+	temp += space;
+	temp += rn;
+	temp += space;
+	temp += day;
+	temp += space;
+	temp += month;
+	temp += space;
+	temp += year;
+	return temp;
+}

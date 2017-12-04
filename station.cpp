@@ -27,3 +27,6 @@ void station::show() {
 }
 bool station::check(string cvrn){ if (vrn == cvrn) return 1; else return 0; }
 int station::hn() { return hangarn; }
+string station::reg() {
+	return " ";
+}

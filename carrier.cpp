@@ -37,3 +37,23 @@ void carrier::show() { // Parameter display function
 bool carrier::check(string cvrn) {
 	if (vrn == cvrn) return 1; else return 0;
 }
+string carrier::reg() {
+	string temp, space = " ", pt = to_string(propulsion), mcrew = to_string(maxcrew), pr = to_string(price), ml = to_string(maxload), es = to_string(energyshield), cs = to_string(cruisingspeed), t = to_string(type);
+	temp = vrn;
+	temp += space;
+	temp += t;
+	temp += space;
+	temp += pt;
+	temp += space;
+	temp += mcrew;
+	temp += space;
+	temp += pr;
+	temp += space;
+	temp += ml;
+	temp += space;
+	temp += es;
+	temp += space;
+	temp += cs;
+	temp += space;
+	return temp;
+}

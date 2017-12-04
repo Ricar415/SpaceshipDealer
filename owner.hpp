@@ -10,6 +10,7 @@ public:
 	void modify(string nrn);
 	bool check(string crn);
 	void show();
+	string reg();
 };
 
 #endif

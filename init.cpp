@@ -9,7 +9,7 @@
 init::init(platform *_platforme) {
 	platforme = _platforme;
 }
-void init::initialize() {
+void init::initialize() { // Will open the default files for the register, read them along a format and call the initializations of the corresponding vehicles, owners and sales after checking compatibility
 	cout << "Initializing registered values..." << endl;
 	ifstream vehicle("VehicleRegister.txt");
 	if (!vehicle) {
@@ -21,12 +21,17 @@ void init::initialize() {
 		bool es, empty = 0;
 		vector<weapon> weapons;
 		weapon w1, w2;
+		vehicle.seekg(0, ios_base::end);
+		size_t len = vehicle.tellg();
+		vehicle.seekg(0, ios_base::beg);
+		if (len == 0) {
+			cerr << "Error: empty file" << endl;
+		}
 		while (!vehicle.eof()) {
+			vrn = " ";
 			vehicle >> vrn >> type >> propulsion >> maxcrew >> price;
-			if (vrn == "") {
-				cerr << "Error: Empty file" << endl;
-				empty = 1;
-				i--;
+			if (platforme->checktype(vrn) != 3) {
+				type = 5;
 			}
 			switch (type) {
 			case 1 :
@@ -51,9 +56,12 @@ void init::initialize() {
 			case 4:
 				vehicle >> maxp >> hn >> es;
 				platforme->createstation(maxp, hn, es, propulsion, maxcrew, price, vrn);
-			default: 
-				if (empty == 1) break;
+			case 5:
+				i--;
+				break;
+			default:
 				cerr << "Error: Corrupted register" << endl;
+				i--;
 				break;
 			}
 			i++;
@@ -72,7 +80,7 @@ void init::initialize() {
 		while (!owner.eof()) {
 			owner >> rn;
 			if (rn == "") {
-				cerr << "Error: Epty file" << endl;
+				cerr << "Error: Empty file" << endl;
 				i--;
 				empty = 1;
 			}
@@ -84,8 +92,12 @@ void init::initialize() {
 			else if (type == 2 && check == 0) {
 				platforme->createalien(rn);
 			}
-			else if (empty == 0){
+			else if (empty == 0 && type == 0){
 				cerr << "Error: Corrupted register" << endl;
+				i--;
+			}
+			else {
+				i--;
 			}
 			i++;
 		}
@@ -116,12 +128,15 @@ void init::initialize() {
 			} else if (empty == 0){
 				if (checkrn == 0) {
 					cerr << "Error: Sale with unregistered owner" << endl;
+					i--;
 				}
 				else if (checkvrn == 0) {
 					cerr << "Error: Sale with unregistered vehicle" << endl;
+					i--;
 				}
 				else if (checksold == 1) {
 					cerr << "Error: Repeated sale" << endl;
+					i--;
 				}
 			}
 			i++;
@@ -130,8 +145,20 @@ void init::initialize() {
 	}
 	sale.close();
 }
-void init::registry() {
+void init::registry() { // This function will clear the files we use for the register and will write all the information registered in each file with the correct format in order to avoid format problems due to rewriting
 	ofstream vehicle("VehicleRegister.txt");
+	for (int i = 0; i < platforme->vsize(); i++) {
+		vehicle << platforme->vregister(i);
+	}
+	vehicle.close();
 	ofstream owner("OwnerRegister.txt");
+	for (int i = 0; i < platforme->osize(); i++) {
+		owner << platforme->oregister(i);
+	}
+	owner.close();
 	ofstream sale("SaleRegister.txt");
+	for (int i = 0; i < platforme->ssize(); i++) {
+		sale << platforme->sregister(i);
+	}
+	sale.close();
 }

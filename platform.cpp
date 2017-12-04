@@ -13,7 +13,7 @@ using namespace std;
 void platform::lavailable() {
 	vector<vehicle*> tempvector = vehicles;
 	vehicle *temp;
-	int type;
+	int type = 0;
 	int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
@@ -30,7 +30,7 @@ void platform::lavailable() {
 void platform::lbyocapacity() {
 	vector<vehicle*> tempvector = vehicles;
 	vehicle *temp;
-	int type;
+	int type = 0;
 	int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
@@ -297,4 +297,18 @@ void platform::modifymcrew(int position, int nmaxcrew){
 }
 void platform::modifyprice(int position, int price){
   vehicles[position]->modifyprice(price);
+}
+
+int platform::vsize() { return vehicles.size(); }
+int platform::osize() { return owners.size(); }
+int platform::ssize() { return sales.size(); }
+
+string platform::vregister(int position) {
+	return vehicles[position]->reg();
+}
+string platform::oregister(int position) {
+	return owners[position].reg();
+}
+string platform::sregister(int position) {
+	return sales[position].reg();
 }

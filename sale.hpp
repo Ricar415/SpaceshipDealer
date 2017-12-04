@@ -21,6 +21,7 @@ public:
 	bool greaterequalthan(date date);
 	bool checkowner(string orn);
 	string rvrn();
+	string reg();
 };
 
 #endif

@@ -18,6 +18,7 @@ public:
 	void show();
 	int ocapacity();
 	bool check(string vrn);
+	string reg();
 };
 
 #endif

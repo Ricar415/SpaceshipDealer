@@ -33,6 +33,7 @@ public:
 	virtual void modifyes(bool es);
 	virtual int ocapacity();
 	virtual int hn();
+	virtual string reg() = 0;
 };
 
 #endif

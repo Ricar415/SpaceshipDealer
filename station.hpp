@@ -17,6 +17,7 @@ public:
 	void show();
 	bool check(string rn);
 	int hn();
+	string reg();
 };
 
 #endif

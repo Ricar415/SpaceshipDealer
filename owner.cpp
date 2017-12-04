@@ -13,3 +13,9 @@ bool owner::check(string crn) {
 void owner::show() {
 	cout << "Owner with register number: " << rn << endl;
 }
+string owner::reg() { // Returns string of formatted parameters
+	string temp;
+	temp = rn;
+	temp += " ";
+	return temp;
+}
