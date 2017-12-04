@@ -240,7 +240,7 @@ bool interface::modifyowner() { // asks owner to modify and new register number 
 	} while (a != 1 && a != 2);
 	return 1; // Wont happen
 }
-bool interface::removeowner() { // asks owner to remove , checks if it exists, checks its position in platform´s owners vector and calls platform::removeowner(position)
+bool interface::removeowner() { // asks owner to remove , checks if it exists, checks its position in platform?s owners vector and calls platform::removeowner(position)
 	string rn;
 	int check;
 	int position;
@@ -406,6 +406,7 @@ bool interface::createvehicle() {//asks every part of the vehicle information ne
 bool interface::modifyvehicle() { // asks vehicle to remove, lists options depending on type and then calls vehicle::*needed function* with given parameters
 	string vrn, nvrn;
 	weapon d;
+	int price, maxcrew, propulsion;
 	bool check = 0, es;
 	int position, type, ask, value, code = 0, pos;
 	cout << "\nIntroduce the register number of the vehicle you want to modify (0 to break): ";
@@ -416,7 +417,7 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 	position = platforme->vehicleposition(vrn);
 	type = platforme->checkvehicletype(position);
 	if (type == 1) {
-		cout << "\n\n 1 - Change register number \n 2 - Change cruising speed \n 3 - Change maximum load \n 4 - Remove/Add energy shield";
+		cout << "\n\n 1 - Change register number \n 2 - Change cruising speed \n 3 - Change maximum load \n 4 - Remove/Add energy shield\n 5 - Change propulsion type\n 6 - Change maximum crew number\n 7 - Change price\nIntroduce option number: ";
 		cin >> ask;
 		if (ask == 0) return 1;
 		switch (ask) {
@@ -454,18 +455,34 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 			platforme->modifyvehicle(position, code, es);
 			return 1;
 			break;
+		case 5:
+			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
+			cin >> propulsion;
+			platforme->modifypopulsion(position, propulsion);
+			return 1;
+			break;
+		case 6:
+			cout << "\nIntroduce new maximum number of crew: ";
+			cin >> maxcrew;
+			platforme->modifymcrew(position, maxcrew);
+			return 1;
+			break;
+		case 7: cout << "\nIntroduce new price: ";
+			cin >> price;
+			platforme->modifyprice(position, price);
+			break;
 		default:
 			return 1;
 			break;
 		}
 	}
 	else if (type == 2) {
-		cout << "\n\n 1 - Change register number \n 2 - Increase number of weapons \n 3 - Change weapon type \n 4 - Remove weapons \n ";
+		cout << "\n\n 1 - Change register number \n 2 - Increase number of weapons \n 3 - Change weapon type \n 4 - Remove weapons \n 5 - Change propulsion type\n 6 - Change maximum crew number\n 7 - Change price\nIntroduce option number:  ";
 		cin >> ask;
 		if (ask == 0) return 1;
 		switch (ask) {
 		case 1:
-			do {
+			do {(1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15))
 				cout << "\nIntroduce new register number: ";
 				cin >> nvrn;
 				if (nvrn == "0\0") return 1;
@@ -528,13 +545,29 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 			platforme->modifyvehicle(position, code, value);
 			return 1;
 			break;
+		case 5:
+			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
+			cin >> propulsion;
+			platforme->modifypopulsion(position, propulsion);
+			return 1;
+			break;
+		case 6:
+			cout << "\nIntroduce new maximum number of crew: ";
+			cin >> maxcrew;
+			platforme->modifymcrew(position, maxcrew);
+			return 1;
+			break;
+		case 7: cout << "\nIntroduce new price: ";
+			cin >> price;
+			platforme->modifyprice(position, price);
+			break;
 		default:
 			return 1;
 			break;
 		}
 	}
 	else if (type == 3) {
-		cout << "\n\n 1 - Change register number \n 2 - Change maximum speed \n 3 - Change weapon \n";
+		cout << "\n\n 1 - Change register number \n 2 - Change maximum speed \n 3 - Change weapon \n 4 - Change propulsion type\n 5 - Change price\nIntroduce option number: ";
 		cin >> ask;
 		if (ask == 0) return 1;
 		switch (ask) {
@@ -579,13 +612,23 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 			platforme->modifyvehicle(position, pos, d);
 			return 1;
 			break;
+		case 4:
+			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
+			cin >> propulsion;
+			platforme->modifypopulsion(position, propulsion);
+			return 1;
+			break;
+		case 5: cout << "\nIntroduce new price: ";
+			cin >> price;
+			platforme->modifyprice(position, price);
+			break;
 		default:
 			return 1;
 			break;
 		}
 	}
 	else if (type == 4) {
-		cout << "\n\n 1 - Change register number \n 2 - Change maximum p \n 3 - Change number of hangars \n 4 - Remove/Add energy shield";
+		cout << "\n\n 1 - Change register number \n 2 - Change maximum p \n 3 - Change number of hangars \n 4 - Remove/Add energy shield \n 5 - Change propulsion type\n 6 - Change maximum crew number\n 7 - Change price\nIntroduce option number: ";
 		cin >> ask;
 		if (ask == 0) return 1;
 		switch (ask) {
@@ -622,6 +665,22 @@ bool interface::modifyvehicle() { // asks vehicle to remove, lists options depen
 			cin >> es;
 			platforme->modifyvehicle(position, code, es);
 			return 1;
+			break;
+		case 5:
+			cout << "\nIntroduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
+			cin >> propulsion;
+			platforme->modifypopulsion(position, propulsion);
+			return 1;
+			break;
+		case 6:
+			cout << "\nIntroduce new maximum number of crew: ";
+			cin >> maxcrew;
+			platforme->modifymcrew(position, maxcrew);
+			return 1;
+			break;
+		case 7: cout << "\nIntroduce new price: ";
+			cin >> price;
+			platforme->modifyprice(position, price);
 			break;
 		default:
 			return 1;

@@ -50,6 +50,10 @@ public:
 
 	void showweapons(int position);
 	int stationhn(int position);
+
+	void modifypropulsion(int position, int npropulsion);
+	void modifymcrew(int position, int nmaxcrew);
+	void modifyprice(int position, int nprice);
 };
 
 #endif
