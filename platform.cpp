@@ -32,6 +32,23 @@ void platform::lavailable() {
 		tempvector[i]->show();
 	}
 }
+void platform::lall() {
+	vector<vehicle*> tempvector = vehicles;
+	vehicle *temp;
+	int type = 0;
+	int a;
+	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
+		temp = tempvector[i];
+		for (a = i - 1; (a >= 0) && (lessthan(a, i)); a--)
+		{
+			tempvector[a + 1] = tempvector[a];
+		}
+		tempvector[a + 1] = temp;
+	}
+	for (unsigned int i = 0; i < tempvector.size(); i++) {
+		tempvector[i]->show();
+	}
+}
 void platform::lbyocapacity() {
 	vector<vehicle*> tempvector = vehicles;
 	vehicle *temp;
@@ -231,15 +248,15 @@ void platform::showweapons(int position) {
 	int type = 0, nweapons;
 	if (vehicles[position]->checktype() == 3) {
 		nweapons = 2;
-		cout << "\nWeapon 1 type:: ";
+		cout << "Weapon 1 type:: ";
 		vehicles[position]->showweapon(1);
-		cout << "\nWeapon 2 type: ";
+		cout << "Weapon 2 type: ";
 		vehicles[position]->showweapon(2);
 	}
 	else {
 		nweapons = vehicles[position]->nweapons(); // function of destroyer (ask)
 		for (int i = 0; i < nweapons; i++) {
-			cout << "\nPosition " << i << " weapon type:";
+			cout << "Position " << i << " weapon type:";
 			vehicles[position]->showweapon(i); //function of weapon in vector of destroyer (ask)
 		}
 	}
@@ -317,3 +334,5 @@ string platform::oregister(int position) {
 string platform::sregister(int position) {
 	return sales[position].reg();
 }
+
+int platform::destroyerwsize(int position) { return vehicles[position]->nweapons(); }

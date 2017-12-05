@@ -6,6 +6,7 @@
 #include "weapon.hpp"
 #include <fstream>
 #include <iostream>
+
 init::init(platform *_platforme) {
 	platforme = _platforme;
 }
