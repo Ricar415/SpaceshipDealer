@@ -4,11 +4,13 @@
 using namespace std;
 
 class owner{
-    friend class platform;
 protected:
     string rn;
 public:
 	void modify(string nrn);
+	bool check(string crn);
+	void show();
+	string reg();
 };
 
 #endif

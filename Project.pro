@@ -10,7 +10,8 @@ HEADERS += \
     vehicle.hpp \
     platform.hpp \
     interface.hpp \
-    weapon.hpp
+    weapon.hpp \
+    init.hpp
 
 SOURCES += \
     alien.cpp \
@@ -25,4 +26,5 @@ SOURCES += \
     vehicle.cpp \
     platform.cpp \
     interface.cpp \
-    weapon.cpp
+    weapon.cpp \
+    init.cpp

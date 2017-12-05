@@ -9,11 +9,17 @@ class fighter:public vehicle{
 private:
 	weapon weapon1, weapon2;
     int maxspeed;
-    const int crewn = 1;
 public:
-    fighter(int dmaxspeed, weapon dweapon1, weapon dweapon2, string n);
-    void modifyw(int w);
-    void modifyms(int ms);
+    fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n);
+	void show();
+	void modifyms(int ms);
+	void modifyw1(int type);
+	void modifyw2(int type);
+	void showweapon(int wn);
+	void modifyweapon(int pos, weapon w);
+	int ocapacity();
+	bool check(string vrn);
+	string reg();
 };
 
 #endif
