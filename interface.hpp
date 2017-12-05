@@ -24,5 +24,9 @@ public:
 	bool sell();
 	void showweapons(string vrn);
 	bool addfighter(string rn, date saledate, int hn);
+
+	int modifyprice();
+	int modifymaxcrew();
+	int modifypropulsion();
 };
 #endif

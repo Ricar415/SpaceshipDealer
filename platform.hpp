@@ -18,6 +18,7 @@ public:
     void lavailable(); //list functions (default by rn)
     void lbyocapacity();
     void lbyowner(string rn);
+	void lall();
 
 	void lsales(date start, date end);
 	void listowners();
@@ -59,6 +60,8 @@ public:
 	int vsize();
 	int osize();
 	int ssize();
+
+	int destroyerwsize(int position);
 
 	string vregister(int position);
 	string oregister(int position);
