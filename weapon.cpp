@@ -46,3 +46,6 @@ void weapon::modify(int ntype) {
 void weapon::show() {
 	cout << type << endl;
 }
+int weapon::returntype() {
+	return type;
+}

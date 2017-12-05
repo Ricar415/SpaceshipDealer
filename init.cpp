@@ -20,7 +20,7 @@ void init::initialize() { // Will open the default files for the register, read 
 		int i = 0, type, price, maxcrew, propulsion, maxload, maxp, hn, cs, size, wtype, maxspeed, wt1, wt2;
 		bool es, empty = 0;
 		vector<weapon> weapons;
-		weapon w1, w2;
+		weapon w1(1), w2(2);
 		vehicle.seekg(0, ios_base::end);
 		size_t len = vehicle.tellg();
 		vehicle.seekg(0, ios_base::beg);
@@ -40,6 +40,7 @@ void init::initialize() { // Will open the default files for the register, read 
 				break;
 			case 2:
 				vehicle >> size;
+				weapons.clear(); // Important so that if there is more than one destroyer the weapons dont stack each loop
 				for (int i = 0; i < size; i++) {
 					vehicle >> wtype;
 					weapon a(wtype);

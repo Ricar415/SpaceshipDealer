@@ -28,5 +28,22 @@ void station::show() {
 bool station::check(string cvrn){ if (vrn == cvrn) return 1; else return 0; }
 int station::hn() { return hangarn; }
 string station::reg() {
-	return " "; // falta por implementar
+	string temp, space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), mp = to_string(maxp), hn = to_string(hangarn), es = to_string(energyshield);
+	temp = vrn;
+	temp += space;
+	temp += t;
+	temp += space;
+	temp += p;
+	temp += space;
+	temp += mc;
+	temp += space;
+	temp += pr;
+	temp += space;
+	temp += mp;
+	temp += space;
+	temp += hn;
+	temp += space;
+	temp += es;
+	temp += space;
+	return temp;
 }

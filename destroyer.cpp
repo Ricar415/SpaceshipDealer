@@ -49,5 +49,22 @@ bool destroyer::check(string cvrn) {
 	if (vrn == cvrn) return 1; else return 0;
 }
 string destroyer::reg() {
-	return " "; //falta por implementar
+	string temp = vrn, space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), wt;
+	temp += space;
+	temp += t;
+	temp += space;
+	temp += p;
+	temp += space;
+	temp += mc;
+	temp += space;
+	temp += pr;
+	temp += space;
+	temp += to_string(weaponr.size());
+	for (int i = 0; i < weaponr.size(); i++) {
+		wt = to_string(weaponr[i].returntype());
+		temp += space;
+		temp += wt;
+	}
+	temp += space;
+	return temp;
 }

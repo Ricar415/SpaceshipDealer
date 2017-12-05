@@ -11,6 +11,7 @@ public:
 	void modify(int ntype);
 	void show();
 	int focapacity();
+	int returntype();
 };
 
 #endif

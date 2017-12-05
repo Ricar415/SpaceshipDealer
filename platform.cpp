@@ -11,8 +11,13 @@
 
 using namespace std;
 void platform::lavailable() {
-	vector<vehicle*> tempvector = vehicles;
+	vector<vehicle*> tempvector;
 	vehicle *temp;
+	for (unsigned int i = 0; i < vehicles.size(); i++) {
+		if (checksales(vehicles[i]->rvrn()) == 0) {
+			tempvector.push_back(vehicles[i]);
+		}
+	}
 	int type = 0;
 	int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing

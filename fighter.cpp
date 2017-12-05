@@ -50,5 +50,22 @@ bool fighter::check(string cvrn) {
 	if (vrn == cvrn) return 1; else return 0;
 }
 string fighter::reg() {
-	return " ";//falta por implementar
+	string temp, space = " ", t = to_string(type), p=to_string(propulsion), mc=to_string(maxcrew),pr=to_string(price), ms = to_string(maxspeed), wt1 = to_string(weapon1.returntype()), wt2 = to_string(weapon2.returntype());
+	temp = vrn;
+	temp += space;
+	temp += t;
+	temp += space;
+	temp += p;
+	temp += space;
+	temp += mc;
+	temp += space;
+	temp += pr;
+	temp += space;
+	temp += ms;
+	temp += space;
+	temp += wt1;
+	temp += space;
+	temp += wt2;
+	temp += space;
+	return temp;
 }
