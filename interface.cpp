@@ -339,50 +339,16 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 			check = 1;
 		}
 	} while (check == 1);
-	do {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Introduce price: ";
-		cin >> price;
-	} while (cin.fail() || price <= 0);
-	do {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Introduce propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
-		cin >> propulsion;
-	} while (cin.fail() || propulsion <= 0 || propulsion > 5);
-	if (type != 3) {
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce the maximum crew number: ";
-			cin >> maxcrew;
-		} while (cin.fail() || maxcrew <= 0);
-	}
-	if (type == 1 || type == 4) {
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce wether or not there is energy shield (1/0): ";
-			cin >> eshield;
-		} while (cin.fail());
-	}
+	price = modify(3);
+	propulsion = modify(1);
+	if (type != 3) { maxcrew = modify(2); }
+	if (type == 1 || type == 4) { eshield = modify(6); }
 	switch (type) {
 	case 4:
 		int maxp, hn;
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce the maximum number of passengers: ";
-			cin >> maxp;
-		} while (cin.fail() || maxp < 0);
+		maxp = modify(7);
 		if (maxp == 0) return 1; // Default break
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce the number of hangars: ";
-			cin >> hn;
-		} while (cin.fail() || hn < 0);
+		hn = modify(8);
 		if (hn == 0) return 1; // Default break
 		platforme->createstation(maxp, hn, eshield, propulsion, maxcrew, price, rn);
 		cout << "\nVehicle was successfully created\n";
@@ -390,19 +356,9 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 		break;
 	case 1:
 		int ml, cs;
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce the maximum load capacity: ";
-			cin >> ml;
-		} while (cin.fail() || ml < 0);
+		ml = modify(5);
 		if (ml == 0) return 1; // Default break
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce cruising speed: ";
-			cin >> cs;
-		} while (cin.fail() || cs < 0);
+		cs = modify(4);
 		if (cs == 0) return 1; // Default break
 		platforme->createcarrier(ml, cs, eshield, propulsion, maxcrew, price, rn);
 		cout << "\nVehicle was successfully created\n";
@@ -429,12 +385,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 		break;
 	case 3:
 		int ms, weapon1t, weapon2t;
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce the maximum speed: ";
-			cin >> ms;
-		} while (cin.fail() || ms < 0);
+		ms = modify(9);
 		if (ms == 0) return 1; // Default break
 		do {
 			cin.clear();
@@ -670,39 +621,38 @@ bool interface::modifyvehicle() {
 	return 1;
 }
 
-int interface::modify(int code) {
+int interface::modify(int code) { // 1.Propulsion 2.Maximum crew 3.Price 4.Cruising speed 5.Maximum load 6.Energy shield 7.Maximum passengers 8. Number of hangars 9. Maximum speed
 	int value;
 	do {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Introduce the new ";
 		switch (code) {
 		case 1:
-			cout << "propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine):";
+			cout << "Introduce the propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine):";
 			break;
 		case 2:
-			cout << "maximum crew";
+			cout << "Introduce the maximum crew number";
 			break;
 		case 3:
-			cout << "price: ";
+			cout << "Introduce the price (billions): ";
 			break;
 		case 4:
-			cout << "cruising speed: ";
+			cout << "Introduce the cruising speed: ";
 			break;
 		case 5:
-			cout << "maximum load: ";
+			cout << "Introduce the maximum load (tons): ";
 			break;
 		case 6:
-			cout << "energy shield configuration (1/0): ";
+			cout << "Introduce wether the vehicle has energy shield or not (1/0): ";
 			break;
 		case 7:
-			cout << "number of maximum passengers: ";
+			cout << "Introduce the number of maximum passengers: ";
 			break;
 		case 8:
-			cout << "number of hangars: ";
+			cout << "Introduce the number of hangars: ";
 			break;
 		case 9:
-			cout << "maximum speed: ";
+			cout << "Introduce the maximum speed: ";
 			break;
 		}
 		cin >> value;

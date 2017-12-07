@@ -44,10 +44,10 @@ private:
 
 	// -- Modify functions --
     bool modifyowner(); // asks owner to modify and new register number and then calls platform::modifyowner
-	bool modifyvehicle(); // asks vehicle to remove, lists options depending on type and then calls vehicle::*needed function* with given parameters
+	bool modifyvehicle(); // asks vehicle to modify, lists options depending on type and then calls vehicle::*needed function* with given parameters
 
-	int modify(int code);
-	int weapontype();
+	int modify(int code); // asks the user to introduce different integer or boolean values depending on the code used as parameter (used for modular structure of the menus)
+	int weapontype(); // asks the user to introduce a weapon type and returns it
 
 
 	// -- Remove functions --
