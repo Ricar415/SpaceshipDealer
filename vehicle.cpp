@@ -8,7 +8,7 @@ vehicle::vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _ty
 	propulsion = _propulsion;
 	maxcrew = _maxcrew;
 	price = _price;
-	type = type;
+	type = _type;
 }
 
 int vehicle::checktype() { return type; }

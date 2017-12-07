@@ -631,7 +631,7 @@ int interface::modify(int code) { // 1.Propulsion 2.Maximum crew 3.Price 4.Cruis
 			cout << "Introduce the propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine):";
 			break;
 		case 2:
-			cout << "Introduce the maximum crew number";
+			cout << "Introduce the maximum crew number: ";
 			break;
 		case 3:
 			cout << "Introduce the price (billions): ";

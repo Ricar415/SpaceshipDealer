@@ -39,7 +39,7 @@ void destroyer::showweapon(int position) { weaponr[position].show(); }
 // -- Formatting functions --
 string destroyer::reg() {
 	string temp, space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), wt, size = to_string(weaponr.size());
-	temp = vrn + space + t + space + mc + space + pr + space + size;
+	temp = vrn + space + t + space + pr + space + mc + space + pr + space + size;
 	for (unsigned int i = 0; i < weaponr.size(); i++) {
 		wt = to_string(weaponr[i].returntype());
 		temp += space;
