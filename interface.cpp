@@ -418,12 +418,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 		} while (cin.fail() || size < 0);
 		for (int i = 0; i < size; i++) {
 			int a = 0;
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce the type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15))" << i << ": "; // 1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)
-				cin >> a;
-			} while (cin.fail() || a < 0 || a > 4);
+			a = weapontype();
 			if (a == 0) return 1; // Default break
 			weapon b(a);
 			weapons.push_back(b);
@@ -499,8 +494,8 @@ bool interface::modifyowner() {
 }
 bool interface::modifyvehicle() {
 	string vrn, nvrn;
-	weapon d;
-	int check = 0, price, maxcrew, propulsion, position, type, ask, value, code = 0, pos;
+	weapon w;
+	int check = 0, position, nweapons, type, ask, value, code = 0, pos;
 	bool es;
 	cout << "Introduce the register number of the vehicle you want to modify (0 to break): ";
 	cin >> vrn;
@@ -511,370 +506,219 @@ bool interface::modifyvehicle() {
 	if (check == 0) cerr << "Not a registered vehicle" << endl;  return 0; // Default loop
 	position = platforme->vehicleposition(vrn);
 	type = platforme->checkvehicletype(position);
-	if (type == 1) {
-		cout << "\n\n 1 - Change register number \n 2 - Change cruising speed \n 3 - Change maximum load \n 4 - Remove/Add energy shield\n 5 - Change propulsion type\n 6 - Change maximum crew number\n 7 - Change price" << endl;
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce option number: ";
-			cin >> ask;
-		} while (cin.fail() || ask < 0 || ask > 7);
-		if (ask == 0) return 1; // Default break
-		cout << endl;
-		switch (ask) {
-		case 1:
-			do {
-				cout << "Introduce new register number: ";
-				cin >> nvrn;
-				if (nvrn == "0\0") return 1;
-				if (nvrn == vrn) return 1;
-				check = platforme->checkvehicle(nvrn);
-				if (check == 1) {
-					cerr << "Introduced register number already corresponds to a registered vehicle" << endl;
-				}
-			} while (check == 1);
-			platforme->modifyvehicle(position, nvrn);
-			return 1;
-			break;
-		case 2:
-			code = 1;
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce new cruising speed: ";
-				cin >> value;
-			} while (cin.fail() || value < 0);
-			if (value == 0) return 1; // Default break
-			platforme->modifyvehicle(position, code, value);
-			return 1;
-			break;
-		case 3:
-			code = 2;
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce new maximum load: ";
-				cin >> value;
-			} while (cin.fail() || value < 0);
-			if (value == 0) return 1; // Default break
-			platforme->modifyvehicle(position, code, value);
-			return 1;
-			break;
-		case 4:
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce wether or not the vehicle has energy shield (1/0): ";
-				cin >> es;
-			} while (cin.fail() || (es != 0 && es != 1));
-			platforme->modifyvehicle(position, code, es);
-			return 1;
-			break;
-		case 5:
-			propulsion = modifypropulsion();
-			if (propulsion == 0) return 1; // Default break
-			platforme->modifypropulsion(position, propulsion);
-			break;
-		case 6:
-			maxcrew = modifymaxcrew();
-			if (maxcrew == 0) return 1; // Default break
-			platforme->modifymcrew(position, maxcrew);
-			break;
-		case 7:
-			price = modifyprice();
-			if (price == 0) return 1; // Default break
-			platforme->modifyprice(position, price);
-			break;
-		default:
-			return 1;
-			break;
-		}
+	cout << "\n\n 1 - Change register number \n 2 - Change propulsion type \n 3 - Change maximum crew number \n 4 - Change price";
+	switch (type) {
+	case 1:
+		cout << "\n 5 - Change cruising speed \n 6 - Change maximum load \n 7 - Remove/Add energy shield" << endl;
+		break;
+	case 2:
+		cout << "\n 5 - Increase number of weapons \n 6 - Change weapon type \n 7 - Remove weapons" << endl;
+		break;
+	case 3:
+		cout << "\n 5 - Change maximum speed \n 6 - Change weapon type " << endl;
+		break;
+	case 4:
+		cout << "\n 5 - Change maximum passenger number \n 6 - Change number of hangars \n 7 - Remove/Add energy shield" << endl;
+		break;
+	default:
+		cerr << "This vehicle has an invalid type and cant be accessed" << endl;
+		return 1;
+		break;
 	}
-	else if (type == 2) {
-		cout << "\n\n 1 - Change register number \n 2 - Increase number of weapons \n 3 - Change weapon type \n 4 - Remove weapons \n 5 - Change propulsion type\n 6 - Change maximum crew number\n 7 - Change price" << endl;
+	do {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Introduce option number: ";
+		cin >> ask;
+	} while (cin.fail() || ask < 0 || ask > 7 || (ask > 6 && type == 3));
+	if (ask == 0) return 1; // Default break
+	switch (ask) {
+	case 1:
 		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce option number:  ";
-			cin >> ask;
-		} while (cin.fail() || ask < 0);
-		if (ask == 0) return 1; // Default break
-		cout << endl;
-		switch (ask) {
+			check = 1;
+			cout << "Introduce new vehicle register number: ";
+			cin >> nvrn;
+			if (nvrn == "0\0") return 1; // Default break
+			if (platforme->checktype(nvrn) == 3) { check = platforme->checkvehicle(nvrn); }
+			else cerr << "Invalid register number" << endl;
+			if (check == 1) cerr << "Register number already in use" << endl;
+		} while (check == 1);
+		if (nvrn == "0\0") return 1;
+		platforme->modifyvehicle(position, nvrn);
+		return 1;
+		break;
+	case 2:
+		value = modify(1);
+		if (value == 0) return 1;
+		platforme->modifypropulsion(position, value);
+		return 1;
+		break;
+	case 3:
+		if (type == 3) cerr << "Fighters have a fixed crew number of 1" << endl; return 1;
+		value = modify(2);
+		if (value == 0) return 1;
+		platforme->modifymcrew(position, value);
+		return 1;
+		break;
+	case 4:
+		value = modify(3);
+		if (value == 0) return 1;
+		platforme->modifyprice(position, value);
+		return 1;
+		break;
+	case 5:
+		switch (type) {
 		case 1:
-			do {
-				cout << "Introduce new register number: ";
-				cin >> nvrn;
-				if (nvrn == "0\0") return 1;
-				if (nvrn == vrn) return 1;
-				check = platforme->checkvehicle(nvrn);
-				if (check == 1) {
-					cerr << "Introduced register number already corresponds to a registered vehicle" << endl;
-				}
-			} while (check == 1);
-			platforme->modifyvehicle(position, nvrn);
+			value = modify(4);
+			if (value == 0) return 1;
+			platforme->modifyvehicle(position, 1, value);
 			return 1;
 			break;
 		case 2:
-			code = 3;
-			int add;
 			do {
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Introduce number of weapons to add: ";
-				cin >> add;
-			} while (cin.fail() || add < 0);
-			if (add == 0) return 1; // Default break
-			for (int i = 0; i < add; i++) {
-				do {
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "Introduce the type of new weapon number " << i + 1 << " (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
-					cin >> value;
-				} while (cin.fail() || value < 0);
-				if (value == 0) return 1; // Default break
-				platforme->modifyvehicle(position, code, value);
+				cin >> nweapons;
+			} while (cin.fail() || nweapons < 0);
+			if (nweapons == 0) return 1;
+			for (int i = 0; i = nweapons; i++) {
+				value = weapontype();
+				platforme->modifyvehicle(position, 3, value);
 			}
 			return 1;
 			break;
 		case 3:
-			cout << "Weapon positions >>" << endl;
-			showweapons(vrn);
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce the position of the weapon you want to change: ";
-				cin >> pos;
-			} while (cin.fail() || pos < 0 || pos >= platforme->destroyerwsize(position));
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce the new type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
-				cin >> value;
-			} while (cin.fail() || value < 0);
-			d.modify(value);
-			platforme->modifyvehicle(position, pos, d);
+			value = modify(9);
+			if (value == 0) return 1;
+			platforme->modifyvehicle(position, 5, value);
 			return 1;
 			break;
 		case 4:
-			code = 4;
-			cout << "\nWeapon positions >>\n";
-			showweapons(vrn);
+			value = modify(7);
+			if (value == 0) return 1;
+			platforme->modifyvehicle(position, 6, value);
+			return 1;
+			break;
+		}
+	case 6:
+		switch (type) {
+		case 1:
+			value = modify(5);
+			if (value == 0) return 1;
+			platforme->modifyvehicle(position, 2, value);
+			return 1;
+			break;
+		case 2:
+			platforme->showweapons(position);
+			do {
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "Introduce the position of the weapon you want to modify: ";
+				cin >> pos;
+			} while (cin.fail() || pos < 0);
+			value = weapontype();
+			if (value == 0) return 1;
+			w.modify(value);
+			platforme->modifyvehicle(position, pos, w);
+			return 1;
+			break;
+		case 3:
+			platforme->showweapons(position);
+			do {
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "Introduce the position of the weapon you want to modify: ";
+				cin >> pos;
+			} while (cin.fail() || pos < 0);
+			value = weapontype();
+			if (value == 0) return 1;
+			w.modify(value);
+			platforme->modifyvehicle(position, pos, w);
+		case 4:
+			value = modify(8);
+			if (value == 0) return 1;
+			platforme->modifyvehicle(position, 7, value);
+			return 1;
+			break;
+		}
+	case 7:
+		switch (type) {
+		case 1:
+			es = modify(6);
+			platforme->modifyvehicle(position, es);
+			return 1;
+			break;
+		case 2:
+			platforme->showweapons(position);
 			do {
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Introduce the position of the weapon you want to remove: ";
-				cin >> value;
-			} while (cin.fail() || value < 0 || value >= platforme->destroyerwsize(position));
-			platforme->modifyvehicle(position, code, value);
-			return 1;
-			break;
-		case 5:
-			propulsion = modifypropulsion();
-			if (propulsion == 0) return 1; // Default break
-			platforme->modifypropulsion(position, propulsion);
-			break;
-		case 6:
-			maxcrew = modifymaxcrew();
-			if (maxcrew == 0) return 1; // Default break
-			platforme->modifymcrew(position, maxcrew);
-			break;
-		case 7:
-			price = modifyprice();
-			if (price == 0) return 1; // Default break
-			platforme->modifyprice(position, price);
-			break;
-		default:
-			return 1;
-			break;
-		}
-	}
-	else if (type == 3) {
-		cout << "\n\n 1 - Change register number \n 2 - Change maximum speed \n 3 - Change weapon \n 4 - Change propulsion type\n 5 - Change price" << endl;
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce option number: ";
-			cin >> ask;
-		} while (cin.fail() || ask < 0 || ask > 5);
-		if (ask == 0) return 1; // Default break
-		cout << endl;
-		switch (ask) {
-		case 1:
-			do {
-				cout << "Introduce new register number: ";
-				cin >> nvrn;
-				if (nvrn == "0\0") return 1;
-				if (nvrn == vrn) return 1;
-				check = platforme->checkvehicle(nvrn);
-				if (check == 1) {
-					cerr << "Introduced register number already corresponds to a registered vehicle" << endl;
-				}
-			} while (check == 1);
-			platforme->modifyvehicle(position, nvrn);
-			return 1;
-			break;
-		case 2:
-			code = 5;
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce new maximum speed: ";
-				cin >> value;
-			} while (cin.fail() || value < 0);
-			if (value == 0) return 1; // Default break
-			platforme->modifyvehicle(position, code, value);
-			return 1;
-			break;
-		case 3:
-			cout << "Weapon positions >>" << endl;
-			showweapons(vrn);
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce the position of the weapon you want to change: ";
 				cin >> pos;
-			} while (cin.fail() || pos < 0 || pos > 2);
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce the new type of weapon (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
-				cin >> value;
-			} while (cin.fail() || value < 0);
-			d.modify(value);
-			platforme->modifyvehicle(position, pos, d);
+			} while (cin.fail() || pos < 0);
+			platforme->modifyvehicle(position, 4, pos);
 			return 1;
 			break;
 		case 4:
-			propulsion = modifypropulsion();
-			if (propulsion == 0) return 1; // Default break
-			platforme->modifypropulsion(position, propulsion);
-			break;
-		case 5:
-			price = modifyprice();
-			if (price == 0) return 1; // Default break
-			platforme->modifyprice(position, price);
-			break;
-		default:
+			es = modify(6);
+			platforme->modifyvehicle(position, es);
 			return 1;
 			break;
 		}
 	}
-	else if (type == 4) {
-		cout << "\n\n 1 - Change register number \n 2 - Change maximum passenger number \n 3 - Change number of hangars \n 4 - Remove/Add energy shield \n 5 - Change propulsion type\n 6 - Change maximum crew number\n 7 - Change price" << endl;
-		do {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Introduce option number: ";
-			cin >> ask;
-		} while (cin.fail() || ask < 0 || ask > 7);
-		if (ask == 0) return 1; // Default break
-		cout << endl;
-		switch (ask) {
+	return 1;
+}
+
+int interface::modify(int code) {
+	int value;
+	do {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Introduce the new ";
+		switch (code) {
 		case 1:
-			do {
-				cout << "Introduce new register number: ";
-				cin >> nvrn;
-				if (nvrn == "0\0") return 1;
-				if (nvrn == vrn) return 1;
-				check = platforme->checkvehicle(nvrn);
-				if (check == 1) {
-					cerr << "Introduced register number already corresponds to a registered vehicle" << endl;
-				}
-			} while (check == 1);
-			platforme->modifyvehicle(position, nvrn);
-			return 1;
+			cout << "propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine):";
 			break;
 		case 2:
-			code = 6;
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce new maximum passenger number: ";
-				cin >> value;
-			} while (cin.fail() || value < 0);
-			if (value == 0) return 1; // Default break
-			platforme->modifyvehicle(position, code, value);
-			return 1;
+			cout << "maximum crew";
 			break;
 		case 3:
-			code = 7;
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce new number of hangars: ";
-				cin >> value;
-			} while (cin.fail() || value < 0);
-			if (value == 0) return 1; // Default break
-			platforme->modifyvehicle(position, code, value);
-			return 1;
+			cout << "price: ";
 			break;
 		case 4:
-			do {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "Introduce wether or not the vehicle has energy shield: ";
-				cin >> es;
-			} while (cin.fail());
-			platforme->modifyvehicle(position, code, es);
-			return 1;
+			cout << "cruising speed: ";
 			break;
 		case 5:
-			propulsion = modifypropulsion();
-			if (propulsion == 0) return 1; // Default break
-			platforme->modifypropulsion(position, propulsion);
-			return 1;
+			cout << "maximum load: ";
 			break;
 		case 6:
-			maxcrew = modifymaxcrew();
-			if (maxcrew == 0) return 1; // Default break
-			platforme->modifymcrew(position, maxcrew);
-			return 1;
+			cout << "energy shield configuration (1/0): ";
 			break;
 		case 7:
-			price = modifyprice();
-			if (price == 0) return 1; // Default break
-			platforme->modifyprice(position, price);
+			cout << "number of maximum passengers: ";
 			break;
-		default:
-			return 1;
+		case 8:
+			cout << "number of hangars: ";
+			break;
+		case 9:
+			cout << "maximum speed: ";
 			break;
 		}
-	}
-	return 0;
+		cin >> value;
+	} while (cin.fail() || value < 0 || (value != 0 && value != 1 && code == 6) || (value > 5 && code == 1));
+	return value;
 }
-
-int interface::modifypropulsion() {
-	int propulsion;
+int interface::weapontype() {
+	int wt;
 	do {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Introduce new propulsion type (1.Warp drive 2.Trace compressor 3. FTL engine 4. Solar sails 5. Ion engine): ";
-		cin >> propulsion;
-	} while (cin.fail() || propulsion < 0 || propulsion > 5);
-	return propulsion;
+		cout << "Introduce the weapon type (1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)): ";
+		cin >> wt;
+	} while (cin.fail() || wt < 0 || wt > 5);
+	return wt;
 }
-int interface::modifymaxcrew() {
-	int maxcrew;
-	do {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Introduce new maximum crew: ";
-		cin >> maxcrew;
-	} while (cin.fail() || maxcrew < 0);
-	return maxcrew;
-}
-int interface::modifyprice() {
-	int price;
-	do {
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Introduce new price: ";
-		cin >> price;
-	} while (cin.fail() || price < 0);
-	return price;
-}
-
 
 // -- Remove functions --
 bool interface::removeowner() {

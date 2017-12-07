@@ -46,9 +46,8 @@ private:
     bool modifyowner(); // asks owner to modify and new register number and then calls platform::modifyowner
 	bool modifyvehicle(); // asks vehicle to remove, lists options depending on type and then calls vehicle::*needed function* with given parameters
 
-	int modifyprice(); // asks new price and calls platofrm::modifyprice with given parameter
-	int modifymaxcrew(); // asks new maximum crew and calls platform::modifymcrew with given parameter
-	int modifypropulsion(); // asks new propulsion and calls platform::modifypropulsion with given parameter
+	int modify(int code);
+	int weapontype();
 
 
 	// -- Remove functions --
