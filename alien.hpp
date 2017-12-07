@@ -5,9 +5,12 @@
 using namespace std;
 
 class alien: public owner{
+
 public:
-    alien(string n);
-    void modify(string n);
+
+    alien(string n); // parametrized constructor
+	void show(); // prints the information of the alien (polymorphed)
+
 };
 
 #endif

@@ -1,11 +1,9 @@
-#include "alien.hpp"
 #include <cstring>
+#include <iostream>
+
+#include "alien.hpp"
+
 using namespace std;
 
-alien::alien(string n){ // Parametrized constructor
-    rn = n;
-}
-
-void alien::modify(string n){ // Modify function
-    rn = n;
-}
+alien::alien(string n) : owner(n) {}
+void alien::show() { cout << "Alien with register number: " << rn << endl; }

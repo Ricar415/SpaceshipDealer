@@ -1,9 +1,9 @@
-#include "human.hpp"
 #include <string>
+#include <iostream>
+
+#include "human.hpp"
+
 using namespace std;
-human::human(string n){
-    rn = n;
-}
-void human::modify(string n){
-    rn = n;
-}
+
+human::human(string n) : owner(n){}
+void human::show() { cout << "Human with register number: " << rn << endl; }

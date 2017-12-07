@@ -1,36 +1,32 @@
-#include "destroyer.hpp"
 #include <string>
 #include <iostream>
 
+#include "destroyer.hpp"
+
 using namespace std;
-destroyer::destroyer(vector<weapon> weapons,int propulsiont, int maxcrewt, int pricet, string rn){
-	vrn = rn;
+
+// -- Constructor --
+destroyer::destroyer(vector<weapon> weapons,int propulsiont, int maxcrewt, int pricet, string rn) : vehicle (rn, propulsiont, maxcrewt, pricet, 2){
 	weaponr = weapons;
-	type = 2;
-	propulsion = propulsiont;
-	maxcrew = maxcrewt;
-	price = pricet;
 }
-void destroyer::modifyweapons(int position, int type) {
-	weapon a(type);
-	weaponr[position] = a;
-}
-int destroyer::nweapons() {
-	return weaponr.size();
-}
-void destroyer::showweapon(int position) {
-	weaponr[position].show();
-}
-void destroyer::modifyweapon(int position, weapon w) {
-	weaponr[position] = w;
-}
+
+// -- Modify functions --
+void destroyer::modifyweapon(int position, weapon w) { weaponr[position] = w; }
 void destroyer::addweapon(int weapontype) {
 	weapon a(weapontype);
 	weaponr.push_back(a);
 }
-void destroyer::removeweapon(int weaponposition) {
-	weaponr.erase(weaponr.begin() + weaponposition);
+void destroyer::removeweapon(int weaponposition) { weaponr.erase(weaponr.begin() + weaponposition); }
+
+// -- Auxiliary functions --
+int destroyer::nweapons() { return weaponr.size(); }
+int destroyer::ocapacity() {
+	int a = 0;
+	for (unsigned int i = 0; i < weaponr.size(); i++) { a += weaponr[i].focapacity(); }
+	return a;
 }
+
+// -- Show functions --
 void destroyer::show() {
 	cout << "Register number: " << vrn << " Destroyer; Propulsion type: "<< showpropulsion() << " Maximum crew: " << maxcrew << " Price: " << price << endl;
 	for (unsigned int i = 0; i < weaponr.size(); i++) {
@@ -38,29 +34,13 @@ void destroyer::show() {
 		weaponr[i].show();
 	}
 }
-int destroyer::ocapacity() {
-	int a = 0;
-	for (unsigned int i = 0; i < weaponr.size(); i++) {
-		a += weaponr[i].focapacity();
-	}
-	return a;
-}
-bool destroyer::check(string cvrn) {
-	if (vrn == cvrn) return 1; else return 0;
-}
+void destroyer::showweapon(int position) { weaponr[position].show(); }
+
+// -- Formatting functions --
 string destroyer::reg() {
-	string temp = vrn, space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), wt;
-	temp += space;
-	temp += t;
-	temp += space;
-	temp += p;
-	temp += space;
-	temp += mc;
-	temp += space;
-	temp += pr;
-	temp += space;
-	temp += to_string(weaponr.size());
-	for (int i = 0; i < weaponr.size(); i++) {
+	string temp, space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), wt, size = to_string(weaponr.size());
+	temp = vrn + space + t + space + mc + space + pr + space + size;
+	for (unsigned int i = 0; i < weaponr.size(); i++) {
 		wt = to_string(weaponr[i].returntype());
 		temp += space;
 		temp += wt;

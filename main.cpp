@@ -1,15 +1,23 @@
-#include "platform.hpp"
-#include <string>
 #include "interface.hpp"
 #include "init.hpp"
+#include "platform.hpp"
+
 using namespace std;
+
 int main (){
-	platform *platforme = new platform;
-	init init(platforme);
-	init.initialize();
-    interface interface(platforme);
-	interface.menu();
-	init.registry();
-	delete platforme;
+
+	// Instantiation of main classes
+	platform *_MainPlatform = new platform; // Dynamically create platform we are going to use
+	init _MainInit(_MainPlatform); 
+    interface _MainInterface(_MainPlatform);
+
+	// Main program
+	_MainInit.initialize(); // Read files
+	_MainInterface.menu(); // Execute program
+	_MainInit.registry(); // Write files
+
+	// Free memory
+	delete _MainPlatform;
+
     return 0;
 }
