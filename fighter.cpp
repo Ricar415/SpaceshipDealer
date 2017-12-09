@@ -34,6 +34,6 @@ void fighter::showweapon(int wn) {
 
 // -- Formatting functions --
 string fighter::reg() {
-	string space = " ", t = to_string(type), p=to_string(propulsion), mc=to_string(maxcrew),pr=to_string(price), ms = to_string(maxspeed), wt1 = to_string(weapon1.returntype()), wt2 = to_string(weapon2.returntype());
-	return vrn + space + t + space + p + space + mc + space + pr + space + ms + space + wt1 + space + wt2 + space;
+    string space = " ", t = to_string(type), p=to_string(propulsion), mc=to_string(maxcrew),pr=to_string(price), ms = to_string(maxspeed), wt1 = to_string(weapon1.returntype()), wt2 = to_string(weapon2.returntype());
+    return vrn + space + t + space + p + space + mc + space + pr + space + ms + space + wt1 + space + wt2 + space;
 }

@@ -10,6 +10,7 @@ vehicle::vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _ty
 	type = _type;
 }
 
+
 int vehicle::checktype() { return type; }
 void vehicle::modifyvrn(string nvrn) { vrn = nvrn; }
 string vehicle::rvrn() { return vrn; }
@@ -18,6 +19,7 @@ void vehicle::modifymaxcrew(int nmaxcrew) { maxcrew = nmaxcrew; }
 void vehicle::modifyprice(int nprice) { price = nprice; }
 
 string vehicle::showpropulsion() {
+
 	string a;
 	if (propulsion == 1) {
 		a = "Warp drive       ";
@@ -43,4 +45,10 @@ string vehicle::showpropulsion() {
 		a = "Error            ";
 		return a;
 	}
+}
+
+string vehicle::to_string(int a){
+    stringstream stream;
+    stream << a;
+    return stream.str();
 }

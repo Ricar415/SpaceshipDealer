@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <limits>
 
 #include "carrier.hpp"
 #include "destroyer.hpp"
@@ -27,10 +28,10 @@ private:
 
 public:
 
-	/// -- Destructor --
+    // -- Destructor --
 	~platform();
 
-	/// -- List functions --
+    // -- List functions --
     void lavailable(); /// calls vehicle::show() for every available vehicle in vehicles vector by register number order
 	void lall(); /// calls vehicle::show() for every vehicle in vehicles vector by register number order
     void lbyocapacity(); /// calls vehicle::show() for every vehicle in vehicles vector from the one with highest offensive capacity to the one with the lowest o.capacity
@@ -44,7 +45,7 @@ public:
 	void lsales(date start, date end); /// calls sale::show() for every sale in sales vector between the given dates
 
 
-	/// -- Create functions --
+    // -- Create functions --
 	void createhuman(string rn); /// dynamically creates a human with the given rn and adds it at the end of the owners vector
 	void createalien(string rn); /// dynamically creates an alien with the given rn and adds it at the end of the owners vector
 
@@ -54,7 +55,7 @@ public:
 	void createstation(int maxp,int hn,bool es, int propulsiont, int maxcrewt, int pricet, string rn); /// dynamically creates a station with the given parameters and adds it at the end of the vehicles vector
 	
 
-	/// -- Modify functions --
+    // -- Modify functions --
 	void modifyowner(int position, string nrn); /// modifies the rn of the owner at the given position in the owners vehicle
 
 	void modifyvehicle(int position, int code, int value); /// modifies the vehicle at the given position in the vehicles vector, the value to be modified depends on the given code
@@ -67,16 +68,16 @@ public:
 	void modifyprice(int position, int nprice); /// modifies price of the vehicle at the given position in the vehicles vector
 
 
-	/// -- Remove functions --
+    // -- Remove functions --
 	void removeowner(int position); /// removes owner at the given position in the owners vehicle
 	void removevehicle(int position); /// removes vehicle from the vehicles vector at the given position
 
 
-	/// -- Sell functions --
+    // -- Sell functions --
 	void sell(string vrn, string rn, date saledate); /// creates a sale with the given parameters and adds it at the end of sales vector
 
 
-	/// -- Check functions --
+    // -- Check functions --
 	bool checkowner(string rn); /// returns 1 if there is an owner with the given rn in owners vector and 0 otherwise
 	bool checkvehicle(string rn); /// returns 1 if there is a vehicle with the given rn in vehicles vector and 0 otherwise
 	bool checksales(string vrn); /// returns 0 if the vehicle is available and 1 otherwise
@@ -86,7 +87,7 @@ public:
 	int checkchar(char position); /// returns 0 if not a letter or a number, 1 if a number and 2 if a letter
 
 
-	/// -- Auxiliary functions --
+    // -- Auxiliary functions --
 	int vehicleposition(string rn); /// returns position in the vehicles vector of the vehicle with the given rn
 	int ownerposition(string rn); /// returns position in owners vector of owner with the given rn
 

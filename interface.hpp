@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <limits>
 
 #include "platform.hpp"
 #include "init.hpp"

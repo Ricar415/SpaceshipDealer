@@ -352,7 +352,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 		ml = modify(5);
 		if (ml == 0) return 1; // Default break
 		cs = modify(4);
-		if (cs == 0) return 1; // Default break
+        if (cs == 0) return 1; // Default break
 		platforme->createcarrier(ml, cs, eshield, propulsion, maxcrew, price, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
@@ -439,7 +439,7 @@ bool interface::modifyowner() {
 bool interface::modifyvehicle() {
 	string vrn, nvrn;
 	weapon w;
-	int check = 0, position, nweapons, type, ask, value, code = 0, pos;
+    int check = 0, position, nweapons, type, ask, value, pos;
 	bool es;
 	cout << "Introduce the register number of the vehicle you want to modify (0 to break): ";
 	cin >> vrn;
@@ -532,7 +532,7 @@ bool interface::modifyvehicle() {
 				cin >> nweapons;
 			} while (cin.fail() || nweapons < 0);
 			if (nweapons == 0) return 1;
-			for (int i = 0; i = nweapons; i++) {
+            for (int i = 0; i < nweapons; i++) {
 				value = weapontype();
 				platforme->modifyvehicle(position, 3, value);
 			}

@@ -29,15 +29,20 @@ void sale::showsale() { // Vehicle information, Owner information, Date of sale 
 
 // -- Formatting functions --
 string sale::reg() { // Returns string of formatted parameters
-	string temp, space = " ", day = to_string(saledate.day), month = to_string(saledate.month), year = to_string(saledate.year);
-	temp = vrn;
-	temp += space;
-	temp += rn;
-	temp += space;
-	temp += day;
-	temp += space;
-	temp += month;
-	temp += space;
-	temp += year;
-	return temp;
+    string temp, space = " ", day = to_string(saledate.day), month = to_string(saledate.month), year = to_string(saledate.year);
+    temp = vrn;
+    temp += space;
+    temp += rn;
+    temp += space;
+    temp += day;
+    temp += space;
+    temp += month;
+    temp += space;
+    temp += year;
+    return temp;
+}
+string sale::to_string(int a){
+    stringstream stream;
+    stream << a;
+    return stream.str();
 }
