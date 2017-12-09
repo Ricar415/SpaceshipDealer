@@ -20,27 +20,27 @@ void vehicle::modifyprice(int nprice) { price = nprice; }
 string vehicle::showpropulsion() {
 	string a;
 	if (propulsion == 1) {
-		a = "Warp drive      ";
+		a = "Warp drive       ";
 		return a;
 	}
 	else if (propulsion == 2) {
-		a = "Trace compressor";
+		a = "Trace compressor ";
 		return a;
 	}
 	else if (propulsion == 3) {
-		a = "FTL engine      ";
+		a = "FTL engine       ";
 		return a;
 	}
 	else if (propulsion == 4) {
-		a = "Solar sails     ";
+		a = "Solar sails      ";
 		return a;
 	}
 	else if (propulsion == 5) {
-		a = "Ion engine      ";
+		a = "Ion engine       ";
 		return a;
 	}
 	else {
-		a = "Error           ";
+		a = "Error            ";
 		return a;
 	}
 }
