@@ -1,6 +1,5 @@
 #include "vehicle.hpp"
-#include <string>
-#include <iostream>
+
 using namespace std;
 
 vehicle::vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _type){
@@ -21,7 +20,7 @@ void vehicle::modifyprice(int nprice) { price = nprice; }
 string vehicle::showpropulsion() {
 	string a;
 	if (propulsion == 1) {
-		a = "Warp drive";
+		a = "Warp drive      ";
 		return a;
 	}
 	else if (propulsion == 2) {
@@ -29,19 +28,19 @@ string vehicle::showpropulsion() {
 		return a;
 	}
 	else if (propulsion == 3) {
-		a = "FTL engine";
+		a = "FTL engine      ";
 		return a;
 	}
 	else if (propulsion == 4) {
-		a = "Solar sails";
+		a = "Solar sails     ";
 		return a;
 	}
 	else if (propulsion == 5) {
-		a = "Ion engine";
+		a = "Ion engine      ";
 		return a;
 	}
 	else {
-		a = "Error";
+		a = "Error           ";
 		return a;
 	}
 }

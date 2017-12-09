@@ -1,11 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
-#include "platform.hpp"
-#include "weapon.hpp"
 #include "interface.hpp"
-#include "init.hpp"
 
 using namespace std;
 
@@ -17,7 +10,7 @@ void interface::menu() {
 	int a;
 	bool check, check2;
 	do {
-		cout << endl << " 0 - Create owner\n 1 - Modify owner\n 2 - Remove owner\n 3 - Create vehicle\n 4 - Modify vehicle\n 5 - Remove vehicle\n 6 - Show list options\n 7 - Sell\n 8 - Load information from external files" << endl << "Introduce option number: ";
+		cout << endl << " 1 - Create owner\n 2 - Modify owner\n 3 - Remove owner\n 4 - Create vehicle\n 5 - Modify vehicle\n 6 - Remove vehicle\n 7 - Show list options\n 8 - Sell\n 9 - Load information from external files" << endl << endl << "Introduce option number: ";
 		cin >> a;
 		while (cin.fail()) {
 			cin.clear();
@@ -27,45 +20,45 @@ void interface::menu() {
 		}
 		cout << endl;
 		switch (a) {
-		case 0:
+		case 1:
 			do {
 				check2 = createowner();
 			} while (check2 == 0);
 			check = ask();
 			break;
-		case 1:
+		case 2:
 			do {
 				check2 = modifyowner();
 			} while (check2 == 0);
 			check = ask();
 			break;
-		case 2:
+		case 3:
 			do {
 				check2 = removeowner();
 			} while (check2 == 0);
 			check = ask();
 			break;
-		case 3:
+		case 4:
 			do {
 				check2 = createvehicle();
 			} while (check2 == 0);
 			check = ask();
 			break;
-		case 4:
+		case 5:
 			do {
 				check2 = modifyvehicle();
 			} while (check2 == 0);
 			check = ask();
 			break;
-		case 5:
+		case 6:
 			do {
 				check2 = removevehicle();
 			} while (check2 == 0);
 			check = ask();
 			break;
-		case 6:
+		case 7:
 			int b;
-			cout << endl << "\n\n\n 0 - List registered vehicles\n 1 - List registered owners\n 2 - List performed sales" << endl;
+			cout << endl << " -- List Option Menu --\n\n 1 - List registered vehicles\n 2 - List registered owners\n 3 - List performed sales" << endl << endl;
 			do {
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -74,8 +67,8 @@ void interface::menu() {
 			} while (cin.fail());
 			cout << endl;
 			switch (b) {
-			case 0:
-				cout << endl << "\n\n -List Option Menu-\n 0 - Available vehicles by register number\n 1 - All registered vehicles by register number\n 2 - All registered vehicles by offensive capacity" << endl;
+			case 1:
+				cout << endl << " - Vehicle List Option Menu -\n\n 1 - Available vehicles by register number\n 2 - All registered vehicles by register number\n 3 - All registered vehicles by offensive capacity" << endl << endl;
 				int c;
 				do {
 					cin.clear();
@@ -84,15 +77,15 @@ void interface::menu() {
 					cin >> c;
 				} while (cin.fail());
 				switch (c) {
-				case 0:
+				case 1:
 					platforme->lavailable();
 					check = ask();
 					break;
-				case 1:
+				case 2:
 					platforme->lall();
 					check = ask();
 					break;
-				case 2:
+				case 3:
 					platforme->lbyocapacity();
 					check = ask();
 					break;
@@ -101,13 +94,13 @@ void interface::menu() {
 					break;
 				}
 				break;
-			case 1:
+			case 2:
 				platforme->listowners();
 				check = ask();
 				break;
-			case 2:
+			case 3:
 				int a;
-				cout << endl << "\n -Sales List Option Menu-\n 0 - List all sales\n 1 - List sales made by owner\n 2 - List sales made in a period of time" << endl;
+				cout << endl << " - Sale List Option Menu -\n\n 1 - List all sales\n 2 - List sales made by owner\n 3 - List sales made in a period of time" << endl << endl;
 				do {
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -116,15 +109,15 @@ void interface::menu() {
 				} while (cin.fail());
 				cout << endl;
 				switch (a) {
-				case 0:
+				case 1:
 					platforme->lsales();
 					break;
-				case 1:
+				case 2:
 					do {
 						check2 = lbyowner();
 					} while (check2 == 0);
 					break;
-				case 2:
+				case 3:
 					do {
 						check2 = lbydate();
 					} while (check2 == 0);
@@ -139,13 +132,13 @@ void interface::menu() {
 				break;
 			}
 			break;
-		case 7:
+		case 8:
 			do {
 				check2 = sell();
 			} while (check2 == 0);
 			check = ask();
 			break;
-		case 8:
+		case 9:
 			initfile();
 			check = ask();
 			break;
@@ -341,8 +334,8 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 	} while (check == 1);
 	price = modify(3);
 	propulsion = modify(1);
-	if (type != 3) { maxcrew = modify(2); }
-	if (type == 1 || type == 4) { eshield = modify(6); }
+	if (type != 3) maxcrew = modify(2);
+	if (type == 1 || type == 4) eshield = modify(6);
 	switch (type) {
 	case 4:
 		int maxp, hn;
@@ -452,9 +445,15 @@ bool interface::modifyvehicle() {
 	cin >> vrn;
 	if (vrn == "0\0") return 1; // Default break
 	check = platforme->checktype(vrn);
-	if (check != 3) cerr << "Invalid register number" << endl; return 0;
+	if (check != 3) {
+		cerr << "Invalid register number" << endl; 
+		return 0; 
+	}
 	check = platforme->checkvehicle(vrn);
-	if (check == 0) cerr << "Not a registered vehicle" << endl;  return 0; // Default loop
+	if (check == 0) { 
+		cerr << "Not a registered vehicle" << endl;  
+		return 0; 
+	} // Default loop
 	position = platforme->vehicleposition(vrn);
 	type = platforme->checkvehicletype(position);
 	cout << "\n\n 1 - Change register number \n 2 - Change propulsion type \n 3 - Change maximum crew number \n 4 - Change price";
@@ -490,7 +489,7 @@ bool interface::modifyvehicle() {
 			cout << "Introduce new vehicle register number: ";
 			cin >> nvrn;
 			if (nvrn == "0\0") return 1; // Default break
-			if (platforme->checktype(nvrn) == 3) { check = platforme->checkvehicle(nvrn); }
+			if (platforme->checktype(nvrn) == 3) check = platforme->checkvehicle(nvrn);
 			else cerr << "Invalid register number" << endl;
 			if (check == 1) cerr << "Register number already in use" << endl;
 		} while (check == 1);
@@ -505,7 +504,7 @@ bool interface::modifyvehicle() {
 		return 1;
 		break;
 	case 3:
-		if (type == 3) cerr << "Fighters have a fixed crew number of 1" << endl; return 1;
+		if (type == 3) { cerr << "Fighters have a fixed crew number of 1" << endl; return 1; }
 		value = modify(2);
 		if (value == 0) return 1;
 		platforme->modifymcrew(position, value);
@@ -690,7 +689,10 @@ bool interface::removeowner() {
 			return 1;
 		}
 	}
-	else cerr << "Invalid register number" << endl;  return 0; // loop
+	else { 
+		cerr << "Invalid register number" << endl; 
+		return 0; 
+	} // loop
 }
 bool interface::removevehicle() {
 	string rn;
@@ -704,9 +706,15 @@ bool interface::removevehicle() {
 			platforme->removevehicle(position);
 			return 1;
 		}
-		else cerr << "Not a registered vehicle" << endl; return 0; // loop
+		else { 
+			cerr << "Not a registered vehicle" << endl; 
+			return 0; 
+		} // loop
 	}
-	else cerr << "Invalid register number" << endl; return 0; // loop
+	else { 
+		cerr << "Invalid register number" << endl; 
+		return 0; 
+	} // loop
 }
 
 // -- Sell functions --
@@ -717,9 +725,15 @@ bool interface::sell() {
 	cin >> rn;
 	if (rn == "0\0") return 1; // Default break
 	check = platforme->checktype(rn);
-	if (check == 1 || check == 2) { check = platforme->checkowner(rn); }
-	else cerr << "Invalid register number" << endl;  return 0; // loop
-	if (check == 0) cerr << "Not a registered owner" << endl; return 0; // loop
+	if (check == 1 || check == 2) check = platforme->checkowner(rn);
+	else { 
+		cerr << "Invalid register number" << endl;  
+		return 0;
+	}// loop
+	if (check == 0) { 
+		cerr << "Not a registered owner" << endl; 
+		return 0; 
+	}// loop
 	do {
 		cout << "Introduce vehicle register number (0 to break): ";
 		cin >> vrn;
@@ -730,8 +744,8 @@ bool interface::sell() {
 			if (check == 1) {
 				vtype = platforme->checkvehicletype(platforme->vehicleposition(vrn));
 				otype = platforme->checktype(rn);
-				if (otype == 1 && vtype != 2) { check = 1; }
-				else if (otype == 2 && vtype != 4) { check = 1; }
+				if (otype == 1 && vtype != 2) check = 1;
+				else if (otype == 2 && vtype != 4) check = 1;
 				else {
 					cerr << "This type of owner is not authorised to buy this type of vehicle" << endl;
 					check = 0;
@@ -739,7 +753,7 @@ bool interface::sell() {
 			}
 			else cerr << "Not a registered vehicle" << endl;
 		}
-		else cerr << "Invalid register number" << endl; check = 0;
+		else { cerr << "Invalid register number" << endl; check = 0; }
 	} while (check == 0);
 	if (platforme->checksales(vrn) == 0) {
 		date date;
@@ -779,7 +793,10 @@ bool interface::sell() {
 		}
 		return 1;
 	}
-	else cerr << "Vehicle is not available" << endl;  return 0; // loop
+	else { 
+		cerr << "Vehicle is not available" << endl;  
+		return 0; 
+	} // loop
 }
 bool interface::addfighter(string rn, date saledate, int hn) {
 	int fighteradd;
@@ -802,14 +819,26 @@ bool interface::addfighter(string rn, date saledate, int hn) {
 				if (check2 == 1) {
 					check2 = platforme->checkvehicletype(platforme->vehicleposition(fvrn));
 					if (check2 == 3) {
-						if (platforme->checksales(fvrn) == 0) { check2 = 1; }
-						else cerr << "Introduced vehicle is not available" << endl; check2 = 0;
+						if (platforme->checksales(fvrn) == 0) check2 = 1;
+						else { 
+							cerr << "Introduced vehicle is not available" << endl; 
+							check2 = 0; 
+						}
 					}
-					else cerr << "Not a fighter" << endl; check2 = 0;
+					else { 
+						cerr << "Not a fighter" << endl; 
+						check2 = 0; 
+					}
 				}
-				else cerr << "Not a registered vehicle" << endl; check2 = 0;
+				else { 
+					cerr << "Not a registered vehicle" << endl; 
+					check2 = 0; 
+				}
 			}
-			else cerr << "Invalid register number" << endl; check2 = 0;
+			else { 
+				cerr << "Invalid register number" << endl; 
+				check2 = 0; 
+			}
 		} while (check2 == 0);
 		platforme->sell(fvrn, rn, saledate);
 		cout << endl << "Sale was successfully registered" << endl;

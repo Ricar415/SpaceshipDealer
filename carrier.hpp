@@ -1,9 +1,6 @@
 #ifndef CARRIER_HPP
 #define CARRIER_HPP
 
-
-#include <string>
-
 #include "vehicle.hpp"
 
 using namespace std;
@@ -18,18 +15,18 @@ private:
 public:
 
 	// -- Constructor --
-    carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, string vn); // parametrized constructor
+    carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, string vn); /// parametrized constructor
     
 	// -- Modify functions --
-	void modifyml(int ml); // modifies the maximum load to the given one
-    void modifycs(int cs); // modifies the cruising speed to the given one
-    void modifyes(bool es); // modifies the energy shield to the given one
+	void modifyml(int ml); /// modifies the maximum load to the given one
+    void modifycs(int cs); /// modifies the cruising speed to the given one
+    void modifyes(bool es); /// modifies the energy shield to the given one
 
 	// -- Show functions --
-	void show(); // prints the information of the carrier in the screen
+	void show(); /// prints the information of the carrier in the screen
 
 	// -- Formatting functions --
-	string reg(); // returns formatted string with the information of the carrier
+	string reg(); /// returns formatted string with the information of the carrier
 
 };
 #endif

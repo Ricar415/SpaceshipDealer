@@ -1,6 +1,3 @@
-#include <cstring>
-#include <iostream>
-
 #include "alien.hpp"
 
 using namespace std;

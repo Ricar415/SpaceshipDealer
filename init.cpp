@@ -1,12 +1,4 @@
-#include <fstream>
-#include <iostream>
-
 #include "init.hpp"
-#include "sale.hpp"
-#include "vehicle.hpp"
-#include "owner.hpp"
-#include "platform.hpp"
-#include "weapon.hpp"
 
 init::init(platform *_platforme) { platforme = _platforme; }
 
@@ -105,8 +97,7 @@ void init::initialize() { // Note: any non-valid parameter will make the program
 			else if (checkrn == 0 && !sale.fail()) { cerr << "Error: Sale with unregistered owner" << endl; }
 			else if (checkvrn == 0 && !sale.fail()) { cerr << "Error: Sale with unregistered vehicle" << endl; }
 			else if (checksold == 1 && !sale.fail()) { cerr << "Error: Repeated sale" << endl; }
-			else if (sale.fail() || checkdate == 0 || (rntype != 1 && rntype != 2) || vrntype != 3) cerr << "Error: corrupted data encountered" << endl;
-			sale.clear();
+			else if (checkdate == 0 || (rntype != 1 && rntype != 2) || vrntype != 3) cerr << "Error: corrupted data encountered" << endl;
 		}
 		cout << i << " sales initialized" << endl;
 	}

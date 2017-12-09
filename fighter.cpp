@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "fighter.hpp"
 
 // -- Constructor --
@@ -24,9 +22,9 @@ int fighter::ocapacity() {
 
 // -- Show functions --
 void fighter::show() {
-	cout << "Register number: " << vrn << " Fighter Maximum Speed: " << maxspeed << " Propulsion type: " << showpropulsion() << " Maximum crew: 1 Price: " << price << endl <<" Weapon number 1: ";
+	cout << "Register number: " << vrn << " Fighter;	Propulsion type: " << showpropulsion() << ", Maximum crew: 1, Price (billions): " << price << ", Maximum Speed : " << maxspeed << endl << "Weapon number 1: ";
 	weapon1.show();
-	cout << " Weapon number 2: ";
+	cout << "Weapon number 2: ";
 	weapon2.show();
 }
 void fighter::showweapon(int wn) {

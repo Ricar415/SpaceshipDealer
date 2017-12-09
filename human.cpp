@@ -1,6 +1,3 @@
-#include <string>
-#include <iostream>
-
 #include "human.hpp"
 
 using namespace std;

@@ -1,6 +1,3 @@
-#include <string>
-#include <iostream>
-
 #include "carrier.hpp"
 
 using namespace std;
@@ -19,9 +16,9 @@ void carrier::modifyes(bool es) { energyshield = es; }
 
 // -- Show functions --
 void carrier::show() {
-	cout << "Register number: " << vrn << " Carrier Cruising Speed: " << cruisingspeed << " Maximum load (tons): " << maxload << " Propulsion type: " << showpropulsion() << " Maximum crew: " << maxcrew << " Price: " << price ;
-	if (energyshield == 0) { cout << " Without energy shield" << endl; }
-	else { cout << " With energy shield" << endl; }
+	cout << "Register number: " << vrn << " Carrier;	Propulsion type: " << showpropulsion() << ", Maximum crew: " << maxcrew << ", Price (billions): " << price << ", Cruising Speed : " << cruisingspeed << ", Maximum load (tons) : " << maxload;
+	if (energyshield == 0) { cout << ", Without energy shield" << endl; }
+	else { cout << ", With energy shield" << endl; }
 }
 
 // -- Formatting functions --

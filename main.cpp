@@ -1,6 +1,5 @@
 #include "interface.hpp"
 #include "init.hpp"
-#include "platform.hpp"
 
 using namespace std;
 
@@ -19,5 +18,5 @@ int main (){
 	// Free memory
 	delete _MainPlatform;
 
-    return 0;
+	return 0;
 }

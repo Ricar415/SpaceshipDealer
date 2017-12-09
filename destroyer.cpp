@@ -1,6 +1,3 @@
-#include <string>
-#include <iostream>
-
 #include "destroyer.hpp"
 
 using namespace std;
@@ -28,9 +25,9 @@ int destroyer::ocapacity() {
 
 // -- Show functions --
 void destroyer::show() {
-	cout << "Register number: " << vrn << " Destroyer; Propulsion type: "<< showpropulsion() << " Maximum crew: " << maxcrew << " Price: " << price << endl;
+	cout << "Register number: " << vrn << " Destroyer;	Propulsion type: "<< showpropulsion() << ", Maximum crew: " << maxcrew << ", Price (billions): " << price << endl;
 	for (unsigned int i = 0; i < weaponr.size(); i++) {
-		cout << " Weapon number " << i + 1 << " type: ";
+		cout << "Weapon number " << i + 1 << " type: ";
 		weaponr[i].show();
 	}
 }

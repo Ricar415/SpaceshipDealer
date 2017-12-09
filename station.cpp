@@ -1,6 +1,3 @@
-#include <string>
-#include <iostream>
-
 #include "station.hpp"
 
 using namespace std;
@@ -22,9 +19,9 @@ int station::hn() { return hangarn; }
 
 // -- Show functions --
 void station::show() {
-	cout << "Register number: " << vrn << " Station; Number of Hangars: " << hangarn << " Maximum passengers: " << maxp << " Propulsion type: " << showpropulsion() << " Maximum crew: " << maxcrew << " Price: " << price;
-	if (energyshield == 0) { cout << " Without energy shield" << endl; }
-	else { cout << " With energy shield" << endl; }
+	cout << "Register number: " << vrn << " Station;	Propulsion type: " << showpropulsion() << ", Maximum crew: " << maxcrew << ", Price (billions): " << price << ", Number of Hangars : " << hangarn << ", Maximum passengers : " << maxp;
+	if (energyshield == 0) { cout << ", Without energy shield" << endl; }
+	else { cout << ", With energy shield" << endl; }
 }
 
 // -- Formatting functions --

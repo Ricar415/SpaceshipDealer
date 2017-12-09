@@ -1,16 +1,16 @@
-#include <string>
-#include <vector>
-#include <iostream>
-
 #include "platform.hpp"
-#include "fighter.hpp"
-#include "carrier.hpp"
-#include "destroyer.hpp"
-#include "station.hpp"
-#include "human.hpp"
-#include "alien.hpp"
 
 using namespace std;
+
+// -- Destructor --
+platform::~platform() {
+	for (unsigned int i = 0; i < vehicles.size(); i++) {
+		delete vehicles[i];
+	}
+	for (unsigned int i = 0; i < owners.size(); i++) {
+		delete owners[i];
+	}
+}
 
 // -- List functions --
 void platform::lavailable() {
@@ -161,8 +161,8 @@ void platform::modifyprice(int position, int price) { vehicles[position]->modify
 
 
 // -- Remove functions --
-void platform::removeowner(int position) { owners.erase(owners.begin() + position); }
-void platform::removevehicle(int position) { vehicles.erase(vehicles.begin() + position); }
+void platform::removeowner(int position) { delete owners[position]; owners.erase(owners.begin() + position); }
+void platform::removevehicle(int position) { delete vehicles[position];  vehicles.erase(vehicles.begin() + position); }
 
 
 // -- Sell functions --

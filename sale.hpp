@@ -19,19 +19,19 @@ private:
 
 public:
 
-	// -- Constructor --
-    sale(string vn, string n, date d); // parametrized constructor
+	/// -- Constructor --
+    sale(string vn, string n, date d); /// parametrized constructor
 
-	// -- Auxiliary functions --
-	string rvrn(); // returns the register number of the sold vehicle
-	string rorn(); // returns the register number of the owner
-	bool greaterequalthan(date date); // returns 1 if the given date is >= the saledate
+	/// -- Auxiliary functions --
+	string rvrn(); /// returns the register number of the sold vehicle
+	string rorn(); /// returns the register number of the owner
+	bool greaterequalthan(date date); /// returns 1 if the given date is >= the saledate
 
-	// -- Show functions --
-	void showsale(); // prints the information of the sale in the screen
+	/// -- Show functions --
+	void showsale(); /// prints the information of the sale in the screen
 
-	// -- Formatting functions --
-	string reg(); // returns a formatted string with the information of the sale
+	/// -- Formatting functions --
+	string reg(); /// returns a formatted string with the information of the sale
 
 };
 #endif

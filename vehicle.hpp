@@ -1,8 +1,8 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
 
-#include <cstring>
 #include <string>
+#include <iostream>
 
 #include "weapon.hpp"
 
@@ -13,20 +13,20 @@ class vehicle {
 protected:
 
 	string vrn;
-	int type, propulsion, maxcrew, price; // common parameters of all vehicle types
+	int type, propulsion, maxcrew, price; /// common parameters of all vehicle types
 
 public:
 
-	// -- Constructor --
+	/// -- Constructor --
 	vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _type);
 
-	// -- Modify functions --
+	/// -- Modify functions --
 
-	void modifyvrn(string nvrn); // sets register number to the given one 
-	void modifypropulsion(int npropulsion); // sets propulsion type to the given one
-	void modifymaxcrew(int nmaxcrew); // sets maximum crew to the given one
-	void modifyprice(int nprice); // sets price to the given one
-	// - virtual modify functions -
+	void modifyvrn(string nvrn); /// sets register number to the given one 
+	void modifypropulsion(int npropulsion); /// sets propulsion type to the given one
+	void modifymaxcrew(int nmaxcrew); /// sets maximum crew to the given one
+	void modifyprice(int nprice); /// sets price to the given one
+	/// - virtual modify functions -
 	virtual void modifyweapon(int pos, weapon w) {};
 	virtual void modifycs(int cs) {};
 	virtual void modifyml(int ml) {};
@@ -38,25 +38,25 @@ public:
 	virtual void removeweapon(int weaponposition) {};
 
 
-	// -- Auxiliary functions --
+	/// -- Auxiliary functions --
 
-	string rvrn(); // returns vehicle register number
-	int checktype(); // returns vehicle type
-	// - virtual auxiliary functions -
-	virtual int nweapons() { return 0; }; // fighters and destroyers will have their own definition
-	virtual int ocapacity() { return 0; }; // fighters and destroyers will have their own definition
+	string rvrn(); /// returns vehicle register number
+	int checktype(); /// returns vehicle type
+	/// - virtual auxiliary functions -
+	virtual int nweapons() { return 0; }; /// fighters and destroyers will have their own definition
+	virtual int ocapacity() { return 0; }; /// fighters and destroyers will have their own definition
 	virtual int hn() { return 0; };
 
 
-	// -- Show functions --
+	/// -- Show functions --
 
-	string showpropulsion(); // returns propulsion type in readable way
-	// - virtual show functions -
+	string showpropulsion(); /// returns propulsion type in readable way
+	/// - virtual show functions -
 	virtual void show() = 0;
 	virtual void showweapon(int a) {};
 
 
-	// -- Formatting functions --
+	/// -- Formatting functions --
 
 	virtual string reg() = 0;
 
