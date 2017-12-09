@@ -9,18 +9,18 @@ private:
 
 public:
 
-	/// -- Constructor --
+    // -- Constructor --
 	weapon(int type); /// parametrized constructor
 	weapon(); /// void constructor
 
-	/// -- Modify functions --
+    // -- Modify functions --
 	void modify(int ntype);
 
-	/// -- Auxiliary functions --
+    // -- Auxiliary functions --
 	int returntype();
 	int focapacity();
 
-	/// -- Show functions --
+    // -- Show functions --
 	void show();
 
 };

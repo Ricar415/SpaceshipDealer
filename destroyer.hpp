@@ -15,7 +15,8 @@ private:
 
 public:
 
-	// -- Constructor --
+    // -- Constructor and Destructor --
+    ~destroyer(){}
     destroyer(vector<weapon> weapons, int propulsiont, int maxcrewt, int pricet, string rn); /// parametrized constructor
 	
 	// -- Modify functions --

@@ -14,7 +14,8 @@ private:
 
 public:
 
-	// -- Constructor --
+    // -- Constructor and Destructor --
+    ~carrier(){}
     carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, string vn); /// parametrized constructor
     
 	// -- Modify functions --

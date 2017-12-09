@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// -- Constructor --
+// -- Constructor and Destructor --
 station::station(int mp, int hn, bool es, int propulsiont, int tmaxcrew, int tprice, string n) : vehicle(n, propulsiont, tmaxcrew, tprice, 4){
     hangarn = hn;
     energyshield = es;
@@ -26,6 +26,6 @@ void station::show() {
 
 // -- Formatting functions --
 string station::reg() {
-	string space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), mp = to_string(maxp), hn = to_string(hangarn), es = to_string(energyshield);
-	return vrn + space + t + space + p + space + mc + space + pr + space + mp + space + hn + space + es + space;
+    string space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), mp = to_string(maxp), hn = to_string(hangarn), es = to_string(energyshield);
+    return vrn + space + t + space + p + space + mc + space + pr + space + mp + space + hn + space + es + space;
 }

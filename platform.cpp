@@ -1,5 +1,13 @@
 #include "platform.hpp"
+#include "carrier.hpp"
+#include "destroyer.hpp"
+#include "fighter.hpp"
+#include "station.hpp"
 
+#include "human.hpp"
+#include "alien.hpp"
+
+#include "sale.hpp"
 using namespace std;
 
 // -- Destructor --
@@ -19,7 +27,7 @@ void platform::lavailable() {
 	for (unsigned int i = 0; i < vehicles.size(); i++) {
 		if (checksales(vehicles[i]->rvrn()) == 0) { tempvector.push_back(vehicles[i]); }
 	}
-	int type = 0, a;
+    int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
 		for (a = i - 1; (a >= 0) && (vehicles[a]->rvrn() < vehicles[i]->rvrn()); a--) /* Overloaded operators at string.h lets us do _StringA < _StringB directly */{
@@ -32,7 +40,7 @@ void platform::lavailable() {
 void platform::lall() {
 	vector<vehicle*> tempvector = vehicles;
 	vehicle *temp;
-	int type = 0, a;
+    int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
 		for (a = i - 1; (a >= 0) && (vehicles[a]->rvrn() < vehicles[i]->rvrn()); a--){
@@ -47,7 +55,7 @@ void platform::lall() {
 void platform::lbyocapacity() {
 	vector<vehicle*> tempvector = vehicles;
 	vehicle *temp;
-	int type = 0, a;
+    int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
 		for (a = i - 1; (a >= 0) && (tempvector[a - 1]->ocapacity() < tempvector[a]->ocapacity()); a--){
@@ -82,7 +90,7 @@ void platform::listowners() {
 }
 
 void platform::showweapons(int position) {
-	int type = 0, nweapons;
+    int nweapons;
 	if (vehicles[position]->checktype() == 3) {
 		nweapons = 2;
 		cout << "Weapon 1 type:: ";
@@ -242,7 +250,7 @@ int platform::checktype(string rn){
 int platform::checkchar(char position){ // Note: solved like this instead of with header <cctype> because we would be using only two functions and the code isnt enlargered as much
     if (position == '0'||position == '1'||position == '2'||position == '3'||position == '4'||position == '5'||position == '6'||position == '7'||position == '8'||position == '9'){
         return 1;
-    } else if (position == 'a'||position == 'b'||position == 'c'||position == 'd'||position == 'e'||position == 'f'||position == 'g'||position == 'h'||position == 'i'||position == 'j'||position == 'k'||position == 'l'||position == 'm'||position == 'n'||position == 'ñ'||position == 'o'||position == 'p'||position == 'q'||position == 'r'||position == 's'||position == 't'||position == 'u'||position == 'v'||position == 'w'||position == 'x'||position == 'y'||position == 'z'||position == 'A'||position == 'B'||position == 'C'||position == 'D'||position == 'E'||position == 'F'||position == 'G'||position == 'H'||position == 'I'||position == 'J'||position == 'K'||position == 'L'||position == 'M'||position == 'N'||position == 'Ñ'||position == 'O'||position == 'P'||position == 'Q'||position == 'R'||position == 'S'||position == 'T'||position == 'U'||position == 'V'||position == 'W'||position == 'X'||position == 'Y'||position == 'Z' ){
+    } else if (position == 'a'||position == 'b'||position == 'c'||position == 'd'||position == 'e'||position == 'f'||position == 'g'||position == 'h'||position == 'i'||position == 'j'||position == 'k'||position == 'l'||position == 'm'||position == 'n'||position == 'o'||position == 'p'||position == 'q'||position == 'r'||position == 's'||position == 't'||position == 'u'||position == 'v'||position == 'w'||position == 'x'||position == 'y'||position == 'z'||position == 'A'||position == 'B'||position == 'C'||position == 'D'||position == 'E'||position == 'F'||position == 'G'||position == 'H'||position == 'I'||position == 'J'||position == 'K'||position == 'L'||position == 'M'||position == 'N'||position == 'Ñ'||position == 'O'||position == 'P'||position == 'Q'||position == 'R'||position == 'S'||position == 'T'||position == 'U'||position == 'V'||position == 'W'||position == 'X'||position == 'Y'||position == 'Z' ){
         return 2;
     } else return 0;
 }

@@ -9,6 +9,7 @@ class human: public owner{
 
 public:
 
+    ~human(){}
     human(string n); /// parametrized constructor 
 	void show(); /// prints the information of the human (polymorphed)
 

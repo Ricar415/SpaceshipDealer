@@ -14,6 +14,7 @@ protected:
 
 public:
 
+    virtual ~owner(){}
 	owner(string n); /// parametrized constructor
 
 	void modify(string nrn); /// changes register number to the given

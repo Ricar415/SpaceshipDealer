@@ -9,6 +9,7 @@ class alien: public owner{
 
 public:
 
+    ~alien(){}
     alien(string n); /// parametrized constructor
 	void show(); /// prints the information of the alien (polymorphed)
 

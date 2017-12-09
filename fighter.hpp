@@ -14,7 +14,8 @@ private:
 
 public:
 
-	// -- Constructor --
+    // -- Constructor and Destructor--
+    ~fighter(){}
     fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n); /// parametrized constructor
 
 	// -- Modify functions --
