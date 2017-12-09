@@ -1,39 +1,68 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
-#include <cstring>
+
 #include <string>
+#include <sstream>
+#include <iostream>
+
 #include "weapon.hpp"
 
 using namespace std;
 
 class vehicle {
-protected:
-	string vrn;
-	int type, propulsion, maxcrew, price;
-public:
-	virtual bool check(string cvrn) = 0;
-	int checktype();
-	string rvrn();
-	string showpropulsion();
-	void modifypropulsion(int npropulsion);
-	void modifymaxcrew(int nmaxcrew);
-	void modifyprice(int nprice);
-	virtual void show() = 0;
-	virtual int nweapons();
-	virtual void showweapon(int a);
-	virtual void modifyweapon(int pos, weapon w);
-	void modifyvrn(string nvrn);
-	virtual void modifycs(int cs);
-	virtual void modifyml(int ml);
-	virtual void addweapon(int weapontype);
-	virtual void removeweapon(int weaponposition);
-	virtual void modifyms(int ms);
-	virtual void modifymp(int mp);
-	virtual void modifyhn(int hn);
-	virtual void modifyes(bool es);
-	virtual int ocapacity();
-	virtual int hn();
-	virtual string reg() = 0;
-};
 
+protected:
+
+	string vrn;
+	int type, propulsion, maxcrew, price; /// common parameters of all vehicle types
+
+public:
+
+    // -- Constructor --
+	vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _type);
+
+    // -- Destructor --
+    virtual ~vehicle(){}
+
+    // -- Modify functions --
+
+	void modifyvrn(string nvrn); /// sets register number to the given one 
+	void modifypropulsion(int npropulsion); /// sets propulsion type to the given one
+	void modifymaxcrew(int nmaxcrew); /// sets maximum crew to the given one
+	void modifyprice(int nprice); /// sets price to the given one
+    // - virtual modify functions -
+    virtual void modifyweapon(int pos, weapon w) {}
+    virtual void modifycs(int cs) {}
+    virtual void modifyml(int ml) {}
+    virtual void modifyms(int ms) {}
+    virtual void modifymp(int mp) {}
+    virtual void modifyhn(int hn) {}
+    virtual void modifyes(bool es) {}
+    virtual void addweapon(int weapontype) {}
+    virtual void removeweapon(int weaponposition) {}
+
+
+    // -- Auxiliary functions --
+
+	string rvrn(); /// returns vehicle register number
+	int checktype(); /// returns vehicle type
+	/// - virtual auxiliary functions -
+    virtual int nweapons() { return 0; } /// fighters and destroyers will have their own definition
+    virtual int ocapacity() { return 0; } /// fighters and destroyers will have their own definition
+    virtual int hn() { return 0; }
+
+    // -- Show functions --
+
+	string showpropulsion(); /// returns propulsion type in readable way
+    // - virtual show functions -
+	virtual void show() = 0;
+    virtual void showweapon(int a) {}
+
+
+    // -- Formatting functions --
+
+    string to_string(int a);
+	virtual string reg() = 0;
+
+};
 #endif

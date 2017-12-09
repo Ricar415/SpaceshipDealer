@@ -1,25 +1,37 @@
 #ifndef FIGHTER_HPP
 #define FIGHTER_HPP
+
 #include "vehicle.hpp"
-#include <string>
-#include "weapon.hpp"
+
 using namespace std;
 
 class fighter:public vehicle{
+
 private:
+
 	weapon weapon1, weapon2;
     int maxspeed;
-public:
-    fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n);
-	void show();
-	void modifyms(int ms);
-	void modifyw1(int type);
-	void modifyw2(int type);
-	void showweapon(int wn);
-	void modifyweapon(int pos, weapon w);
-	int ocapacity();
-	bool check(string vrn);
-	string reg();
-};
 
+public:
+
+    // -- Constructor and Destructor--
+    ~fighter(){}
+    fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n); /// parametrized constructor
+
+	// -- Modify functions --
+	void modifyms(int ms); /// modifies the maximum speed to the given one
+	void modifyweapon(int pos, weapon w); /// modifies the given weapon number type to the given one
+
+	// -- Auxiliary functions --
+	int ocapacity(); /// returns offensive capacity
+	int nweapons() { return 2; } /// returns number of weapons for iteration purposes
+
+	// -- Show functions --
+	void show(); /// prints the information of the fighter in the screen
+	void showweapon(int wn); /// prints the information of the given weapon number in the screen
+
+	// -- Formatting functions --
+	string reg(); /// returns a formatted string with the information of the fighter
+
+};
 #endif

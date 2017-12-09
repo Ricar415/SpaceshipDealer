@@ -2,16 +2,26 @@
 #define WEAPON_H
 
 class weapon{
-	friend class interface;
-	int type;
-	int ocapacity; // 1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)
-public:
-	weapon(int type);
-	weapon();
-	void modify(int ntype);
-	void show();
-	int focapacity();
-	int returntype();
-};
 
+private:
+
+	int type, ocapacity; /// 1.PlasmaCannon(10) 2.ThermoniclearMissiles(20) 3.LaserBeams(5) 4.PEM(15)
+
+public:
+
+    // -- Constructor --
+	weapon(int type); /// parametrized constructor
+	weapon(); /// void constructor
+
+    // -- Modify functions --
+	void modify(int ntype);
+
+    // -- Auxiliary functions --
+	int returntype();
+	int focapacity();
+
+    // -- Show functions --
+	void show();
+
+};
 #endif

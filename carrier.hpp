@@ -1,21 +1,33 @@
 #ifndef CARRIER_HPP
 #define CARRIER_HPP
+
 #include "vehicle.hpp"
-#include <string>
+
 using namespace std;
 
 class carrier: public vehicle{
+
 private:
-    int maxload;
+
+	int maxload, cruisingspeed;
     bool energyshield;
-    int cruisingspeed;
+
 public:
-    carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, string vn);
-    void modifyml(int ml);
-    void modifycs(int cs);
-    void modifyes(bool es);
-	void show();
-	bool check(string vrn);
-	string reg();
+
+    // -- Constructor and Destructor --
+    ~carrier(){}
+    carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, string vn); /// parametrized constructor
+    
+	// -- Modify functions --
+	void modifyml(int ml); /// modifies the maximum load to the given one
+    void modifycs(int cs); /// modifies the cruising speed to the given one
+    void modifyes(bool es); /// modifies the energy shield to the given one
+
+	// -- Show functions --
+	void show(); /// prints the information of the carrier in the screen
+
+	// -- Formatting functions --
+	string reg(); /// returns formatted string with the information of the carrier
+
 };
 #endif
