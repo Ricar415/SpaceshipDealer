@@ -248,7 +248,7 @@ bool interface::lbyowner() {
 		check = platforme->checktype(temp);
 		if (check == 1 || check == 2) { // if an owner rn check if registered
 			check = platforme->checkowner(temp);
-			cerr << "Not a registered owner" << endl;
+			if (check == 0) cerr << "Not a registered owner" << endl;
 		}
 		else cerr << "Invalid type" << endl;
 	} while (check == 0);

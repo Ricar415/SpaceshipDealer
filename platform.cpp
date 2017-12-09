@@ -113,8 +113,8 @@ void platform::lsales() {
 	}
 }
 void platform::lsales(date start, date end) {
-	for (unsigned int i = 0; i < sales.size(); i++) {
-		if (sales[i].greaterequalthan(start) == 1 && sales[i].greaterequalthan(end) == 0) { sales[i].showsale(); }
+	for (unsigned int i = 0; i < sales.size(); i++){
+		if ((sales[i].greaterequalthan(start) == 1) && (sales[i].greaterequalthan(end) == 0)) { sales[i].showsale(); }
 	}
 }
 

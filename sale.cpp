@@ -16,15 +16,23 @@ sale::sale(string vn,string n,date d){
 string sale::rvrn() { return vrn; }
 string sale::rorn() { return rn; }
 bool sale::greaterequalthan(date date) {
-	if (saledate.year >= date.year) { return 1; }
-	else if (saledate.month >= date.month) { return 1; }
-	else if (saledate.day >= date.day) { return 1; }
-	else { return 0; }
+	if (saledate.year > date.year) { 
+		return 1; 
+	}
+	else if ((saledate.month > date.month) && (saledate.year == date.year)) { 
+		return 1; 
+	}
+	else if ((saledate.day > date.day) && (saledate.month == date.month) && (saledate.year == date.year)) { 
+		return 1; 
+	}
+	else { 
+		return 0; 
+	}
 }
 
 // -- Show functions --
 void sale::showsale() { // Vehicle information, Owner information, Date of sale DD/MM/YYYY
-	cout << "Vehicle sold: " << vrn << endl << "Owner: " << rn << endl << "Date of sale: " << saledate.day << "/" << saledate.month << "/" << saledate.year << endl;
+	cout << "Vehicle sold: " << vrn << " Owner: " << rn << " Date of sale: " << saledate.day << "/" << saledate.month << "/" << saledate.year << endl;
 }
 
 // -- Formatting functions --
