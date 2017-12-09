@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// -- Constructor and Destr--
+// -- Constructor and Destructor--
 destroyer::destroyer(vector<weapon> weapons,int propulsiont, int maxcrewt, int pricet, string rn) : vehicle (rn, propulsiont, maxcrewt, pricet, 2){
 	weaponr = weapons;
 }
