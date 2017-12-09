@@ -58,7 +58,7 @@ void platform::lbyocapacity() {
     int a;
 	for (unsigned int i = 1; i < tempvector.size(); i++) { // Using insertion sorting as we are expecting low amounts of vehicles for testing
 		temp = tempvector[i];
-		for (a = i - 1; (a >= 0) && (tempvector[a - 1]->ocapacity() < tempvector[a]->ocapacity()); a--){
+		for (a = i - 1; (a >= 0) && (tempvector[a]->ocapacity() < tempvector[i]->ocapacity()); a--){
 			tempvector[a + 1] = tempvector[a];
 		}
 		tempvector[a + 1] = temp;
