@@ -12,6 +12,10 @@ sale::sale(string vn,string n,date d){
     saledate = d;
 }
 
+// -- Modify functions --
+void sale::changeowner(string _rn) { rn = _rn; }
+void sale::changevehicle(string _vrn) { vrn = _vrn; }
+
 // -- Auxiliary functions --
 string sale::rvrn() { return vrn; }
 string sale::rorn() { return rn; }
@@ -28,6 +32,12 @@ bool sale::greaterequalthan(date date) {
 	else { 
 		return 0; 
 	}
+}
+bool sale::equalthan(date date) {
+	if ((date.day == saledate.day) && (date.month == saledate.month) && (date.year == saledate.year)) {
+		return 1;
+	}
+	else return 0;
 }
 
 // -- Show functions --
@@ -47,6 +57,7 @@ string sale::reg() { // Returns string of formatted parameters
     temp += month;
     temp += space;
     temp += year;
+	temp += space;
     return temp;
 }
 string sale::to_string(int a){

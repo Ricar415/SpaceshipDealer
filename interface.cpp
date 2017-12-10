@@ -68,7 +68,7 @@ void interface::menu() {
 			cout << endl;
 			switch (b) {
 			case 1:
-				cout << endl << " - Vehicle List Option Menu -\n\n 1 - Available vehicles by register number\n 2 - All registered vehicles by register number\n 3 - All registered vehicles by offensive capacity" << endl << endl;
+				cout << endl << " - Vehicle List Option Menu -\n\n 1 - Available vehicles by register number\n 2 - All registered vehicles by register number\n 3 - All registered vehicles by offensive capacity\n 4 - Sold vehicles by date" << endl << endl;
 				int c;
 				do {
 					cin.clear();
@@ -87,6 +87,34 @@ void interface::menu() {
 					break;
 				case 3:
 					platforme->lbyocapacity();
+					check = ask();
+					break;
+				case 4:
+					date date;
+					do {
+						cout << "--Introduce saledate--" << endl;
+						do {
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+							cout << "Day: ";
+							cin >> date.day;
+						} while (cin.fail() || date.day < 0);
+						do {
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+							cout << "Month: ";
+							cin >> date.month;
+						} while (cin.fail() || date.month < 0 || date.month > 12);
+						do {
+							cin.clear();
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
+							cout << "Year: ";
+							cin >> date.year;
+						} while (cin.fail() || date.year < 0);
+						check = platforme->checkdate(date);
+						if (check == 0) cerr << "Invalid date" << endl;
+					} while (check == 0);
+					platforme->lfordate(date);
 					check = ask();
 					break;
 				default:
@@ -242,7 +270,7 @@ bool interface::lbyowner() {
 	int check;
 	do {
 		check = 0;
-		cout << endl << "Introduce the register number of the owner you want the sales to be displayed (0 to break): ";
+		cout << endl << "Introduce the NIE/NIF of the owner you want the sales to be displayed (0 to break): ";
 		cin >> temp;
 		if (temp == "0\0") return 1; // Default break
 		check = platforme->checktype(temp);
@@ -263,39 +291,43 @@ void interface::showweapons(string vrn) {
 
 // -- Create functions --
 bool interface::createowner() { //asks register number and then calls platform::createowner after checking the parameters
-	string rn;
+	string rn, planet;
 	int type;
 	bool check;
-	cout << "Introduce the register number (NNNNNNNNL for human and NNNNNNNNNN for alien)(0 to break):";
+	cout << "Introduce the NIE/NIF (NNNNNNNNL for human and NNNNNNNNNN for alien)(0 to break):";
 	cin >> rn;
 	if (rn == "0\0") return 1;
 	type = platforme->checktype(rn);
 	if (type == 1) {
 		check = platforme->checkowner(rn);
 		if (check == 0) {
-			platforme->createhuman(rn);
-			cout << "\nHuman with register number " << rn << " has been created" << endl;
+			cout << "Introduce the planet of origin: ";
+			cin >> planet;
+			platforme->createhuman(rn, planet);
+			cout << "\nHuman with NIE " << rn << " has been created" << endl;
 			return 1;
 		}
 		else {
-			cerr << "A human with the given register number already exists" << endl;
+			cerr << "A human with the NIE already exists" << endl;
 			return 0;
 		}
 	}
 	else if (type == 2) {
 		check = platforme->checkowner(rn);
 		if (check == 0) {
-			platforme->createalien(rn);
-			cout << "\nAlien with register number " << rn << " has been created" << endl;
+			cout << "Introduce the planet of origin: ";
+			cin >> planet;
+			platforme->createalien(rn, planet);
+			cout << "\nAlien with NIF " << rn << " has been created" << endl;
 			return 1;
 		}
 		else {
-			cerr << "An alien with the given register number already exists" << endl;
+			cerr << "An alien with the given NIF already exists" << endl;
 			return 0;
 		}
 	}
 	else {
-		cerr << "Invalid register number" << endl;
+		cerr << "Invalid NIE/NIF" << endl;
 		return 0; // loop
 	}
 	return 1; // Wont happen
@@ -304,7 +336,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 	int type = 0, check = 0, price, maxcrew, propulsion;
 	bool eshield;
 	vector<weapon> weapons;
-	string rn;
+	string rn, owner;
 	do {
 		cout << "\n- Create vehicle -\n\t1\tCarrier\n\t2\tDestroyer\n\t3\tFighter\n\t4\tStation" << endl;
 		do {
@@ -332,6 +364,16 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 			check = 1;
 		}
 	} while (check == 1);
+	do {
+		check = 0;
+		cout << "Introduce the owner's NIE/NIF: ";
+		cin >> owner;
+		if (platforme->checktype(owner) == 1 || platforme->checktype(owner) == 2) {
+			check = platforme->checkowner(owner);
+			if (check == 0) cerr << "Not a registered owner" << endl;
+		}
+		else cerr << "Invalid NIE/NIF" << endl;
+	} while (check == 0);
 	price = modify(3);
 	propulsion = modify(1);
 	if (type != 3) maxcrew = modify(2);
@@ -343,7 +385,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 		if (maxp == 0) return 1; // Default break
 		hn = modify(8);
 		if (hn == 0) return 1; // Default break
-		platforme->createstation(maxp, hn, eshield, propulsion, maxcrew, price, rn);
+		platforme->createstation(maxp, hn, eshield, propulsion, maxcrew, price, owner, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -353,7 +395,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 		if (ml == 0) return 1; // Default break
 		cs = modify(4);
         if (cs == 0) return 1; // Default break
-		platforme->createcarrier(ml, cs, eshield, propulsion, maxcrew, price, rn);
+		platforme->createcarrier(ml, cs, eshield, propulsion, maxcrew, price, owner, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -372,7 +414,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 			weapon b(a);
 			weapons.push_back(b);
 		}
-		platforme->createdestroyer(weapons, propulsion, maxcrew, price, rn);
+		platforme->createdestroyer(weapons, propulsion, maxcrew, price, owner, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -395,7 +437,7 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 		} while (cin.fail() || weapon2t < 0 || weapon2t > 4);
 		if (weapon2t == 0) return 1; // Default break
 		weapon weapon1(weapon1t), weapon2(weapon2t);
-		platforme->createfighter(ms, propulsion, price, weapon1, weapon2, rn);
+		platforme->createfighter(ms, propulsion, price, weapon1, weapon2, owner, rn);
 		cout << "\nVehicle was successfully created\n";
 		return 1;
 		break;
@@ -405,17 +447,17 @@ bool interface::createvehicle() { // 1.Carrier 2.Destroyer 3.Fighter 4.Station
 
 // -- Modify functions --
 bool interface::modifyowner() {
-	string rn, nrn;
-	int a = 0, position;
+	string rn, nrn, planet;
+	int a, b, position, ask;
 	bool check;
-	cout << "Introduce owner's register number (0 to break):";
+	cout << "Introduce owner's NIF/NIE (0 to break):";
 	cin >> rn;
 	if (rn == "0\0") return 1; // Default break
-	a = platforme->checktype(rn);
-	if (a == 1 || a == 2) {
+	b = platforme->checktype(rn);
+	if (b == 1 || b == 2) {
 		check = platforme->checkowner(rn);
 		if (check == 0) {
-			cerr << "Introduced register number doesnt correspond to a registered owner" << endl;
+			cerr << "Introduced NIF/NIE doesnt correspond to a registered owner" << endl;
 			return 0; // loop
 		}
 		else {
@@ -423,21 +465,44 @@ bool interface::modifyowner() {
 		}
 	}
 	else { return 0; } // loop
+	cout << "\n\n - Modification options - \n 1 - Change NIE/NIF\n 2 - Change planet of origin\nIntroduce option number: ";
 	do {
-		cout << "Introduce owner's new register number (0 to break):";
-		cin >> nrn;
-		if (nrn == "0\0") return 1; // Default break
-		a = platforme->checktype(nrn);
-		if (a == 1 || a == 2) {
-			platforme->modifyowner(position, nrn);
-			cout << "\nChange has been successfully made\n";
-		}
-		else cerr << "Invalid register number" << endl;
-	} while (a != 1 && a != 2);
-	return 1;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Introduce option number: ";
+		cin >> ask;
+	} while (cin.fail() || ask < 0 || ask > 2);
+	if (ask == 0) return 1; // Default break
+	switch (ask) {
+	case 1:
+		do {
+			cout << "Introduce owner's new NIF/NIE (0 to break): ";
+			cin >> nrn;
+			if (nrn == "0\0") return 1; // Default break
+			a = platforme->checktype(nrn);
+			if ((a == 1 && b == 1) || (a == 2 && b == 2)) {
+				platforme->modifyowner(position, nrn);
+				cout << "\nChange has been successfully made\n";
+			}
+			else cerr << "Invalid NIE/NIF" << endl;
+		} while (a != 1 && a != 2);
+		return 1;
+		break;
+	case 2:
+		cout << "Introduce owner's new planet of origin (0 to break): ";
+		cin >> planet;
+		if (planet == "0\0") return 1;
+		platforme->modifyowner(position, planet, 0);
+		cout << "\nChange has been successfully made\n";
+		return 1;
+	default:
+		return 1;
+		break;
+	}
+	return 0;
 }
 bool interface::modifyvehicle() {
-	string vrn, nvrn;
+	string vrn, nvrn, owner;
 	weapon w;
     int check = 0, position, nweapons, type, ask, value, pos;
 	bool es;
@@ -456,19 +521,19 @@ bool interface::modifyvehicle() {
 	} // Default loop
 	position = platforme->vehicleposition(vrn);
 	type = platforme->checkvehicletype(position);
-	cout << "\n\n 1 - Change register number \n 2 - Change propulsion type \n 3 - Change maximum crew number \n 4 - Change price";
+	cout << "\n\n 1 - Change register number \n 2 - Change owner\n 3 - Change propulsion type \n 4 - Change maximum crew number \n 5 - Change price";
 	switch (type) {
 	case 1:
-		cout << "\n 5 - Change cruising speed \n 6 - Change maximum load \n 7 - Remove/Add energy shield" << endl;
+		cout << "\n 6 - Change cruising speed \n 7 - Change maximum load \n 8 - Remove/Add energy shield" << endl;
 		break;
 	case 2:
-		cout << "\n 5 - Increase number of weapons \n 6 - Change weapon type \n 7 - Remove weapons" << endl;
+		cout << "\n 6 - Increase number of weapons \n 7 - Change weapon type \n 8 - Remove weapons" << endl;
 		break;
 	case 3:
-		cout << "\n 5 - Change maximum speed \n 6 - Change weapon type " << endl;
+		cout << "\n 6 - Change maximum speed \n 7 - Change weapon type " << endl;
 		break;
 	case 4:
-		cout << "\n 5 - Change maximum passenger number \n 6 - Change number of hangars \n 7 - Remove/Add energy shield" << endl;
+		cout << "\n 6 - Change maximum passenger number \n 7 - Change number of hangars \n 8 - Remove/Add energy shield" << endl;
 		break;
 	default:
 		cerr << "This vehicle has an invalid type and cant be accessed" << endl;
@@ -498,25 +563,40 @@ bool interface::modifyvehicle() {
 		return 1;
 		break;
 	case 2:
+		do {
+			check = 0;
+			cout << "Introduce new owner's NIE/NIF: ";
+			cin >> owner;
+			if (owner == "0\0") return 1;
+			if (platforme->checktype(owner) == 1 || platforme->checktype(owner) == 2) {
+				check = platforme->checkowner(owner);
+				if (check == 0) cerr << "Not a registered owner" << endl;
+			}
+			else cerr << "Invalid NIE/NIF" << endl;
+		} while (check == 0);
+		platforme->modifyvehicleowner(position, platforme->ownerposition(owner));
+		return 1;
+		break;
+	case 3:
 		value = modify(1);
 		if (value == 0) return 1;
 		platforme->modifypropulsion(position, value);
 		return 1;
 		break;
-	case 3:
+	case 4:
 		if (type == 3) { cerr << "Fighters have a fixed crew number of 1" << endl; return 1; }
 		value = modify(2);
 		if (value == 0) return 1;
 		platforme->modifymcrew(position, value);
 		return 1;
 		break;
-	case 4:
+	case 5:
 		value = modify(3);
 		if (value == 0) return 1;
 		platforme->modifyprice(position, value);
 		return 1;
 		break;
-	case 5:
+	case 6:
 		switch (type) {
 		case 1:
 			value = modify(4);
@@ -551,7 +631,7 @@ bool interface::modifyvehicle() {
 			return 1;
 			break;
 		}
-	case 6:
+	case 7:
 		switch (type) {
 		case 1:
 			value = modify(5);
@@ -592,7 +672,7 @@ bool interface::modifyvehicle() {
 			return 1;
 			break;
 		}
-	case 7:
+	case 8:
 		switch (type) {
 		case 1:
 			es = modify(6);
@@ -673,24 +753,24 @@ int interface::weapontype() {
 bool interface::removeowner() {
 	string rn;
 	int check, position;
-	cout << "Introduce the register number of the owner to remove (0 to break): ";
+	cout << "Introduce the NIE/NIF of the owner to remove (0 to break): ";
 	cin >> rn;
 	if (rn == "0\0") return 1; // Default break
 	check = platforme->checktype(rn);
 	if (check == 1 || check == 2) {
 		if (platforme->checkowner(rn) == 0) {
-			cerr << "Introduced register number doesnt correspond to a registered owner" << endl;
+			cerr << "Introduced NIE/NIF doesnt correspond to a registered owner" << endl;
 			return 0;
 		}
 		else {
 			position = platforme->ownerposition(rn);
 			platforme->removeowner(position);
-			cout << "\nOwner with register number " << rn << " has been successfully removed\n";
+			cout << "\nOwner with NIE/NIF " << rn << " has been successfully removed\n";
 			return 1;
 		}
 	}
 	else { 
-		cerr << "Invalid register number" << endl; 
+		cerr << "Invalid NIE/NIF" << endl; 
 		return 0; 
 	} // loop
 }
@@ -721,17 +801,17 @@ bool interface::removevehicle() {
 bool interface::sell() {
 	string rn, vrn;
 	int check, otype, vtype;
-	cout << "Introduce owner register number (0 to break): ";
+	cout << "Introduce owner NIE/NIF (0 to break): ";
 	cin >> rn;
 	if (rn == "0\0") return 1; // Default break
 	check = platforme->checktype(rn);
 	if (check == 1 || check == 2) check = platforme->checkowner(rn);
 	else { 
-		cerr << "Invalid register number" << endl;  
+		cerr << "Invalid NIE/NIF" << endl;  
 		return 0;
 	}// loop
 	if (check == 0) { 
-		cerr << "Not a registered owner" << endl; 
+		cerr << "Not a NIE/NIF" << endl; 
 		return 0; 
 	}// loop
 	do {

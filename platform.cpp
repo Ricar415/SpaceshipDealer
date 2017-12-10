@@ -72,6 +72,15 @@ void platform::lbyowner(string rn) {
 		if (sales[i].rorn() == rn) { sales[i].showsale(); }
 	}
 }
+void platform::lfordate(date saledate) {
+	for (unsigned int i = 0; i < sales.size(); i++) {
+		if (sales[i].equalthan(saledate) == 1) {
+			for (unsigned int j = 0; j < vehicles.size(); j++) {
+				if (sales[i].rvrn() == vehicles[j]->rvrn()) { vehicles[j]->show(); }
+			}
+		}
+	}
+}
 
 void platform::listowners() {
 	vector<owner*> tempvector = owners;
@@ -120,38 +129,66 @@ void platform::lsales(date start, date end) {
 
 
 // -- Create functions --
-void platform::createhuman(string rn) {
-	human *a = new human(rn);
+void platform::createhuman(string rn, string planet) {
+	human *a = new human(rn, planet);
 	owners.push_back(a);
 }
-void platform::createalien(string rn){
-	alien *a = new alien(rn);
+void platform::createalien(string rn, string planet){
+	alien *a = new alien(rn, planet);
     owners.push_back(a);
 }
 
-void platform::createfighter(int ms, int propulsiont, int pricet, weapon weapon1, weapon weapon2, string rn){
-	fighter *a = new fighter(ms, propulsiont, pricet, weapon1, weapon2, rn);
+void platform::createfighter(int ms, int propulsiont, int pricet, weapon weapon1, weapon weapon2, string ownern, string rn){
+	owner *b = owners[ownerposition(ownern)];
+	fighter *a = new fighter(ms, propulsiont, pricet, weapon1, weapon2, b, rn);
 	vehicles.push_back(a);
 }
-void platform::createcarrier(int ml, int cs, bool es, int propulsion, int maxcrew, int price, string rn) { // creates a carrier with given parameters and includes it in vehicles vector
-	carrier *a = new carrier(ml, cs, es, propulsion, maxcrew, price, rn);
+void platform::createcarrier(int ml, int cs, bool es, int propulsion, int maxcrew, int price, string ownern, string rn) { // creates a carrier with given parameters and includes it in vehicles vector
+	owner *b = owners[ownerposition(ownern)];
+	carrier *a = new carrier(ml, cs, es, propulsion, maxcrew, price, b, rn);
 	vehicles.push_back(a);
 
 }
-void platform::createdestroyer(vector<weapon> weapons, int propulsion, int maxcrew, int price, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
-	destroyer *a = new destroyer(weapons, propulsion, maxcrew, price, rn);
+void platform::createdestroyer(vector<weapon> weapons, int propulsion, int maxcrew, int price, string ownern, string rn) { // creates a destroyer with given parameters and includes it in vehicles vector
+	owner *b = owners[ownerposition(ownern)];
+	destroyer *a = new destroyer(weapons, propulsion, maxcrew, price, b, rn);
 	vehicles.push_back(a);
 }
-void platform::createstation(int maxp, int hn, bool eshield, int propulsion, int maxcrew, int price, string rn) { // creates a station with given parameters and includes it in vehicles vector
-	station *a = new  station(maxp, hn, eshield, propulsion, maxcrew, price, rn);
+void platform::createstation(int maxp, int hn, bool eshield, int propulsion, int maxcrew, int price, string ownern, string rn) { // creates a station with given parameters and includes it in vehicles vector
+	owner *b = owners[ownerposition(ownern)];
+	station *a = new  station(maxp, hn, eshield, propulsion, maxcrew, price, b, rn);
 	vehicles.push_back(a);
 }
 
 
 // -- Modify functions --
-void platform::modifyowner(int position, string nrn) { owners[position]->modify(nrn); }
+void platform::modifyowner(int position, string nrn) { 
+	for (unsigned int i = 0; i < sales.size(); i++) {
+		if (sales[i].rorn() == owners[position]->rrn()) {
+			sales[i].changeowner(nrn);
+		}
+	}
+	owners[position]->modify(nrn); 
+}
+void platform::modifyowner(int position, string planet, int a) { owners[position]->modifyplanet(planet); }
 
-void platform::modifyvehicle(int position, string nrn) { vehicles[position]->modifyvrn(nrn); }
+void platform::modifyvehicle(int position, string nrn) { 
+	for (unsigned int i = 0; i < sales.size(); i++) {
+		if (sales[i].rvrn() == vehicles[position]->rvrn()) {
+			sales[i].changevehicle(nrn);
+		}
+	}
+	vehicles[position]->modifyvrn(nrn); 
+}
+void platform::modifyvehicleowner(int position, int oposition) {
+	owner *a = owners[oposition];
+	vehicles[position]->modifyowner(a);
+	for (unsigned int i = 0; i < sales.size(); i++) {
+		if (sales[i].rvrn() == vehicles[position]->rvrn()) {
+			sales[i].changeowner(owners[oposition]->rrn());
+		}
+	}
+}
 void platform::modifyvehicle(int position, int code, int value) { // code-based to avoid creating too many functions
 	if (code == 1) { vehicles[position]->modifycs(value); }
 	else if (code == 2) { vehicles[position]->modifyml(value); }
@@ -177,6 +214,8 @@ void platform::removevehicle(int position) { delete vehicles[position];  vehicle
 void platform::sell(string vrn, string rn, date saledate) {
 	sale newsale(vrn, rn, saledate);
 	sales.push_back(newsale);
+	owner *newowner = owners[ownerposition(rn)];
+	vehicles[vehicleposition(vrn)]->modifyowner(newowner);
 }
 
 

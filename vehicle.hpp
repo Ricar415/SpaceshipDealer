@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "weapon.hpp"
+#include "owner.hpp"
 
 using namespace std;
 
@@ -15,11 +16,12 @@ protected:
 
 	string vrn;
 	int type, propulsion, maxcrew, price; /// common parameters of all vehicle types
+	owner *vehicle_owner;
 
 public:
 
     // -- Constructor --
-	vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _type);
+	vehicle(string _vrn, owner *_vehicle_owner, int _propulsion, int _maxcrew, int _price, int _type);
 
     // -- Destructor --
     virtual ~vehicle(){}
@@ -27,6 +29,7 @@ public:
     // -- Modify functions --
 
 	void modifyvrn(string nvrn); /// sets register number to the given one 
+	void modifyowner(owner *nvehicle_owner); /// sets vehicle owner to the given one
 	void modifypropulsion(int npropulsion); /// sets propulsion type to the given one
 	void modifymaxcrew(int nmaxcrew); /// sets maximum crew to the given one
 	void modifyprice(int nprice); /// sets price to the given one

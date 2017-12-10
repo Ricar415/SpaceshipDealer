@@ -10,14 +10,15 @@ class owner{
 
 protected:
 
-    string rn;
+    string rn, planet;
 
 public:
 
     virtual ~owner(){}
-	owner(string n); /// parametrized constructor
+	owner(string n, string p); /// parametrized constructor
 
 	void modify(string nrn); /// changes register number to the given
+	void modifyplanet(string nplanet); /// changes planet to the given
 
 	string reg(); /// returns formatted string with the information of the owner
 	string rrn(); /// returns register number 

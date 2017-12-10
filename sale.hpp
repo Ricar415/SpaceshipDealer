@@ -23,10 +23,15 @@ public:
     // -- Constructor --
     sale(string vn, string n, date d); /// parametrized constructor
 
+	// -- Modify functions --
+	void changeowner(string rn); /// modify the owner rn in the sale to the given
+	void changevehicle(string rn); /// modify the vehicle rn in the sale to the given
+
     // -- Auxiliary functions --
 	string rvrn(); /// returns the register number of the sold vehicle
 	string rorn(); /// returns the register number of the owner
 	bool greaterequalthan(date date); /// returns 1 if the given date is >= the saledate
+	bool equalthan(date date); // returns 1 if the given date is = the saledate
 
     // -- Show functions --
 	void showsale(); /// prints the information of the sale in the screen

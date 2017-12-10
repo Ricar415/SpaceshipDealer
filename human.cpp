@@ -3,5 +3,5 @@
 using namespace std;
 
 
-human::human(string n) : owner(n){}
-void human::show() { cout << "Human with register number: " << rn << endl; }
+human::human(string n, string p) : owner(n, p){}
+void human::show() { cout << "Human with NIF: " << rn << " and planet of origin: " << planet << endl; }

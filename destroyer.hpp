@@ -17,7 +17,7 @@ public:
 
     // -- Constructor and Destructor --
     ~destroyer(){}
-    destroyer(vector<weapon> weapons, int propulsiont, int maxcrewt, int pricet, string rn); /// parametrized constructor
+    destroyer(vector<weapon> weapons, int propulsiont, int maxcrewt, int pricet, owner *nowner, string rn); /// parametrized constructor
 	
 	// -- Modify functions --
 	void modifyweapon(int position, weapon w); /// modifies the weapon in the given position to the given one

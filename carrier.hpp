@@ -16,7 +16,7 @@ public:
 
     // -- Constructor and Destructor --
     ~carrier(){}
-    carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, string vn); /// parametrized constructor
+    carrier(int ml, int cs, bool es, int propulsiont, int maxcrewt, int pricet, owner *nowner, string vn); /// parametrized constructor
     
 	// -- Modify functions --
 	void modifyml(int ml); /// modifies the maximum load to the given one
