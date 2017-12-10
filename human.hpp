@@ -10,7 +10,7 @@ class human: public owner{
 public:
 
     ~human(){}
-    human(string n); /// parametrized constructor 
+    human(string n, string p); /// parametrized constructor 
 	void show(); /// prints the information of the human (polymorphed)
 
 };

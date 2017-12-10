@@ -16,7 +16,7 @@ public:
 
     // -- Constructor and Destructor --
     ~station() {}
-    station(int mp, int hn, bool es, int propulsiont, int maxcrew, int price, string n); // parametrized constructor
+    station(int mp, int hn, bool es, int propulsiont, int maxcrew, int price, owner *nowner, string n); // parametrized constructor
 
     // -- Modify functions --
     void modifymp(int mp); /// modifies the maximum passenger number to the given one

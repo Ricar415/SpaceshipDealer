@@ -36,6 +36,7 @@ public:
 	void lall(); /// calls vehicle::show() for every vehicle in vehicles vector by register number order
     void lbyocapacity(); /// calls vehicle::show() for every vehicle in vehicles vector from the one with highest offensive capacity to the one with the lowest o.capacity
     void lbyowner(string rn); /// calls vehicle::show() for every vehicle bought by the owner with the given rn
+	void lfordate(date saledate); /// shows all vehicles sold in a given date
 
 	void showweapons(int position); /// calls funcion weapon::show of every weapon of the vehicle at the given position in the vehicles vector
 
@@ -46,20 +47,22 @@ public:
 
 
     // -- Create functions --
-	void createhuman(string rn); /// dynamically creates a human with the given rn and adds it at the end of the owners vector
-	void createalien(string rn); /// dynamically creates an alien with the given rn and adds it at the end of the owners vector
+	void createhuman(string rn, string planet); /// dynamically creates a human with the given rn and planet and adds it at the end of the owners vector
+	void createalien(string rn, string planet); /// dynamically creates an alien with the given rn and planet and adds it at the end of the owners vector
 
-	void createfighter(int ms, int propulsiont, int pricet, weapon weapon1,weapon weapon2, string rn); /// dynamically creates a fighter with the given parameters and adds it at the end of vehicles vector
-	void createcarrier(int ml,int cs, bool es, int propulsiont, int maxcrewt, int pricet, string rn); /// dynamically creates a carrier with the given parameters and adds it at the end of the vehicles vector
-	void createdestroyer(vector<weapon> weapons, int propulsiont, int maxcrewt, int pricet, string rn); /// dynamically creates a destroyer with the given parameters and adds it at the end of the vehicles vector
-	void createstation(int maxp,int hn,bool es, int propulsiont, int maxcrewt, int pricet, string rn); /// dynamically creates a station with the given parameters and adds it at the end of the vehicles vector
+	void createfighter(int ms, int propulsiont, int pricet, weapon weapon1,weapon weapon2, string ownern, string rn); /// dynamically creates a fighter with the given parameters and adds it at the end of vehicles vector
+	void createcarrier(int ml,int cs, bool es, int propulsiont, int maxcrewt, int pricet, string ownern, string rn); /// dynamically creates a carrier with the given parameters and adds it at the end of the vehicles vector
+	void createdestroyer(vector<weapon> weapons, int propulsiont, int maxcrewt, int pricet, string ownern, string rn); /// dynamically creates a destroyer with the given parameters and adds it at the end of the vehicles vector
+	void createstation(int maxp,int hn,bool es, int propulsiont, int maxcrewt, int pricet, string ownern, string rn); /// dynamically creates a station with the given parameters and adds it at the end of the vehicles vector
 	
 
     // -- Modify functions --
-	void modifyowner(int position, string nrn); /// modifies the rn of the owner at the given position in the owners vehicle
+	void modifyowner(int position, string nrn); /// modifies the rn of the owner at the given position in the owners vector
+	void modifyowner(int position, string planet, int a); /// modifies the planet of the owner at the given position in the owners vector
 
 	void modifyvehicle(int position, int code, int value); /// modifies the vehicle at the given position in the vehicles vector, the value to be modified depends on the given code
 	void modifyvehicle(int position, string nvrn); /// modifies the rn of the vehicle at the given position in the vehicles vector
+	void modifyvehicleowner(int position, int oposition); /// modifies the owner of the vehicle at the given position in the vehicles vector to the given one; 
 	void modifyvehicle(int position, bool es); /// modifies the energy shield of the vehicle at the given position in the vehicles vector
 	void modifyvehicle(int position, int pos, weapon nw); /// modifies the weapon at the given position of the vehicle at the given position in the vehicles vector
 

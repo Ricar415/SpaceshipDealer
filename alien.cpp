@@ -2,5 +2,5 @@
 
 using namespace std;
 
-alien::alien(string n) : owner(n) {}
-void alien::show() { cout << "Alien with register number: " << rn << endl; }
+alien::alien(string n, string p) : owner(n, p) {}
+void alien::show() { cout << "Alien with NIE: " << rn << " and planet of origin: " << planet << endl; }

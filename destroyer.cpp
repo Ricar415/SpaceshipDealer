@@ -3,7 +3,7 @@
 using namespace std;
 
 // -- Constructor and Destructor--
-destroyer::destroyer(vector<weapon> weapons,int propulsiont, int maxcrewt, int pricet, string rn) : vehicle (rn, propulsiont, maxcrewt, pricet, 2){
+destroyer::destroyer(vector<weapon> weapons,int propulsiont, int maxcrewt, int pricet, owner *nowner, string rn) : vehicle (rn, nowner, propulsiont, maxcrewt, pricet, 2){
 	weaponr = weapons;
 }
 
@@ -25,7 +25,7 @@ int destroyer::ocapacity() {
 
 // -- Show functions --
 void destroyer::show() {
-	cout << "Register number: " << vrn << " Destroyer;	Propulsion type: "<< showpropulsion() << ", Maximum crew: " << maxcrew << ", Price (billions): " << price << endl;
+	cout << "Vehicle with register number: " << vrn << "  and Owner: " << vehicle_owner->rrn() << " Destroyer;	Propulsion type: "<< showpropulsion() << ", Maximum crew: " << maxcrew << ", Price (billions): " << price << endl;
 	for (unsigned int i = 0; i < weaponr.size(); i++) {
 		cout << "Weapon number " << i + 1 << " type: ";
 		weaponr[i].show();
@@ -36,7 +36,7 @@ void destroyer::showweapon(int position) { weaponr[position].show(); }
 // -- Formatting functions --
 string destroyer::reg() {
     string temp, space = " ", t = to_string(type), p = to_string(propulsion), mc = to_string(maxcrew), pr = to_string(price), wt, size = to_string(weaponr.size());
-    temp = vrn + space + t + space + pr + space + mc + space + pr + space + size;
+    temp = vrn + space + vehicle_owner->rrn() + space + t + space + p + space + mc + space + pr + space + size;
     for (unsigned int i = 0; i < weaponr.size(); i++) {
         wt = to_string(weaponr[i].returntype());
         temp += space;

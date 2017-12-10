@@ -2,8 +2,9 @@
 
 using namespace std;
 
-vehicle::vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _type){
+vehicle::vehicle(string _vrn, owner *_vehicle_owner, int _propulsion, int _maxcrew, int _price, int _type){
 	vrn = _vrn;
+	vehicle_owner = _vehicle_owner;
 	propulsion = _propulsion;
 	maxcrew = _maxcrew;
 	price = _price;
@@ -14,6 +15,7 @@ vehicle::vehicle(string _vrn, int _propulsion, int _maxcrew, int _price, int _ty
 int vehicle::checktype() { return type; }
 void vehicle::modifyvrn(string nvrn) { vrn = nvrn; }
 string vehicle::rvrn() { return vrn; }
+void vehicle::modifyowner(owner *nvehicle_owner) { vehicle_owner = nvehicle_owner; }
 void vehicle::modifypropulsion(int npropulsion) { propulsion = npropulsion; }
 void vehicle::modifymaxcrew(int nmaxcrew) { maxcrew = nmaxcrew; }
 void vehicle::modifyprice(int nprice) { price = nprice; }

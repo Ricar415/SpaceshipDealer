@@ -16,7 +16,7 @@ public:
 
     // -- Constructor and Destructor--
     ~fighter(){}
-    fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, string n); /// parametrized constructor
+    fighter(int dmaxspeed, int propulsiont, int pricet, weapon dweapon1, weapon dweapon2, owner *nowner, string n); /// parametrized constructor
 
 	// -- Modify functions --
 	void modifyms(int ms); /// modifies the maximum speed to the given one
